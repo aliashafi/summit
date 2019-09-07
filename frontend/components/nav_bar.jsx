@@ -1,7 +1,10 @@
 import React from 'react';
 
-export default () => (
-    <div className='home-container'>
+export default (props) => 
+
+{
+    return(
+    <div>
 
         <section className="nav-bar">
             <div className ='signUp-logo'>
@@ -9,11 +12,16 @@ export default () => (
                     <img className="logo" src="assets/logo.png" alt=""/>
                 </div>
 
-                <button>Sign Up
-
-                </button>
+                {props.currentUser ? (
+                        <div id="signIn-button" onClick={ () => 
+                            props.logout().then(() => props.history.push('/login'))} >Logout
+                        </div>
+                    ) : 
+                    (<div id="signIn-button" onClick={() =>
+                        props.history.push('/login')}>Sign In
+                    </div>)  
+                }
             </div>
         </section>
-
    </div>
-    )
+)}
