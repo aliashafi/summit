@@ -350,14 +350,39 @@ function (_React$Component) {
       username: "",
       password: ""
     };
+    _this.demoUsernameStart = 0;
+    _this.demoPasswordStart = 0;
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
+    _this.demoUser = _this.demoUser.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(Login, [{
     key: "componentDidMount",
-    value: function componentDidMount() {
-      debugger;
+    value: function componentDidMount() {}
+  }, {
+    key: "demoUser",
+    value: function demoUser() {
+      var username = 'bob123';
+      var password = '123456';
+
+      if (this.demoUsernameStart < username.length) {
+        document.getElementById("username").value += username.charAt(this.demoUsernameStart);
+        this.setState({
+          username: document.getElementById("username").value
+        });
+        this.demoUsernameStart++;
+        setTimeout(this.demoUser, 100);
+      }
+
+      if (this.demoPasswordStart < password.length) {
+        document.getElementById("password").value += password.charAt(this.demoPasswordStart);
+        this.setState({
+          password: document.getElementById("password").value
+        });
+        this.demoPasswordStart++;
+        setTimeout(this.demoUser, 100);
+      }
     }
   }, {
     key: "handleInput",
@@ -387,13 +412,18 @@ function (_React$Component) {
         id: "signIn-title-signIn"
       }, "Log In"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "signIn-form-login"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: this.demoUser,
+        className: "demoUser-button"
+      }, "Log in as Demo User"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        id: "username",
         className: "formInput",
         type: "text",
         value: this.state.username,
         placeholder: "username",
         onChange: this.handleInput('username')
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        id: "password",
         className: "formInput",
         type: "password",
         value: this.state.password,
@@ -606,7 +636,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 
 /* harmony default export */ __webpack_exports__["default"] = (function (props) {
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("video", {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "splash"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("video", {
     autoPlay: true,
     muted: true,
     loop: true,
@@ -614,7 +646,16 @@ __webpack_require__.r(__webpack_exports__);
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("source", {
     src: "assets/rowing.mp4",
     type: "video/mp4"
-  })));
+  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "content"
+  }, "Introducing", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
+    className: "content"
+  }, "Summit"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Helping you reach your fitness peak"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+    id: "sign-up-splash",
+    onClick: function onClick() {
+      return props.history.push('/signup');
+    }
+  }, "Join Now")));
 });
 
 /***/ }),

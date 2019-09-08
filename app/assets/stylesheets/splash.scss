@@ -1,0 +1,85 @@
+.content {
+    font-family: Andale Mono,AndaleMono,monospace;
+    font-size: 70px;
+    color: #fff;
+    letter-spacing: 15.14px;
+    text-transform: uppercase;
+    line-height: 52px;
+    transform: scaleY(1.1);
+    left: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.content p{
+    color: white;
+    width: 100%;
+    height: 50px;
+    padding-left: 16%;
+    font-size: 30px;
+    letter-spacing: -3.14px;
+    text-transform: none;
+    font-weight: 700;
+    
+}
+
+
+.splash {
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+    flex-direction: row;
+    box-sizing: border-box;
+    background-size: unset;
+    position: relative;
+    overflow: hidden;
+    
+}
+
+.splash-logo{
+    width: 22%;
+}
+
+#myVideo {
+    position: absolute;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    object-fit: cover;
+    width: auto;
+    height: auto;
+
+}
+
+#sign-up-splash{
+    position: relative;
+    background-color: #fc4c02;
+    font-size: 16px;
+    letter-spacing: 1px;
+    line-height: 1;
+    padding: 1.5%;
+    font-family: proxima-nova,arial,sans-serif;
+    border-radius: 32px;
+    font-weight: 600;
+    padding-left: 5%;
+    padding-right: 5%;
+
+}
+#sign-up-splash:hover {
+    background-color: #c13d05;
+}
+
+
+
+
+@media only screen and (min-width: 1024px){
+    .content h2 {
+        font-size: 90px;
+        letter-spacing: 3px;
+        text-align: center;
+        line-height: 90px;
+    }
+}

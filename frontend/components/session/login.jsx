@@ -7,12 +7,31 @@ class Login extends React.Component {
             username: "",
             password: "",
         };
-
+        this.demoUsernameStart = 0
+        this.demoPasswordStart = 0
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.demoUser = this.demoUser.bind(this);
     }
 
     componentDidMount(){
-        debugger
+    }
+
+    demoUser(){
+        let username = 'bob123'
+        let password = '123456'
+        if (this.demoUsernameStart < username.length) {
+            document.getElementById("username").value += username.charAt(this.demoUsernameStart);
+            this.setState({ username: document.getElementById("username").value });
+            this.demoUsernameStart++;
+            setTimeout(this.demoUser, 100);
+        }
+        
+        if (this.demoPasswordStart < password.length) {
+            document.getElementById("password").value += password.charAt(this.demoPasswordStart);
+            this.setState({ password: document.getElementById("password").value });
+            this.demoPasswordStart++;
+            setTimeout(this.demoUser, 100);
+        }
     }
 
     handleInput(type) {
@@ -32,10 +51,11 @@ class Login extends React.Component {
             <section className='home-signIn-container' >
                 <h2 id="signIn-title-signIn">Log In</h2>
                 <div className="signIn-form-login">
+                    <button onClick={this.demoUser} className="demoUser-button" >Log in as Demo User</button>
                     <form>
                         <label>
                             <br />
-                            <input className="formInput" type="text"
+                            <input id="username" className="formInput" type="text"
                                 value={this.state.username} placeholder="username"
                                 onChange={this.handleInput('username')}
                             />
@@ -44,7 +64,7 @@ class Login extends React.Component {
 
                         <label>
                             <br />
-                            <input className="formInput" type="password"
+                            <input id="password" className="formInput" type="password"
                                 value={this.state.password}
                                 onChange={this.handleInput('password')} placeholder="password"
                             />
