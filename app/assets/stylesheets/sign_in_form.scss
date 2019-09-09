@@ -144,12 +144,14 @@
 }
 
 .demoUser-button:hover {
-    background-color: rgb(63, 63, 237)
+    background-color: rgb(63, 63, 237);
+    cursor: pointer;
 }
 
 
 .signIn-button:hover {
     background-color: #c13d05;
+    cursor: pointer;
 }
 
 #errors {

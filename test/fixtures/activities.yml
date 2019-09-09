@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 1
+  activity_type: MyString
+  title: MyString
+  description: MyString
+  elapse_time: 1
+  elevation: MyString
+  coordinates: MyString
+
+two:
+  user_id: 1
+  activity_type: MyString
+  title: MyString
+  description: MyString
+  elapse_time: 1
+  elevation: MyString
+  coordinates: MyString
