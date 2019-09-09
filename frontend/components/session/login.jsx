@@ -43,7 +43,21 @@ class Login extends React.Component {
     handleSubmit(e) {
         e.preventDefault()
         this.props.login(this.state)
-            .then(() => this.props.history.push('/'));
+            .then(() => this.props.history.push('/'))
+            .fail(() => {
+                return 
+            });
+    }
+    renderErrors() {
+        return (
+            <ul>
+                {this.props.errors.map((error, i) => (
+                    <li key={`error-${i}`}>
+                        {error}
+                    </li>
+                ))}
+            </ul>
+        );
     }
 
     render() {
@@ -52,6 +66,7 @@ class Login extends React.Component {
                 <h2 id="signIn-title-signIn">Log In</h2>
                 <div className="signIn-form-login">
                     <button onClick={this.demoUser} className="demoUser-button" >Log in as Demo User</button>
+                    <div id="errors">{this.renderErrors()}</div>
                     <form>
                         <label>
                             <br />
