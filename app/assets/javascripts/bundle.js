@@ -204,6 +204,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 
 /* harmony default export */ __webpack_exports__["default"] = (function (props) {
+  // debugger
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
     className: "nav-bar"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -221,7 +222,12 @@ __webpack_require__.r(__webpack_exports__);
         return props.history.push('/login');
       });
     }
-  }, "Logout") : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, "Logout") : props.location.pathname === '/login' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    id: "signIn-button",
+    onClick: function onClick() {
+      return props.history.push('/signup');
+    }
+  }, "Sign Up") : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     id: "signIn-button",
     onClick: function onClick() {
       return props.history.push('/login');
@@ -252,7 +258,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var mapStateToProps = function mapStateToProps(state) {
+var mapStateToProps = function mapStateToProps(state, ownProps) {
   return {
     currentUser: state.session.currentUser
   };

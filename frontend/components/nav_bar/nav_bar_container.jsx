@@ -5,7 +5,7 @@ import NavBar from './nav_bar';
 import {withRouter} from 'react-router-dom'
 
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state, ownProps) => ({
     currentUser: state.session.currentUser
 });
 

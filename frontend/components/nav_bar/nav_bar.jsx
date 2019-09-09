@@ -1,8 +1,8 @@
 import React from 'react';
 
 export default (props) => 
-
 {
+    // debugger
     return(
     <div>
 
@@ -16,10 +16,13 @@ export default (props) =>
                         <div id="signIn-button" onClick={ () => 
                             props.logout().then(() => props.history.push('/login'))} >Logout
                         </div>
-                    ) : 
+                    ) : props.location.pathname === '/login' ? 
                     (<div id="signIn-button" onClick={() =>
-                        props.history.push('/login')}>Sign In
-                    </div>)  
+                            props.history.push('/signup')}>Sign Up
+                    </div>)  :
+                    (<div id="signIn-button" onClick={() =>
+                                props.history.push('/login')}>Sign In
+                    </div>)
                 }
             </div>
         </section>
