@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'React'
 
 class Signup extends React.Component {
     constructor(props) {

@@ -35,13 +35,15 @@ export const formatDate = date => {
     let firstTime = parseInt(time[0])
     let secTime = parseInt(time[1])
 
-    if (firstTime > 24){
+    let am_pm = `AM`;
+    if (firstTime > 24 && firstTime !== 12){
         firstTime = firstTime - 12
+        am_pm = 'PM'
     }
 
 
     
-    return `${daysOfWeek[day]} ${months[month]} ${day} ${year} ${firstTime - 12}:${secTime}` 
+    return `${months[month]} ${day} ${year} ${firstTime > 12 ? firstTime - 12 : firstTime}:${secTime} ${firstTime >= 12 ? "PM" : "AM"}` 
 
 
 }

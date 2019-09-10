@@ -1,5 +1,5 @@
 import { fetchAllActivities, fetchActivity } from '../../actions/activities/activity_actions'
-import ActivityIndex from './activity_index'
+import ActivityIndex from './Activity_Index'
 import { connect } from 'react-redux';
 
 const mapStateToProps = (state) => ({

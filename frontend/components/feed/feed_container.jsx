@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import Feed from "./feed"
+import Feed from "./Feed"
 
 const mapStateToProps = (state) => ({
     activities: Object.values(state.entities.activities)

@@ -1,6 +1,6 @@
-import React from 'React'
-import ActivityItem from './activity_item';
-import ActivityMap from './activity_map'
+import React from 'react'
+import ActivityItem from './Activity_Item';
+import ActivityMap from './Activity_Map'
 
 class ActivityIndex extends React.Component {
 

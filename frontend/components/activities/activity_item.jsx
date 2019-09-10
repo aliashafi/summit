@@ -1,6 +1,6 @@
 import React from 'react';
 import {withRouter} from 'react-router-dom';
-import ActivityMap from './activity_map'
+import ActivityMap from './Activity_Map'
 import { formatDate } from '../../util/date_util'
 
 
@@ -29,7 +29,12 @@ class ActivityItem extends React.Component {
             </div>
                 
             <section id="activity-details">
-                <img src="assets/running_icon.png" alt="" />
+                    {this.props.activity.activity_type !== 'Bike' ? (
+                        <img src="assets/running_icon.png" alt="" />
+                    ) :
+                        <img src="assets/bike_icon.png" alt="" />
+                    }
+                
                 <div id="activity-header">
                     <h3 id="activity-title">{this.props.activity.title}</h3>
                     <p id="activity-description">{this.props.activity.description}</p>

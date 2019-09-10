@@ -1,8 +1,8 @@
-import React from "react";
 import { Provider } from "react-redux";
 import { HashRouter } from 'react-router-dom';
-import NavBarContainer from './nav_bar/nav_bar_container';
-import App from './app';
+import NavBarContainer from './nav_bar/Nav_Bar_Container';
+import App from './App';
+import React from 'react'
 
 const Root = ({ store }) => (
     <Provider store={store}>
@@ -13,4 +13,4 @@ const Root = ({ store }) => (
     </Provider>
 );
 
-export default Root;
+export default Root

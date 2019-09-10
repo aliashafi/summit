@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_09_182739) do
+ActiveRecord::Schema.define(version: 2019_09_10_162557) do
 
   create_table "activities", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -27,6 +27,14 @@ ActiveRecord::Schema.define(version: 2019_09_09_182739) do
     t.float "elapse_time"
     t.index ["title"], name: "index_activities_on_title"
     t.index ["user_id"], name: "index_activities_on_user_id"
+  end
+
+  create_table "follows", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "follower_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id", "follower_id"], name: "index_follows_on_user_id_and_follower_id", unique: true
   end
 
   create_table "users", force: :cascade do |t|

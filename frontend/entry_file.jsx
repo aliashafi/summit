@@ -1,9 +1,8 @@
-import React from 'react';
+import React from 'react'
 import ReactDOM from 'react-dom';
-import configureStore from './store/store';
-import Root from './components/root';
+import configureStore from './store/Store';
+import Root from './components/Root';
 
-console.log("test");
 document.addEventListener("DOMContentLoaded", () => {
     let store = configureStore();
 
@@ -22,6 +21,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
     window.getState = store.getState
     const root = document.getElementById("root");
-    // ReactDOM.render(<NavBar />, root);
     ReactDOM.render(<Root store={store}/>, root);
 });

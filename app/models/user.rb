@@ -33,4 +33,11 @@ class User < ApplicationRecord
 
     has_many :activities
 
+    has_many :follows ##user has many follows!!
+
+    has_many :followed_users, ##follows people
+    primary_key: :id, 
+    foreign_key: :follower_id, 
+    class_name: :Follow
+
 end

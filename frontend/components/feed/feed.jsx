@@ -1,4 +1,4 @@
-import ActivityIndexContainer from '../activities/activity_index_container';
+import ActivityIndexContainer from '../activities/Activity_Index_Container';
 import React from 'react'
 
 const Feed = (props) => {
