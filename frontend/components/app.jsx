@@ -4,8 +4,8 @@ import SignupContainer from './session/Signup_Container';
 import LoginContainer from './session/Login_Container';
 import SplashPage from './splash_page'
 import { AuthRoute, ProtectedRoute } from '../util/route_util';
-import ActivityIndexContainer from './activities/Activity_Index_Container'
 import Feed from './feed/Feed'
+
 
 export default () => (
     <div>

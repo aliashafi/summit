@@ -31,7 +31,6 @@ export const formatDate = date => {
     const month = parseInt(ymd[1]);
     const day = parseInt(ymd[2]);
     const time = newDate[1].split(':')
-    console.log(day)
     let firstTime = parseInt(time[0])
     let secTime = parseInt(time[1])
 

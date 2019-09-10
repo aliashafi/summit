@@ -2,8 +2,12 @@ import React from 'react'
 import ReactDOM from 'react-dom';
 import configureStore from './store/Store';
 import Root from './components/Root';
+import { fetchFollowers, fetchFollowing } from './actions/follows/follows_action'
+
 
 document.addEventListener("DOMContentLoaded", () => {
+
+    window.fetchFollowers = fetchFollowers
     let store = configureStore();
 
     if (window.currentUser) {

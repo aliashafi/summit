@@ -8,4 +8,5 @@ class Follow < ApplicationRecord
     primary_key: :id, 
     foreign_key: :follower_id, 
     class_name: :User
+
 end

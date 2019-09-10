@@ -1,0 +1,64 @@
+
+.tabs{
+    display: flex;
+    justify-content: space-evenly;
+
+    #active-tab {
+        align-items: center;
+        width: 75%;
+        display: flex;
+        justify-content: center;
+        padding: 4%;
+        background-color: $background-color;
+    }    
+
+    p{
+        align-items: center;
+        width: 75%;
+        display: flex;
+        justify-content: center;
+        padding: 4%;
+        // background-color: $background-color;
+        background-color: white;
+        img{
+            height: 30px
+        }
+    }
+}
+
+.tab-content{
+    height: 270px;
+    width: 100%;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    
+    h1 {
+        margin-left: auto;
+        margin-right: auto;
+        font-size: 11px;
+        font-family: $strava-font;
+        font-weight: 400;
+        line-height: 20px;
+        padding-bottom: 3%;
+    }
+
+    article{
+        color: #79d7bd;
+        font-size: 20px;
+        font-family: $strava-font;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+}
+
+.recent-activity-tab{
+    // position: sticky; 
+    // top: 0;
+}
+
+
+
+

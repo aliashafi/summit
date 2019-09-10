@@ -1,3 +1,125 @@
 // Place all the styles related to the Follows controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#card {
+    // position: -webkit-sticky; /* Safari */
+    position: sticky; 
+    top: 0;
+
+}
+
+.user-feed-profile{
+    background-color: white;
+    padding-top: 10px;
+    border-radius: 7px;
+    margin-top: 3%;
+    margin-bottom: 50px; 
+    height: 38vh;
+    width: 35vh;
+    display: flex;
+    flex-direction: column;
+    font-family: $strava-font;
+
+    
+
+     > h3 {
+        font-size: 22px;
+        text-align: center;
+        padding-bottom: 2%;
+        margin-top: 15%;
+        margin-bottom: 6%;
+        font-weight: 700;
+    }
+    
+    
+}
+
+.followers-following-Activities{
+    display: flex;
+    justify-content: center;
+    border-bottom: 1px solid #e6e6eb;
+    padding-bottom: 8%;
+
+
+    div {
+        padding-left: 3%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        }
+
+        h3 {
+            font-size: 12px;
+            font-weight: 400;
+            color: #606065;
+            line-height: 1.2;
+        }
+
+        p {
+            font-weight: 400;
+            line-height: 1;
+            white-space: nowrap;
+            margin-top: 3px;
+        }
+    
+    
+}
+
+
+
+
+.recent-activity{
+    font-family: $strava-font;
+    font-size: 12px;
+    margin-left: 3%;
+    margin-top: 7%;
+    margin-bottom: 7%;
+
+    h3{
+        font-weight: 400;
+        padding-left: 7px;
+        padding-bottom: 1px;
+        padding-top: 5px;
+    }
+
+    p{
+        font-weight: bold;
+        padding: 7px;
+
+    }
+
+    li{
+        padding-left: 7px;
+
+    }
+
+}
+
+#short-border{
+    border-bottom: 1px solid #e6e6eb;
+    height: 1px;
+    width: 88%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+#short-border-right{
+    border-right: 1px solid #e6e6eb;
+    height: 88%;
+    width: 1px;
+    margin-top: 2%;
+
+}
+
+#training-log{
+    font-family: $strava-font;
+    font-size: 12px;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 7%;
+
+}
+

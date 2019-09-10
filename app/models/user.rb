@@ -33,11 +33,26 @@ class User < ApplicationRecord
 
     has_many :activities
 
-    has_many :follows ##user has many follows!!
+    ##links to the follow table
+    has_many :follows 
 
-    has_many :followed_users, ##follows people
+    ##follows people
+    has_many :followed_user, 
     primary_key: :id, 
     foreign_key: :follower_id, 
     class_name: :Follow
+
+    ##returns the users that follow given user
+    has_many :followers, 
+    through: :follows,
+    source: :follower
+
+    ##returns the users that a given user follows
+    has_many :following, 
+    through: :followed_user, 
+    source: :user
+    
+
+
 
 end

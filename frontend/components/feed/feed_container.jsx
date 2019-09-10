@@ -5,7 +5,7 @@ const mapStateToProps = (state) => ({
     activities: Object.values(state.entities.activities)
 })
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch) => ({  
     fetchAllActivities: () => dispatch(fetchAllActivities()),
     fetchActivity: () => dispatch(fetchActivity())
 })

@@ -1,7 +1,12 @@
 class Api::ActivitiesController < ApplicationController
 
     def index 
-        @activities = Activity.all()
+        ids = []
+        current_user.followed_user.each do |follow|
+            ids << follow.user_id
+        end
+        ids << current_user.id
+        @activities = Activity.where(user_id: ids)
     end
 
     def show 
