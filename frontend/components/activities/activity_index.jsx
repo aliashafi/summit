@@ -1,5 +1,6 @@
 import React from 'React'
-import ActivityIndexItem from './activity_index_item';
+import ActivityItem from './activity_item';
+import ActivityMap from './activity_map'
 
 class ActivityIndex extends React.Component {
 
@@ -15,20 +16,19 @@ class ActivityIndex extends React.Component {
     render(){
         const activities = this.props.activities.map(activity => {
             return(
-                <ActivityIndexItem 
-                    id={activity.id}
+                <ActivityItem 
                     key={activity.id}
                     activity={activity} 
                     fetchActivity={this.props.fetchActivity} 
                     />
             )
         })
+
         return(
             <div>
-                <li>
-                    <div id='map'></div>
+                <section className="activity-feed">
                     {activities}
-                </li>
+                </section>
                 
             </div>
         )

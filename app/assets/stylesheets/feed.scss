@@ -1,0 +1,96 @@
+.all-feed{
+    background-color:rgb(245, 245, 250);
+    height: 100vh;
+    width: 100vw;
+    padding-top: 10%;
+    display: flex;
+    justify-content: center;
+
+}
+
+.activity-feed{
+    height: 600px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+#activity-item {
+    background-color: white;
+    width: 519px;
+    height: 442px;
+    padding-top: 10px;
+    // position: relative;
+    border-radius: 7px;
+    margin-top: 3%;
+    
+    
+}
+
+#time{
+    font-size: 11px; 
+    color: #666
+
+}
+
+#activity-username{
+    font-family: $strava-font;
+    padding-left: 67px;
+    padding-top: 2%;
+    
+}
+
+#activity-title{
+    font-size: 17px;
+    padding-top: 2%;
+    padding-bottom: 3%;
+
+}
+
+#activity-description{
+    font-weight: 200;
+    font-size: 12px;
+    color: #2d2d32;
+
+}
+
+#activity-details{
+    display: flex;
+    height: 15%;
+    width: 100%;
+    font-family: $strava-font;
+    font-weight: 600;
+    font-size: 14px;
+    padding-top: 1%;
+
+}
+
+#activity-details > img{
+    height: 20px;
+    width: 20px;
+    padding: 2%;
+    padding-right: 3%;
+    padding-top: 5px;
+    padding-left: 30px;
+}
+
+#show-stats{
+    display: flex;
+    font-family: $strava-font;
+    font-size: 11px;
+    margin-left: 54px;
+
+}
+
+#show-stats > div {
+    padding-left: 3%;
+    border-right: 1px solid #606065;
+    padding-right: 6px;
+    
+}
+
+#show-stats > div > h3 {
+    color: #606065;
+}
+

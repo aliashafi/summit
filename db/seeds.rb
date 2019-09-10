@@ -10,7 +10,9 @@
 ### testing out the seeding 
 #require 'nokogiri'
 #require 'GPX'
-path = "/Users/aliashafi/Documents/AppAcademy/Projects/summit/db/gpx/Morning_Run.gpx"
+
+
+path = "/Users/aliashafi/Documents/AppAcademy/Projects/summit/db/gpx/Morning_Ride.gpx"
 doc = Nokogiri::XML(open(path))
 gpx =  GPX::GPXFile.new(:gpx_file => path)
 
@@ -29,7 +31,7 @@ ele = ele.to_json
 time = doc.xpath('//xmlns:time/text()').map{|pt| pt.to_s}
 
 duration = gpx.duration()
-distance = gpx.distance()
+distance = gpx.distance(opts = { :units => 'miles' })
 average_speed = gpx.average_speed()
 time = gpx.time()
 

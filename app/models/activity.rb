@@ -2,19 +2,15 @@ class Activity < ApplicationRecord
     validates :activity_type, 	inclusion: { in: ['Run', 'Bike', 'Swim']}
     belongs_to :user
 
-    def parse_coordinates
     
+    def self.find_midpoint(coords)
+        ##get average of all lat/lng coordinates to find center
+        lats = coords.map{|el| el[0]}
+        lngs = coords.map{|el| el[1]}
+        lats.pop() ## last val is nil
+        lngs.pop()
+        return [(lngs.sum()/lngs.length),(lats.sum()/lats.length)]
     end
 
-    def parse_elevation
-    
-    end
-
-    def set_title
-        
-    end
-
-    def parse_time
-    end
-
+ 
 end

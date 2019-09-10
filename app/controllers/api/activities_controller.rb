@@ -8,6 +8,8 @@ class Api::ActivitiesController < ApplicationController
         @activity = Activity.find(params[:id])
         coordinates = JSON.parse(@activity.coordinates)
         @activity.coordinates = coordinates.values
+        @activities.time = JSON.parse(@activity.time)
+        @center = Activity.find_midpoint(coordinates.values)
         render :show
     end
 

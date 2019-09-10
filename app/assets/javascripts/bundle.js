@@ -213,7 +213,8 @@ var logout = function logout() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var React__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! React */ "./node_modules/React/index.js");
 /* harmony import */ var React__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(React__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _activity_index_item__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./activity_index_item */ "./frontend/components/activities/activity_index_item.jsx");
+/* harmony import */ var _activity_item__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./activity_item */ "./frontend/components/activities/activity_item.jsx");
+/* harmony import */ var _activity_map__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./activity_map */ "./frontend/components/activities/activity_map.jsx");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -231,6 +232,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -257,16 +259,15 @@ function (_React$Component) {
       var _this = this;
 
       var activities = this.props.activities.map(function (activity) {
-        return React__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_activity_index_item__WEBPACK_IMPORTED_MODULE_1__["default"], {
-          id: activity.id,
+        return React__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_activity_item__WEBPACK_IMPORTED_MODULE_1__["default"], {
           key: activity.id,
           activity: activity,
           fetchActivity: _this.props.fetchActivity
         });
       });
-      return React__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, React__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, React__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        id: "map"
-      }), activities));
+      return React__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, React__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+        className: "activity-feed"
+      }, activities));
     }
   }]);
 
@@ -314,10 +315,106 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 
 /***/ }),
 
-/***/ "./frontend/components/activities/activity_index_item.jsx":
-/*!****************************************************************!*\
-  !*** ./frontend/components/activities/activity_index_item.jsx ***!
-  \****************************************************************/
+/***/ "./frontend/components/activities/activity_item.jsx":
+/*!**********************************************************!*\
+  !*** ./frontend/components/activities/activity_item.jsx ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _activity_map__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./activity_map */ "./frontend/components/activities/activity_map.jsx");
+/* harmony import */ var _util_date_util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../util/date_util */ "./frontend/util/date_util.jsx");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+
+
+var ActivityItem =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(ActivityItem, _React$Component);
+
+  function ActivityItem(props) {
+    _classCallCheck(this, ActivityItem);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(ActivityItem).call(this, props));
+  }
+
+  _createClass(ActivityItem, [{
+    key: "getElapseTime",
+    value: function getElapseTime() {
+      var measuredTime = new Date(null);
+      measuredTime.setSeconds(this.props.activity.elapse_time);
+      var MHSTime = measuredTime.toISOString().substr(11, 8);
+      return MHSTime.slice(1);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var dist = Math.round(this.props.activity.distance * 100) / 100;
+      var speed = Math.round(this.props.activity.average_speed * 100) / 100;
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        id: "activity-item"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        id: "activity-username"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Demo User"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+        id: "time"
+      }, Object(_util_date_util__WEBPACK_IMPORTED_MODULE_3__["formatDate"])(this.props.activity.time))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+        id: "activity-details"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: "assets/running_icon.png",
+        alt: ""
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        id: "activity-header"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
+        id: "activity-title"
+      }, this.props.activity.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+        id: "activity-description"
+      }, this.props.activity.description))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+        id: "show-stats"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Distance"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, dist, " mi")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Average Speed"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, speed)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Time"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, this.getElapseTime()))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_activity_map__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        key: this.props.activity.id,
+        activity: this.props.activity,
+        fetchActivity: this.props.fetchActivity
+      }));
+    }
+  }]);
+
+  return ActivityItem;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+;
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["withRouter"])(ActivityItem));
+
+/***/ }),
+
+/***/ "./frontend/components/activities/activity_map.jsx":
+/*!*********************************************************!*\
+  !*** ./frontend/components/activities/activity_map.jsx ***!
+  \*********************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -347,35 +444,34 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
-var ActivityIndexItem =
+var ActivityMap =
 /*#__PURE__*/
 function (_React$Component) {
-  _inherits(ActivityIndexItem, _React$Component);
+  _inherits(ActivityMap, _React$Component);
 
-  function ActivityIndexItem(props) {
+  function ActivityMap(props) {
     var _this;
 
-    _classCallCheck(this, ActivityIndexItem);
+    _classCallCheck(this, ActivityMap);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(ActivityIndexItem).call(this, props));
-    mapboxgl.accessToken = 'pk.eyJ1IjoiYWxpYXNoYWZpIiwiYSI6ImNqenEzM3E5cDBjbzAzbW1wOGRic2huZTcifQ.P364O3bVxYCXn6iPnx3BLg';
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(ActivityMap).call(this, props));
     _this.route = Object.values(JSON.parse(_this.props.activity.coordinates));
-
-    var centerRoute = _this.route[Math.floor(_this.route.length / 2)];
-
-    _this.map = new mapboxgl.Map({
-      container: 'map',
-      style: 'mapbox://styles/mapbox/streets-v11',
-      center: centerRoute,
-      //this is the center
-      zoom: 12
-    });
     return _this;
   }
 
-  _createClass(ActivityIndexItem, [{
+  _createClass(ActivityMap, [{
     key: "componentDidMount",
     value: function componentDidMount() {
+      var dupRoute = this.route.slice();
+      var centerRoute = dupRoute.sort()[Math.floor(this.route.length / 2)];
+      mapboxgl.accessToken = 'pk.eyJ1IjoiYWxpYXNoYWZpIiwiYSI6ImNqenEzM3E5cDBjbzAzbW1wOGRic2huZTcifQ.P364O3bVxYCXn6iPnx3BLg';
+      this.map = new mapboxgl.Map({
+        container: "map-".concat(this.props.activity.id),
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: centerRoute,
+        //this is the center
+        zoom: 12
+      });
       var routeLine = this.route.slice(0, this.route.length - 1); // last datapoint is not correct... check to see if this is the case for all
 
       var map = this.map;
@@ -409,15 +505,17 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      return React__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null);
+      return React__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        id: "map-".concat(this.props.activity.id)
+      });
     }
   }]);
 
-  return ActivityIndexItem;
+  return ActivityMap;
 }(React__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
 ;
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["withRouter"])(ActivityIndexItem));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["withRouter"])(ActivityMap));
 
 /***/ }),
 
@@ -438,6 +536,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _splash_page__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./splash_page */ "./frontend/components/splash_page.jsx");
 /* harmony import */ var _util_route_util__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../util/route_util */ "./frontend/util/route_util.jsx");
 /* harmony import */ var _activities_activity_index_container__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./activities/activity_index_container */ "./frontend/components/activities/activity_index_container.jsx");
+/* harmony import */ var _feed_feed__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./feed/feed */ "./frontend/components/feed/feed.jsx");
+
 
 
 
@@ -453,7 +553,7 @@ __webpack_require__.r(__webpack_exports__);
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
     exact: true,
     path: "/feed",
-    component: _activities_activity_index_container__WEBPACK_IMPORTED_MODULE_6__["default"]
+    component: _feed_feed__WEBPACK_IMPORTED_MODULE_7__["default"]
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_5__["AuthRoute"], {
     path: "/signup",
     component: _session_signup_container__WEBPACK_IMPORTED_MODULE_2__["default"]
@@ -462,6 +562,31 @@ __webpack_require__.r(__webpack_exports__);
     component: _session_login_container__WEBPACK_IMPORTED_MODULE_3__["default"]
   }));
 });
+
+/***/ }),
+
+/***/ "./frontend/components/feed/feed.jsx":
+/*!*******************************************!*\
+  !*** ./frontend/components/feed/feed.jsx ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _activities_activity_index_container__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../activities/activity_index_container */ "./frontend/components/activities/activity_index_container.jsx");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+var Feed = function Feed(props) {
+  return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+    className: "all-feed"
+  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_activities_activity_index_container__WEBPACK_IMPORTED_MODULE_0__["default"], null));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Feed);
 
 /***/ }),
 
@@ -1258,6 +1383,60 @@ var fetchActivities = function fetchActivities() {
     url: "api/activities",
     method: 'GET'
   });
+};
+
+/***/ }),
+
+/***/ "./frontend/util/date_util.jsx":
+/*!*************************************!*\
+  !*** ./frontend/util/date_util.jsx ***!
+  \*************************************/
+/*! exports provided: formatDate */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "formatDate", function() { return formatDate; });
+var formatDate = function formatDate(date) {
+  var months = {
+    0: 'January',
+    1: 'February',
+    2: 'March',
+    3: 'April',
+    4: 'May',
+    5: 'June',
+    6: 'July',
+    7: 'August',
+    8: 'September',
+    9: 'October',
+    10: 'November',
+    11: 'December'
+  };
+  var daysOfWeek = {
+    0: 'Sunday',
+    1: 'Monday',
+    2: 'Tuesday',
+    3: 'Wednesday',
+    4: 'Thursday',
+    5: 'Friday',
+    6: 'Saturday'
+  };
+  var dateString = "";
+  var newDate = date.split("T");
+  var ymd = newDate[0].split("-");
+  var year = ymd[0];
+  var month = parseInt(ymd[1]);
+  var day = parseInt(ymd[2]);
+  var time = newDate[1].split(':');
+  console.log(day);
+  var firstTime = parseInt(time[0]);
+  var secTime = parseInt(time[1]);
+
+  if (firstTime > 24) {
+    firstTime = firstTime - 12;
+  }
+
+  return "".concat(daysOfWeek[day], " ").concat(months[month], " ").concat(day, " ").concat(year, " ").concat(firstTime - 12, ":").concat(secTime);
 };
 
 /***/ }),
