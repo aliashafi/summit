@@ -1,7 +1,7 @@
 import { logout } from '../../actions/session';
 import { connect } from 'react-redux';
 import react from 'react';
-import NavBar from './Nav_Bar';
+import NavBar from './nav_bar';
 import {withRouter} from 'react-router-dom'
 
 

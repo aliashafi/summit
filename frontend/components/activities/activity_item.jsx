@@ -1,6 +1,6 @@
 import React from 'react';
 import {withRouter} from 'react-router-dom';
-import ActivityMap from './Activity_Map'
+import ActivityMap from './activity_map'
 import { formatDate } from '../../util/date_util'
 
 
