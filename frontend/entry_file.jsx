@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom';
-import configureStore from './store/Store';
-import Root from './components/Root';
+import configureStore from './store/tore';
+import Root from './components/root';
 import { fetchFollowers, fetchFollowing } from './actions/follows/follows_action'
 
 
