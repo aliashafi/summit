@@ -2,15 +2,14 @@ import React from 'react';
 import {withRouter} from 'react-router-dom';
 import ActivityMap from './activity_map'
 import { formatDate } from '../../util/date_util'
-import { fetchUser } from '../../util/users_util'
+// import { fetchUser } from '../../util/users_util'
 
 
 class ActivityItem extends React.Component {
 
     constructor(props){
         super(props)
-        let fetch = fetchUser(this.props.activity.user_id).then(user => user.responseJSON)
-        console.log(fetchUser(4))
+        // let fetch = fetchUser(this.props.activity.user_id).then(user => user.responseJSON)
     }
 
     getElapseTime(){

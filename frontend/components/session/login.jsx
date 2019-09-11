@@ -36,8 +36,21 @@ class Login extends React.Component {
             this.setState({ password: document.getElementById("password").value });
             this.demoPasswordStart++;
             setTimeout(this.demoUser, 100);
+        } if (this.demoPasswordStart === password.length && this.demoUsernameStart === username.length){
+            this.loginDemo()
         }
+
     }
+
+    loginDemo(){
+        this.props.login(this.state)
+            .then(() => this.props.history.push('/feed'))
+            .fail(() => {
+                return
+            });
+    }
+        
+    
 
     handleInput(type) {
         return (e) => {

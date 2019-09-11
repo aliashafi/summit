@@ -1,0 +1,34 @@
+.error-page{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    img{
+        height: 50vh;
+        margin-top: 10%;
+
+    }
+
+    div{
+        margin-top: 6%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        h1 {
+            font-family: $strava-font;
+            color: $strava-black;
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        h3{
+            font-family: $strava-font;
+            color: $strava-orange;
+            font-size: 22px;
+            font-weight: 700;
+
+        }
+    }
+     
+}

@@ -13,6 +13,10 @@ class Signup extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    componentWillUnmount() {
+        this.props.clearErrors()
+    }
+
     handleInput(type) {
         return (e) => {
             this.setState({ [type]: e.target.value });
@@ -25,16 +29,14 @@ class Signup extends React.Component {
             .then(() => this.props.history.push('/feed'));
     }
 
-    renderErrors() {
+    renderErrors(inputType) {
+        let errors = this.props.errors.filter(word => word.includes(inputType))
+        let error = errors[0]
         return (
-            <ul>
-                {this.props.errors.map((error, i) => (
-                    <li key={`error-${i}`}>
-                        {error}
-                    </li>
-                ))}
-            </ul>
-        );
+            <p>{error}</p>
+                    
+            );
+
     }
 
     render() {
@@ -43,30 +45,33 @@ class Signup extends React.Component {
             <h2 id="signIn-title">Join Summit today, it's Free.</h2>
             <div className="signIn-form">
                 <form className='signIn-form-fill'>
-                        <div id="errors">{this.renderErrors()}</div>
+                        
                     <label>
                         <br />
                         <input className="formInput" type="text"
-                            value={this.state.username} placeholder= "username"
+                            value={this.state.username} placeholder= "Username"
                             onChange={this.handleInput('username')}
                         />
                     </label>
+                        <div id="errors">{this.renderErrors("Username")}</div>
+                        
                     <br/>
 
                     <label>
                         <br />
-                            <input className="formInput" type="password"
+                            <input className="formInput" type="Password"
                             value={this.state.password}
-                                onChange={this.handleInput('password')} placeholder="password"
+                                onChange={this.handleInput('password')} placeholder="Password"
                         />
                     </label>
+                        <div id="errors">{this.renderErrors("Password")}</div>
                     <br />
 
                     <label>
                         <br />
                             <input className="formInput" type="text"
                             value={this.state.first_name}
-                                onChange={this.handleInput('first_name')} placeholder="Your First Name"
+                                onChange={this.handleInput('first_name')} placeholder="First Name"
                         />
                     </label>
                     <br />
@@ -75,7 +80,7 @@ class Signup extends React.Component {
                         <br />
                             <input className="formInput" type="text"
                             value={this.state.last_name}
-                                onChange={this.handleInput('last_name')} placeholder="Your Last Name"
+                                onChange={this.handleInput('last_name')} placeholder="Last Name"
                         />
                     </label>
                     <br />

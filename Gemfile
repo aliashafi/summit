@@ -12,6 +12,7 @@ gem 'binding_of_caller'
 gem 'better_errors'
 gem 'mapbox-gl-rails'
 gem 'gpx'
+gem 'aws-sdk-s3'
 
 
 

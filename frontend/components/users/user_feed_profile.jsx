@@ -1,6 +1,7 @@
 import React from 'react'
 import { formatDate } from '../../util/date_util'
 import UserFeedRecentActivity from './user_feed_recent_activity'
+import {fetchUser} from '../../util/users_util'
 
 class UserFeedProfile extends React.Component {
 
@@ -12,6 +13,7 @@ class UserFeedProfile extends React.Component {
         this.props.fetchFollowers()
         this.props.fetchFollowing()
         this.props.fetchAllActivities()
+        this.props.fetchUser
     }
 
     ownActivities() {
@@ -37,6 +39,7 @@ class UserFeedProfile extends React.Component {
         <div id="card">
             <div className="user-feed-profile">
                 <h3>{this.props.current_user.first_name} {this.props.current_user.last_name}</h3>
+                {/* <img src={this.props.current_user.photoUrl}/> */}
 
                 <section className="followers-following-Activities">
                     <div>

@@ -8,7 +8,7 @@
     flex-direction: column;
     margin-top: 10%;
     width: 368px;
-    height: 369px;
+    // height: 369px;
     padding: 50px;
     text-align: center;
     margin-top: 0px;
@@ -155,11 +155,12 @@
 }
 
 #errors {
-    padding-top: 10px;
     color: red;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: 700;
-    font-size: 14px;
+    font-size: 12px;
+    z-index:99999;
+    height: 0px;
 }
 
 input[type=text], textarea {

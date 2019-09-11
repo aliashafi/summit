@@ -8,7 +8,8 @@ export default (props) =>
         <section className="nav-bar">
             <div className ='signUp-logo'>
                 <div className="logo-container">
-                        <img className="logo" src={window.images.logo} alt=""/>
+                        <img onClick={() =>
+                            props.history.push('/')} className="logo" src={window.images.logo} alt=""/>
                 </div>
 
                 {props.currentUser ? (
