@@ -895,6 +895,7 @@ function (_React$Component) {
     _this.demoPasswordStart = 0;
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     _this.demoUser = _this.demoUser.bind(_assertThisInitialized(_this));
+    _this.loginDemo = _this.loginDemo.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -917,8 +918,7 @@ function (_React$Component) {
         this.setState({
           username: document.getElementById("username").value
         });
-        this.demoUsernameStart++;
-        setTimeout(this.demoUser, 100);
+        this.demoUsernameStart++; // setTimeout(this.demoUser, 100);
       }
 
       if (this.demoPasswordStart < password.length) {
@@ -927,6 +927,9 @@ function (_React$Component) {
           password: document.getElementById("password").value
         });
         this.demoPasswordStart++;
+      }
+
+      if (this.demoPasswordStart < password.length || this.demoUsernameStart < username.length) {
         setTimeout(this.demoUser, 100);
       }
 
@@ -937,31 +940,26 @@ function (_React$Component) {
   }, {
     key: "loginDemo",
     value: function loginDemo() {
-      var _this2 = this;
-
-      this.props.login(this.state).then(function () {
-        return _this2.props.history.push('/feed');
-      }).fail(function () {
-        return;
-      });
+      // debugger
+      this.inputElement.click();
     }
   }, {
     key: "handleInput",
     value: function handleInput(type) {
-      var _this3 = this;
+      var _this2 = this;
 
       return function (e) {
-        _this3.setState(_defineProperty({}, type, e.target.value));
+        _this2.setState(_defineProperty({}, type, e.target.value));
       };
     }
   }, {
     key: "handleSubmit",
     value: function handleSubmit(e) {
-      var _this4 = this;
+      var _this3 = this;
 
       e.preventDefault();
       this.props.login(this.state).then(function () {
-        return _this4.props.history.push('/feed');
+        return _this3.props.history.push('/feed');
       }).fail(function () {
         return;
       });
@@ -978,6 +976,8 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      var _this4 = this;
+
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "home-signIn-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
@@ -1004,6 +1004,9 @@ function (_React$Component) {
         onChange: this.handleInput('password'),
         placeholder: "password"
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        ref: function ref(input) {
+          return _this4.inputElement = input;
+        },
         className: "signIn-button",
         onClick: this.handleSubmit
       }, "Log In"))));
@@ -1315,8 +1318,8 @@ function (_React$Component) {
   _createClass(UserFeedProfile, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.props.fetchFollowers();
-      this.props.fetchFollowing();
+      // this.props.fetchFollowers()
+      // this.props.fetchFollowing()
       this.props.fetchAllActivities();
       this.props.fetchUser;
     }

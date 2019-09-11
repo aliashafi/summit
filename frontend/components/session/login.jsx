@@ -11,6 +11,7 @@ class Login extends React.Component {
         this.demoPasswordStart = 0
         this.handleSubmit = this.handleSubmit.bind(this);
         this.demoUser = this.demoUser.bind(this);
+        this.loginDemo = this.loginDemo.bind(this);
     }
 
     componentDidMount(){
@@ -28,26 +29,28 @@ class Login extends React.Component {
             document.getElementById("username").value += username.charAt(this.demoUsernameStart);
             this.setState({ username: document.getElementById("username").value });
             this.demoUsernameStart++;
-            setTimeout(this.demoUser, 100);
+            // setTimeout(this.demoUser, 100);
         }
         
         if (this.demoPasswordStart < password.length) {
             document.getElementById("password").value += password.charAt(this.demoPasswordStart);
             this.setState({ password: document.getElementById("password").value });
             this.demoPasswordStart++;
+            
+        } if ((this.demoPasswordStart < password.length) || (this.demoUsernameStart < username.length)){
             setTimeout(this.demoUser, 100);
-        } if (this.demoPasswordStart === password.length && this.demoUsernameStart === username.length){
+        }
+        
+        
+        if (this.demoPasswordStart === password.length && this.demoUsernameStart === username.length){
             this.loginDemo()
         }
 
     }
 
     loginDemo(){
-        this.props.login(this.state)
-            .then(() => this.props.history.push('/feed'))
-            .fail(() => {
-                return
-            });
+        // debugger
+        this.inputElement.click()
     }
         
     
@@ -105,7 +108,7 @@ class Login extends React.Component {
                             <br/>
                             <br/>
 
-                        <button className="signIn-button" onClick={this.handleSubmit}>Log In</button>
+                        <button ref={input => this.inputElement = input} className="signIn-button" onClick={this.handleSubmit}>Log In</button>
                     </form>
                 </div>
             </section>
