@@ -10,7 +10,7 @@ import Feed from './feed/feed'
 export default () => (
     <div>
         <Route exact path="/" component={SplashPage} />
-        <Route exact path="/feed" component={Feed} />
+        <ProtectedRoute exact path="/feed" component={Feed} />
         <AuthRoute path="/signup" component={SignupContainer} />
         <AuthRoute path="/login" component={LoginContainer} />
     </div>

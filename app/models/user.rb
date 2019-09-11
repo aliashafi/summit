@@ -51,6 +51,10 @@ class User < ApplicationRecord
     has_many :following, 
     through: :followed_user, 
     source: :user
+
+
+    ##active storage
+    has_one_attached :photo
     
 
 
