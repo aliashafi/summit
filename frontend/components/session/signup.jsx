@@ -25,12 +25,25 @@ class Signup extends React.Component {
             .then(() => this.props.history.push('/'));
     }
 
+    renderErrors() {
+        return (
+            <ul>
+                {this.props.errors.map((error, i) => (
+                    <li key={`error-${i}`}>
+                        {error}
+                    </li>
+                ))}
+            </ul>
+        );
+    }
+
     render() {
         return (
         <section className='home-container'>
             <h2 id="signIn-title">Join Summit today, it's Free.</h2>
             <div className="signIn-form">
                 <form className='signIn-form-fill'>
+                        <div id="errors">{this.renderErrors()}</div>
                     <label>
                         <br />
                         <input className="formInput" type="text"

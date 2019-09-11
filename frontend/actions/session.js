@@ -20,7 +20,8 @@ export const receiveErrors = (errors = []) => ({
 
 
 export const createNewUser = (formUser) => (dispatch) => postUser(formUser)
-    .then(user => dispatch(receiveCurrentUser(user)));
+    .then(user => dispatch(receiveCurrentUser(user)))
+    .fail((error) => dispatch(receiveErrors(error)));
 
 export const login = (formUser) => dispatch => postSession(formUser)
     .then(user => dispatch(receiveCurrentUser(user)))
