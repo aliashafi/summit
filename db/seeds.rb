@@ -63,9 +63,9 @@ ActiveRecord::Base.transaction do
     
     Activity.destroy_all
 
-    makeRoute("/Users/aliashafi/Documents/AppAcademy/Projects/summit/db/gpx/Morning_Ride_1.gpx", u1.id, "Bike")
-    makeRoute("/Users/aliashafi/Documents/AppAcademy/Projects/summit/db/gpx/Morning_Ride.gpx", u1.id, "Bike")
-    makeRoute("/Users/aliashafi/Documents/AppAcademy/Projects/summit/db/gpx/Morning_Run.gpx", u2.id, "Run")
+    makeRoute("#{Rails.root}/db/gpx/Morning_Ride_1.gpx", u1.id, "Bike")
+    makeRoute("#{Rails.root}/db/gpx/Morning_Ride.gpx", u1.id, "Bike")
+    makeRoute("#{Rails.root}/db/gpx/Morning_Run.gpx", u2.id, "Run")
     
 
 end
