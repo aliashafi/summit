@@ -265,6 +265,38 @@ var clearAllErrors = function clearAllErrors() {
 
 /***/ }),
 
+/***/ "./frontend/actions/users/user_actions.js":
+/*!************************************************!*\
+  !*** ./frontend/actions/users/user_actions.js ***!
+  \************************************************/
+/*! exports provided: RECEIVE_USER, fetchUser */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_USER", function() { return RECEIVE_USER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchUser", function() { return fetchUser; });
+/* harmony import */ var _util_users_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../util/users_util */ "./frontend/util/users_util.jsx");
+
+var RECEIVE_USER = 'RECEIVE_USER';
+
+var receiveUser = function receiveUser(user) {
+  return {
+    type: RECEIVE_USER,
+    user: user
+  };
+};
+
+var fetchUser = function fetchUser(user) {
+  return function (dispatch) {
+    return _util_users_util__WEBPACK_IMPORTED_MODULE_0__["fetchUser"](user).then(function (user) {
+      return dispatch(user);
+    });
+  };
+};
+
+/***/ }),
+
 /***/ "./frontend/components/activities/activity_index.jsx":
 /*!***********************************************************!*\
   !*** ./frontend/components/activities/activity_index.jsx ***!
@@ -1170,14 +1202,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = (function (props) {
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "splash"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("video", {
-    autoPlay: true,
-    muted: true,
-    id: "myVideo"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("source", {
-    src: window.images.mountain_video,
-    type: "video/mp4"
-  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "content"
   }, "Introducing", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
     className: "content"
@@ -1803,7 +1828,9 @@ var _nullSession = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_session__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/session */ "./frontend/actions/session.js");
+/* harmony import */ var _actions_users_user_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions/users/user_actions */ "./frontend/actions/users/user_actions.js");
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = (function () {
@@ -1813,6 +1840,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
   switch (action.type) {
     case _actions_session__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_CURRENT_USER"]:
+      return Object.assign({}, _defineProperty({}, action.user.id, action.user));
+
+    case _actions_users_user_actions__WEBPACK_IMPORTED_MODULE_1__["RECEIVE_USER"]:
       return Object.assign({}, _defineProperty({}, action.user.id, action.user));
 
     default:

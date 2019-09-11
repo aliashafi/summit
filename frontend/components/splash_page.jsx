@@ -4,10 +4,10 @@ export default (props) => {
     
     return (
         <div className="splash">
-                <video autoPlay muted id="myVideo">
+                {/* <video autoPlay muted id="myVideo"> */}
                     {/* asset_path("rowing.mp4") */}
-                <source src={window.images.mountain_video} type="video/mp4"></source>
-                </video>
+                {/* <source src={window.images.mountain_video} type="video/mp4"></source> */}
+                {/* </video> */}
                 <div className='content'>
                     Introducing 
                     <h2 className='content'>Summit</h2>
