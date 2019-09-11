@@ -17,11 +17,9 @@
  @import "reset.scss";
  @import 'mapbox-gl';
  @import "config.scss";
- @import "navbar.scss";
+
  @import "splash.scss";
- @import "sign_in_form.scss";
- @import "map.scss";
- @import "feed.scss";
- @import "follows.scss";
-@import "activity_feed_tabs.scss";
+ @import "feed/*";
+ @import "session/*";
+ @import "nav_bar/*";
 

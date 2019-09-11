@@ -1,0 +1,23 @@
+.all-feed{
+    background-color:rgb(245, 245, 250);
+    width: 100vw;
+    padding-top: 10%;
+    display: flex;
+    // justify-content: space-around;
+
+    .grid-right{
+        width: 25vw;
+    }
+
+    .grid-left{
+        width: 25vw;
+        margin-left: 10%;
+    }
+
+    .grid-center{
+        width: 50vw;
+
+    }
+
+}
+

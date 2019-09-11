@@ -8,7 +8,7 @@ const Feed = (props) => {
         <div className="all-feed">
             <UserFeedProfileContainer />
             <ActivityIndexContainer />
-            <div id="filler"> stuff </div>
+            <div className="grid-right"> stuff </div>
         </div>
     )
 

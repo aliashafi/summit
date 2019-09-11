@@ -33,7 +33,7 @@ class UserFeedProfile extends React.Component {
     render (){
         return(
 
-        <div>
+        <div className="grid-left">
         <div id="card">
             <div className="user-feed-profile">
                 <h3>{this.props.current_user.first_name} {this.props.current_user.last_name}</h3>

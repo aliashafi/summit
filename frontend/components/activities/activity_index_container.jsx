@@ -2,9 +2,12 @@ import { fetchAllActivities, fetchActivity } from '../../actions/activities/acti
 import ActivityIndex from './activity_index'
 import { connect } from 'react-redux';
 
-const mapStateToProps = (state) => ({
-    activities: Object.values(state.entities.activities)
-})
+const mapStateToProps = (state) => {
+    return ({
+    activities: Object.values(state.entities.activities), 
+    current_user: state.session.currentUser,
+    })
+}
 
 const mapDispatchToProps = (dispatch) => ({
     fetchAllActivities: () => dispatch(fetchAllActivities()), 

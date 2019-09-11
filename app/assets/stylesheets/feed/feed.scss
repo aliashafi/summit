@@ -1,11 +1,4 @@
-.all-feed{
-    background-color:rgb(245, 245, 250);
-    width: 100vw;
-    padding-top: 10%;
-    display: flex;
-    justify-content: space-around;
 
-}
 
 .activity-feed{
     height: 600px;
@@ -18,7 +11,7 @@
 
 #activity-item {
     background-color: white;
-    width: 519px;
+    width: 90%;
     padding-top: 10px;
     border-radius: 7px;
     margin-top: 3%;
@@ -79,17 +72,45 @@
     font-size: 11px;
     margin-left: 54px;
     margin-top: 8px;
+    position: relative;
+
+    section{
+        border-right: 1px solid #e6e6eb;
+        width: 3px;
+        margin-top: 0.7%;
+        height: 32px;
+        margin-left: 2%;
+        margin-right: 2%;
+    }
+
+    p{
+        color: $strava-black;
+        margin-bottom: 11%;
+        font-weight: 400;
+        font-size: 20px;
+        font-size: 19px;
+    }
 
 }
 
 #show-stats > div {
-    padding-left: 3%;
-    border-right: 1px solid #606065;
-    padding-right: 6px;
+    margin-left: 1%;
+    width: 14%;
+    display: flex;
+    flex-direction: column;
+    // align-items: center;
+    font-size: 12px;
+
     
 }
 
 #show-stats > div > h3 {
     color: #606065;
+    margin-bottom: 11%;
+    
+}
+
+#filler {
+    width: 30vh;
 }
 

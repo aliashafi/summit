@@ -2,6 +2,7 @@ import React from 'react'
 import ActivityItem from './activity_item';
 import ActivityMap from './activity_map'
 
+
 class ActivityIndex extends React.Component {
 
     constructor(props){
@@ -19,13 +20,14 @@ class ActivityIndex extends React.Component {
                 <ActivityItem 
                     key={activity.id}
                     activity={activity} 
-                    fetchActivity={this.props.fetchActivity} 
+                    fetchActivity={this.props.fetchActivity}
+                    current_user={this.props.current_user}
                     />
             )
         })
 
         return(
-            <div>
+            <div className="grid-center">
                 <section className="activity-feed">
                     {activities}
                 </section>

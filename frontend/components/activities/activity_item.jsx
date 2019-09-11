@@ -2,12 +2,15 @@ import React from 'react';
 import {withRouter} from 'react-router-dom';
 import ActivityMap from './activity_map'
 import { formatDate } from '../../util/date_util'
+import { fetchUser } from '../../util/users_util'
 
 
 class ActivityItem extends React.Component {
 
     constructor(props){
         super(props)
+        let fetch = fetchUser(this.props.activity.user_id).then(user => user.responseJSON)
+        console.log(fetchUser(4))
     }
 
     getElapseTime(){
@@ -16,15 +19,15 @@ class ActivityItem extends React.Component {
         let MHSTime = measuredTime.toISOString().substr(11, 8);
         return MHSTime.slice(1)
     }
+    
 
     render(){
         const dist = Math.round(this.props.activity.distance * 100)/ 100
         const speed = Math.round(this.props.activity.average_speed * 100)/ 100
-
         return (
         <div id="activity-item">
             <div id="activity-username">
-                <p>Demo User</p>
+                    <p>DemoUser</p>
                     <p id="time">{formatDate(this.props.activity.time)}</p>
             </div>
                 
@@ -46,11 +49,13 @@ class ActivityItem extends React.Component {
                     <h3>Distance</h3>
                     <p>{dist} mi</p>
                 </div>
+                    <section></section>
 
                 <div>
-                    <h3>Average Speed</h3>
+                    <h3>Avg Speed</h3>
                     <p>{speed}</p>
                 </div>
+                    <section></section>
 
                 <div>
                     <h3>Time</h3>

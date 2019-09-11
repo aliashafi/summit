@@ -2,6 +2,7 @@
 .tabs{
     display: flex;
     justify-content: space-evenly;
+    width: 35vh;
 
     #active-tab {
         align-items: center;
@@ -28,11 +29,12 @@
 
 .tab-content{
     height: 270px;
-    width: 100%;
+    width: 35vh;
     background-color: white;
     display: flex;
     justify-content: center;
     flex-direction: column;
+    
     
     h1 {
         margin-left: auto;

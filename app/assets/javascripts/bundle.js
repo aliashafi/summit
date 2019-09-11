@@ -325,10 +325,13 @@ function (_React$Component) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_activity_item__WEBPACK_IMPORTED_MODULE_1__["default"], {
           key: activity.id,
           activity: activity,
-          fetchActivity: _this.props.fetchActivity
+          fetchActivity: _this.props.fetchActivity,
+          current_user: _this.props.current_user
         });
       });
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "grid-center"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "activity-feed"
       }, activities));
     }
@@ -359,7 +362,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    activities: Object.values(state.entities.activities)
+    activities: Object.values(state.entities.activities),
+    current_user: state.session.currentUser
   };
 };
 
@@ -392,6 +396,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _activity_map__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./activity_map */ "./frontend/components/activities/activity_map.jsx");
 /* harmony import */ var _util_date_util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../util/date_util */ "./frontend/util/date_util.jsx");
+/* harmony import */ var _util_users_util__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../util/users_util */ "./frontend/util/users_util.jsx");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -415,15 +420,23 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
 var ActivityItem =
 /*#__PURE__*/
 function (_React$Component) {
   _inherits(ActivityItem, _React$Component);
 
   function ActivityItem(props) {
+    var _this;
+
     _classCallCheck(this, ActivityItem);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(ActivityItem).call(this, props));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(ActivityItem).call(this, props));
+    var fetch = Object(_util_users_util__WEBPACK_IMPORTED_MODULE_4__["fetchUser"])(_this.props.activity.user_id).then(function (user) {
+      return user.responseJSON;
+    });
+    console.log(Object(_util_users_util__WEBPACK_IMPORTED_MODULE_4__["fetchUser"])(4));
+    return _this;
   }
 
   _createClass(ActivityItem, [{
@@ -443,7 +456,7 @@ function (_React$Component) {
         id: "activity-item"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "activity-username"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Demo User"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "DemoUser"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         id: "time"
       }, Object(_util_date_util__WEBPACK_IMPORTED_MODULE_3__["formatDate"])(this.props.activity.time))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         id: "activity-details"
@@ -461,7 +474,7 @@ function (_React$Component) {
         id: "activity-description"
       }, this.props.activity.description))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         id: "show-stats"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Distance"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, dist, " mi")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Average Speed"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, speed)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Time"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, this.getElapseTime()))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_activity_map__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Distance"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, dist, " mi")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Avg Speed"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, speed)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Time"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, this.getElapseTime()))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_activity_map__WEBPACK_IMPORTED_MODULE_2__["default"], {
         key: this.props.activity.id,
         activity: this.props.activity,
         fetchActivity: this.props.fetchActivity
@@ -536,7 +549,7 @@ function (_React$Component) {
         style: 'mapbox://styles/mapbox/streets-v11',
         center: centerRoute,
         //this is the center
-        zoom: 12
+        zoom: 9
       });
       var routeLine = this.route.slice(0, this.route.length - 1); // last datapoint is not correct... check to see if this is the case for all
 
@@ -650,7 +663,7 @@ var Feed = function Feed(props) {
   return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
     className: "all-feed"
   }, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_users_user_feed_profile_container__WEBPACK_IMPORTED_MODULE_1__["default"], null), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(_activities_activity_index_container__WEBPACK_IMPORTED_MODULE_0__["default"], null), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", {
-    id: "filler"
+    className: "grid-right"
   }, " stuff "));
 };
 
@@ -1258,7 +1271,9 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "grid-left"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "card"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "user-feed-profile"

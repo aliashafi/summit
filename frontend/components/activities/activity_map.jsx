@@ -20,7 +20,7 @@ class ActivityMap extends React.Component {
             container: `map-${this.props.activity.id}`,
             style: 'mapbox://styles/mapbox/streets-v11',
             center: centerRoute, //this is the center
-            zoom: 12
+            zoom: 9
         });
         const routeLine = this.route.slice(0,this.route.length-1);
         // last datapoint is not correct... check to see if this is the case for all
