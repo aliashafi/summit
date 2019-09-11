@@ -940,7 +940,6 @@ function (_React$Component) {
   }, {
     key: "loginDemo",
     value: function loginDemo() {
-      // debugger
       this.inputElement.click();
     }
   }, {
@@ -1318,8 +1317,8 @@ function (_React$Component) {
   _createClass(UserFeedProfile, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      // this.props.fetchFollowers()
-      // this.props.fetchFollowing()
+      this.props.fetchFollowers();
+      this.props.fetchFollowing();
       this.props.fetchAllActivities();
       this.props.fetchUser;
     }

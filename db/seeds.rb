@@ -54,9 +54,14 @@ ActiveRecord::Base.transaction do
     User.destroy_all
 
     u1 = User.create!(username: "aliashafi", password:"123456", first_name:"Alia", last_name:"Shafi")
+    u1.photo.attach(io: File.open("#{Rails.root}/db/images/indigo.jpg"), filename: "indigo.jpg")
+
     u2 = User.create!(username: "anandwa", password:"123456", first_name:"Anand", last_name:"Rajesh")
+    u2.photo.attach(io: File.open("#{Rails.root}/db/images/indigo.jpg"), filename: "indigo.jpg")
+    
     u3 = User.create!(username: "HardCoreHasBeen", password:"123456", first_name:"HardCore", last_name:"HasBeen")
-    puts u1.id
+    u3.photo.attach(io: File.open("#{Rails.root}/db/images/indigo.jpg"), filename: "indigo.jpg")
+
     Follow.destroy_all
     f1 = Follow.create!(user_id: u1.id, follower_id: u2.id)
     f2 = Follow.create!(user_id: u1.id, follower_id: u3.id)

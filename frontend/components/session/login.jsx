@@ -49,7 +49,6 @@ class Login extends React.Component {
     }
 
     loginDemo(){
-        // debugger
         this.inputElement.click()
     }
         

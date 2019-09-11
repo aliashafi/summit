@@ -10,8 +10,8 @@ class UserFeedProfile extends React.Component {
     }
 
     componentDidMount(){
-        // this.props.fetchFollowers()
-        // this.props.fetchFollowing()
+        this.props.fetchFollowers()
+        this.props.fetchFollowing()
         this.props.fetchAllActivities()
         this.props.fetchUser
     }
