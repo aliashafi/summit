@@ -880,7 +880,6 @@ function (_React$Component) {
   }, {
     key: "componentWillUnmount",
     value: function componentWillUnmount() {
-      debugger;
       this.props.clearErrors();
     }
   }, {

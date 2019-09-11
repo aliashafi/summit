@@ -18,7 +18,6 @@ class Login extends React.Component {
     }
 
     componentWillUnmount(){
-        debugger
         this.props.clearErrors()
     }
 
