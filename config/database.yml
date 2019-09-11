@@ -23,3 +23,5 @@ test:
 production:
   <<: *default
   database: summit_production
+  username: summit
+  password: <%=ENV['SUMMIT_DATABASE_PASSWORD'] %>
