@@ -30,9 +30,9 @@ class ActivityItem extends React.Component {
                 
             <section id="activity-details">
                     {this.props.activity.activity_type !== 'Bike' ? (
-                        <img src={window.running_icon} alt="" />
+                        <img src={window.images.running_icon} alt="" />
                     ) :
-                        <img src={window.biking_icon} alt="" />
+                        <img src={window.images.biking_icon} alt="" />
                     }
                 
                 <div id="activity-header">

@@ -434,10 +434,10 @@ function (_React$Component) {
       }, Object(_util_date_util__WEBPACK_IMPORTED_MODULE_3__["formatDate"])(this.props.activity.time))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         id: "activity-details"
       }, this.props.activity.activity_type !== 'Bike' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        src: window.running_icon,
+        src: window.images.running_icon,
         alt: ""
       }) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        src: window.biking_icon,
+        src: window.images.biking_icon,
         alt: ""
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "activity-header"
@@ -665,7 +665,7 @@ __webpack_require__.r(__webpack_exports__);
     className: "logo-container"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
     className: "logo",
-    src: window.logo,
+    src: window.images.logo,
     alt: ""
   })), props.currentUser ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     id: "signIn-button",
@@ -821,7 +821,7 @@ function (_React$Component) {
   }, {
     key: "demoUser",
     value: function demoUser() {
-      var username = 'bob123';
+      var username = 'aliashafi';
       var password = '123456';
 
       if (this.demoUsernameStart < username.length) {
@@ -1122,7 +1122,7 @@ __webpack_require__.r(__webpack_exports__);
     loop: true,
     id: "myVideo"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("source", {
-    src: rowing_video,
+    src: window.images.rowing_video,
     type: "video/mp4"
   })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "content"
@@ -1343,9 +1343,9 @@ function (_React$Component) {
       var selected = this.props.selectedPane;
       var headers = Object.keys(this.props.panes).map(function (pane, index) {
         var path = "";
-        if (pane === "Bike") path = window.biking_icon;
-        if (pane === "Swim") path = window.swimming_icon;
-        if (pane === "Run") path = window.running_icon;
+        if (pane === "Bike") path = window.images.biking_icon;
+        if (pane === "Swim") path = window.images.swimming_icon;
+        if (pane === "Run") path = window.images.running_icon;
         var klass = pane === selected ? 'active-tab' : '';
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
           key: index,

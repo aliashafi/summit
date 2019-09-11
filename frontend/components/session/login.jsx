@@ -17,7 +17,7 @@ class Login extends React.Component {
     }
 
     demoUser(){
-        let username = 'bob123'
+        let username = 'aliashafi'
         let password = '123456'
         if (this.demoUsernameStart < username.length) {
             document.getElementById("username").value += username.charAt(this.demoUsernameStart);
