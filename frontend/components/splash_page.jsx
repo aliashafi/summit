@@ -5,7 +5,8 @@ export default (props) => {
     return (
         <div className="splash">
                 <video autoPlay muted loop id="myVideo">
-                    <source src="assets/rowing.mp4" type="video/mp4"></source>
+                    {/* asset_path("rowing.mp4") */}
+                <source src={rowing_video} type="video/mp4"></source>
                 </video>
                 <div className='content'>
                     Introducing 

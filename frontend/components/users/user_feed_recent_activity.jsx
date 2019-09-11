@@ -6,9 +6,9 @@ class Headers extends React.Component {
 
         const headers = Object.keys(this.props.panes).map((pane, index) => {
             let path = "";
-            if (pane === "Bike") path = "assets/bike_icon";
-            if (pane === "Swim") path = "assets/swimming_icon";
-            if (pane === "Run") path = "assets/running_icon";
+            if (pane === "Bike") path = window.biking_icon;
+            if (pane === "Swim") path = window.swimming_icon;
+            if (pane === "Run") path = window.running_icon;
             const klass = pane === selected ? 'active-tab' : '';
 
             return (

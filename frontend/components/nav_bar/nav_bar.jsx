@@ -8,7 +8,7 @@ export default (props) =>
         <section className="nav-bar">
             <div className ='signUp-logo'>
                 <div className="logo-container">
-                    <img className="logo" src="assets/logo.png" alt=""/>
+                    <img className="logo" src={window.logo} alt=""/>
                 </div>
 
                 {props.currentUser ? (
