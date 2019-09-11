@@ -1160,10 +1160,9 @@ __webpack_require__.r(__webpack_exports__);
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("video", {
     autoPlay: true,
     muted: true,
-    loop: true,
     id: "myVideo"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("source", {
-    src: window.images.rowing_video,
+    src: window.images.mountain_video,
     type: "video/mp4"
   })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "content"
