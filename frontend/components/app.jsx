@@ -6,6 +6,7 @@ import SplashPage from './splash_page'
 import { AuthRoute, ProtectedRoute } from '../util/route_util';
 import FeedContainer from './feed/feed_container'
 import ErrorPage from './error_page'
+import ActivityShowContainer from './activities/map/activity_map_container';
  
 
 
@@ -16,6 +17,7 @@ export default () => (
         <Switch>
             <Route exact path="/" component={SplashPage} />
             <ProtectedRoute exact path="/feed" component={FeedContainer} />
+            <ProtectedRoute exact path='/activity/:activityId' component={ActivityShowContainer} />
             <AuthRoute exact path="/signup" component={SignupContainer} />
             <AuthRoute exact path="/login" component={LoginContainer} />
             <Route component={ErrorPage}/>

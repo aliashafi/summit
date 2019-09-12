@@ -1,6 +1,6 @@
 import React from 'react';
 import {withRouter} from 'react-router-dom';
-import ActivityMap from './activity_map'
+import ActivityMap from './map/activity_map'
 import { formatDate } from '../../util/date_util'
 // import { fetchUser } from '../../util/users_util'
 
@@ -71,6 +71,9 @@ class ActivityItem extends React.Component {
             <ActivityMap
                 key={this.props.activity.id}
                 activity={this.props.activity}
+                user={this.props.user}
+                interactive={false}
+                container={`map-${this.props.activity.id}`}
             />
         </div>
        

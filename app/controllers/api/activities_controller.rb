@@ -2,8 +2,11 @@ class Api::ActivitiesController < ApplicationController
 
     def index 
         ids = []
-        current_user.followed_user.each do |follow|
-            ids << follow.user_id
+        current_user.followers.each do |follow|
+            ids << follow.id
+        end
+        current_user.following.each do |follow|
+            ids << follow.id
         end
         ids << current_user.id
         @activities = Activity.where(user_id: ids)
@@ -11,10 +14,8 @@ class Api::ActivitiesController < ApplicationController
 
     def show 
         @activity = Activity.find(params[:id])
-        coordinates = JSON.parse(@activity.coordinates)
-        @activity.coordinates = coordinates.values
-        @activities.time = JSON.parse(@activity.time)
-        @center = Activity.find_midpoint(coordinates.values)
+        # coordinates = JSON.parse(@activity.coordinates)
+        # @activity.coordinates = coordinates.values
         render :show
     end
 

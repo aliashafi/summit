@@ -6,4 +6,13 @@
     width: 80%;
     margin-left: auto;
     margin-right: auto;
+
+    
  }
+
+  div[id*="map-show-"]{
+      margin: 0px;
+      height: 42vh;
+      width: 50%;
+
+  }

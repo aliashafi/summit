@@ -1,7 +1,8 @@
 import React from 'react'
 import ActivityItem from './activity_item';
-import ActivityMap from './activity_map'
+import ActivityMap from './map/activity_map'
 import {withRouter} from 'react-router-dom'
+import ActivityShow from './map/activity_show'
 
 
 class ActivityIndex extends React.Component {
@@ -13,12 +14,12 @@ class ActivityIndex extends React.Component {
 
     render(){
         const activities = this.props.activities.map(activity => {
-            const user = this.props.users.filter(u => u.id === activity.user_id)
+            const user = this.props.users[activity.user_id]
             return(
                 <ActivityItem 
                     key={activity.id}
                     activity={activity} 
-                    user={user[0]}
+                    user={user}
                     />
             )
         })

@@ -72,6 +72,7 @@ ActiveRecord::Base.transaction do
     makeRoute("#{Rails.root}/db/gpx/Morning_Ride_1.gpx", u1.id, "Bike")
     makeRoute("#{Rails.root}/db/gpx/Morning_Ride.gpx", u1.id, "Bike")
     makeRoute("#{Rails.root}/db/gpx/Morning_Run.gpx", u2.id, "Run")
+    makeRoute("#{Rails.root}/db/gpx/Ride3.gpx", u2.id, "Run")
     
 
 end

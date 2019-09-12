@@ -7,7 +7,7 @@ export default (state = {}, action) => {
         case RECEIVE_ALL_ACTIVITIES:
             return merge({}, state, action.activities);
         case RECEIVE_ACTIVITY:
-            return merge({}, state, action.activity);
+            return merge({}, state, { [action.activity.id]: action.activity })
         default:
             return state;
     }
