@@ -1,12 +1,11 @@
 
 
 .activity-feed{
-    height: 600px;
     width: 100%;
     display: flex;
     justify-content: center;
     flex-direction: column;
-    margin: 23% auto;
+    margin: 6% auto;
 }
 
 #activity-item {
@@ -74,7 +73,7 @@
     display: flex;
     font-family: $strava-font;
     font-size: 11px;
-    margin-left: 54px;
+    margin-left: 9%;
     margin-top: 8px;
     position: relative;
 
@@ -137,9 +136,9 @@
 
 .activity-img{
     height: 16%;
-    position: relative;
     overflow: hidden;
     width: 50vw;
+    border-radius: 3px;
 
      img{
         display: inline;
