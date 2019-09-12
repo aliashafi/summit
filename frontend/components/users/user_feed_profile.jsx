@@ -2,6 +2,7 @@ import React from 'react'
 import { formatDate } from '../../util/date_util'
 import UserFeedRecentActivity from './user_feed_recent_activity'
 import {fetchUser} from '../../util/users_util'
+import { withRouter} from 'react-router-dom'
 
 class UserFeedProfile extends React.Component {
 
@@ -9,12 +10,6 @@ class UserFeedProfile extends React.Component {
         super(props)
     }
 
-    componentDidMount(){
-        this.props.fetchFollowers()
-        this.props.fetchFollowing()
-        this.props.fetchAllActivities()
-        this.props.fetchUser
-    }
 
     ownActivities() {
         let ownActivities = [];
@@ -34,12 +29,16 @@ class UserFeedProfile extends React.Component {
 
     render (){
         return(
-
         <div className="grid-left">
         <div id="card">
+            <section className="profile-picture-container">
+            <div className="profile-picture">
+                <img src={this.props.current_user.photoUrl} />
+            </div>
+
+            </section>
             <div className="user-feed-profile">
                 <h3>{this.props.current_user.first_name} {this.props.current_user.last_name}</h3>
-                {/* <img src={this.props.current_user.photoUrl}/> */}
 
                 <section className="followers-following-Activities">
                     <div>
@@ -84,4 +83,4 @@ class UserFeedProfile extends React.Component {
 }
 
 
-export default UserFeedProfile;
+export default withRouter(UserFeedProfile);

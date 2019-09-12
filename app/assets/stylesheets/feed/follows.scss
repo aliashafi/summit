@@ -20,6 +20,8 @@
     display: flex;
     flex-direction: column;
     font-family: $strava-font;
+    box-shadow: $shadow;
+    
 
     
 
@@ -33,6 +35,35 @@
     }
     
     
+}
+
+
+
+
+
+.profile-picture-container{
+    position: absolute;
+    padding-left: 26%;
+
+}
+
+.profile-picture{
+    width: 100px;
+    height: 100px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+    margin-top: -56px;
+    
+
+    img{
+        display: inline;
+        margin: 0 auto;
+        height: 100%;
+        width: auto;
+
+    }
+        
 }
 
 .followers-following-Activities{
@@ -75,6 +106,7 @@
     margin-left: 3%;
     margin-top: 7%;
     margin-bottom: 7%;
+
 
     h3{
         font-weight: 400;

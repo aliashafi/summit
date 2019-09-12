@@ -3,7 +3,7 @@ json.set! 'follows' do
 
         @followers.each do |follower|
             json.set! follower.id do 
-                json.partial! "api/users/user", user: follower
+                json.extract! follower, :id
             end
         end
     end
@@ -11,7 +11,7 @@ json.set! 'follows' do
     json.set! 'following' do 
         @following.each do |follow|
             json.set! follow.id do 
-                json.partial! "api/users/user", user: follow
+                json.extract! follow, :id
             end
         end
     end

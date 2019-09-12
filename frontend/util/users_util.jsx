@@ -6,6 +6,13 @@ export const fetchUser = (userId) => (
     })
 )
 
+export const fetchAllUsers = () => (
+    $.ajax({
+        url: `api/users`,
+        method: "GET",
+    })
+)
+
 export const fetchFollows = () => (
     $.ajax({
         url: "api/follows",

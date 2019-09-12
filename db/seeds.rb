@@ -63,8 +63,9 @@ ActiveRecord::Base.transaction do
     u3.photo.attach(io: File.open("#{Rails.root}/db/images/indigo.jpg"), filename: "indigo.jpg")
 
     Follow.destroy_all
-    f1 = Follow.create!(user_id: u1.id, follower_id: u2.id)
-    f2 = Follow.create!(user_id: u1.id, follower_id: u3.id)
+    Follow.create!(user_id: u1.id, follower_id: u2.id)
+    Follow.create!(user_id: u1.id, follower_id: u3.id)
+    Follow.create!(user_id: u2.id, follower_id: u1.id)
     
     Activity.destroy_all
 

@@ -9,7 +9,6 @@ class ActivityItem extends React.Component {
 
     constructor(props){
         super(props)
-        // let fetch = fetchUser(this.props.activity.user_id).then(user => user.responseJSON)
     }
 
     getElapseTime(){
@@ -20,14 +19,20 @@ class ActivityItem extends React.Component {
     }
     
 
-    render(){
+    render(){        
         const dist = Math.round(this.props.activity.distance * 100)/ 100
         const speed = Math.round(this.props.activity.average_speed * 100)/ 100
         return (
         <div id="activity-item">
+                
             <div id="activity-username">
-                    <p>DemoUser</p>
-                    <p id="time">{formatDate(this.props.activity.time)}</p>
+                    <div className="profile-picture-small">
+                        <img src={this.props.user.photoUrl} />
+                    </div>
+                    <div>
+                        <p>{`${this.props.user.first_name} ${this.props.user.last_name}`}</p>
+                        <p id="time">{formatDate(this.props.activity.time)}</p>
+                    </div>
             </div>
                 
             <section id="activity-details">
@@ -66,7 +71,6 @@ class ActivityItem extends React.Component {
             <ActivityMap
                 key={this.props.activity.id}
                 activity={this.props.activity}
-                fetchActivity={this.props.fetchActivity}
             />
         </div>
        

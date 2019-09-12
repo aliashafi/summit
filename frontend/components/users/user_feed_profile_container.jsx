@@ -13,9 +13,9 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
+    fetchAllActivities: () => dispatch(fetchAllActivities()),
     fetchFollowers: () => dispatch(fetchFollowers()),
     fetchFollowing: () => dispatch(fetchFollowing()),
-    fetchAllActivities: () => dispatch(fetchAllActivities())
 })
 
 export default connect(

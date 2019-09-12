@@ -1,16 +1,47 @@
 import ActivityIndexContainer from '../activities/activity_index_container';
-import UserFeedProfileContainer from '../users/user_feed_profile_container'
+import ActivityIndex from '../activities/activity_index'
+import UserFeedProfile from '../users/user_feed_profile'
 import React from 'react'
 
-const Feed = (props) => {
+class Feed extends React.Component {
 
-    return(
-        <div className="all-feed">
-            <UserFeedProfileContainer />
-            <ActivityIndexContainer />
-            <div className="grid-right"> stuff </div>
-        </div>
-    )
+    constructor(props){
+        super(props)
+    }
+
+    componentDidMount(){
+        this.props.fetchAllActivities();
+        this.props.fetchFollowers();
+        this.props.fetchFollowing();
+        this.props.fetchAllUsers();
+    }
+
+    render(){
+        return(
+            <div>
+            
+                {this.props.activities.length > 0 ? 
+                    <div className="all-feed">
+                        <UserFeedProfile
+                                followers={this.props.followers}
+                                following={this.props.following}
+                                activities={this.props.activities}
+                                current_user={this.props.current_user}
+                            />      
+                        <ActivityIndex
+                            users={this.props.users} 
+                            activities={this.props.activities}
+                        /> 
+                    </div>
+                
+                : ""
+                }
+
+            </div>
+                
+            
+        )
+    }
 
 };
 
