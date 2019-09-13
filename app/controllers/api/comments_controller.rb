@@ -1,7 +1,8 @@
 class Api::CommentsController < ApplicationController
 
     def index
-        @comments = Comment.find(activity_id: [:activity_id])
+        @comments = Comment.where(activity_id: params[:activity_id])
+        
     end
 
     def show

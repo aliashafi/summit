@@ -3,12 +3,12 @@ import ReactDOM from 'react-dom';
 import configureStore from './store/store';
 import Root from './components/root';
 import { fetchFollowers, fetchFollowing } from './actions/follows/follows_action'
-import { fetchAllActivities } from './actions/activities/activity_actions'
+import { fetchActivityComments } from './actions/comments/comment_actions'
 
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    window.fetchAllActivities = fetchAllActivities
+    window.fetchActivityComments = fetchActivityComments
     let store = configureStore();
     window.dispatch = store.dispatch
 

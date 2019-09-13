@@ -4,9 +4,9 @@ export const RECEIVE_ALL_ACTIVITIES = 'RECEIVE_ALL_ACTIVITIES';
 export const RECEIVE_ACTIVITY = 'RECEIVE_ACTIVITY';
 
 
-const receiveAllActivities = (activities) => ({
+const receiveAllActivities = (payload) => ({
     type: RECEIVE_ALL_ACTIVITIES,
-    activities
+    payload
 })
 
 const recieveActivity = (activity) => ({

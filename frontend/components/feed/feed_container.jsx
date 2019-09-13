@@ -10,7 +10,8 @@ const mapStateToProps = (state) => ({
     followers: Object.values(state.entities.followers),
     following: Object.values(state.entities.followers),
     current_user: state.session.currentUser,
-    users: state.entities.users
+    users: state.entities.users,
+    comments: state.entities.comments
 })
 
 const mapDispatchToProps = (dispatch) => ({  

@@ -3,6 +3,7 @@ import {withRouter} from 'react-router-dom';
 import ActivityMap from './map/activity_map'
 import { formatDate } from '../../util/date_util'
 import { calculateElevationGain } from '../../util/gpx_util.js'
+import CommentIndex from './comments/comment_index'
 
 
 
@@ -14,6 +15,7 @@ class ActivityItem extends React.Component {
         
     }
 
+
     getElapseTime(){
         let measuredTime = new Date(null)
         measuredTime.setSeconds(this.props.activity.elapse_time); 
@@ -23,13 +25,13 @@ class ActivityItem extends React.Component {
     
 
     render(){
+        const comments = this.props.activity.comment_ids.map(commentId => this.props.comments[commentId])
+        
         const ele = calculateElevationGain(this.elevation);
-
         const dist = Math.round(this.props.activity.distance * 100)/ 100
         const speed = Math.round(this.props.activity.average_speed * 100)/ 100
         return (
         <div id="activity-item">
-                
             <div id="activity-username">
                     <div className="profile-picture-small">
                         <img src={this.props.user.photoUrl} />
@@ -80,6 +82,11 @@ class ActivityItem extends React.Component {
                 interactive={false}
                 container={`map-${this.props.activity.id}`} 
             />
+
+            {comments.length > 0 ? 
+                <CommentIndex comments={comments} users={this.props.users} /> : ""
+            }
+
         </div>
        
         )

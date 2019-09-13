@@ -17,8 +17,10 @@ class ActivityIndex extends React.Component {
             activities: [],
             
         };
-
         this.fetchAllActivities = this.props.fetchAllActivities.bind(this);
+
+
+
     
 
 
@@ -50,6 +52,7 @@ class ActivityIndex extends React.Component {
     
     }
 
+
     render(){
 
         const activities = this.props.activities.map((activity, index) => {
@@ -60,7 +63,8 @@ class ActivityIndex extends React.Component {
                     index = {index}
                     activity={activity} 
                     user={user}
-                    fetchActivityComments={this.props.fetchActivityComments}
+                    comments={this.props.comments}
+                    users={this.props.users}
                     />
             )
         })

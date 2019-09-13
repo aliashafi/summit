@@ -59,7 +59,7 @@ class ActivityMap extends React.Component {
         });
 
         const routeLine = this.route.slice(0,this.route.length-1);
-        this.setState({map: this.map, routeLine: routeLine, centerRoute: centerRoute})
+        // this.setState({map: this.map, routeLine: routeLine, centerRoute: centerRoute})
         // last datapoint is not correct... check to see if this is the case for all
         
         let map = this.map;

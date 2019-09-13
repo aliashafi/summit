@@ -4,6 +4,7 @@ export const fetchActivityComments = (activityId) => (
         url: `api/activities/${activityId}/comments`,
         method: 'GET'
     })
+
 )
 
 export const createComment = (comment) => (
