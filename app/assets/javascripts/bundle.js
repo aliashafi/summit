@@ -670,7 +670,6 @@ function (_React$Component) {
           }
         });
       });
-      console.log(this.getElevation(37.76, -122.45));
     }
   }, {
     key: "handleClick",

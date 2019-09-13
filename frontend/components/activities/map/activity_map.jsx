@@ -89,7 +89,6 @@ class ActivityMap extends React.Component {
                 }
             });
         })
-        console.log(this.getElevation(37.76, -122.45))
     
 
     };
