@@ -78,7 +78,7 @@ class ActivityItem extends React.Component {
                 activity={this.props.activity}
                 user={this.props.user}
                 interactive={false}
-                container={`map-${this.props.activity.id}`}
+                container={`map-${this.props.activity.id}`} 
             />
         </div>
        

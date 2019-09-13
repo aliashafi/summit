@@ -6,15 +6,17 @@ import {withRouter} from 'react-router-dom';
 
 const mapStateToProps = (state, ownProps) => {
     return ({
+        activities: this.state.activities
+
     })
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    fetchUser: (id) => dispatch(fetchUser(id))
+    
 })
 
 export default withRouter(connect(
     mapStateToProps, 
-    mapDispatchToProps
+    null
 )(ActivityIndex))
 

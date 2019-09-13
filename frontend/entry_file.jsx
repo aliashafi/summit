@@ -3,13 +3,14 @@ import ReactDOM from 'react-dom';
 import configureStore from './store/store';
 import Root from './components/root';
 import { fetchFollowers, fetchFollowing } from './actions/follows/follows_action'
-import { fetchUser } from './actions/users/user_actions'
+import { fetchAllActivities } from './actions/activities/activity_actions'
 
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    window.fetchFollowers = fetchFollowers
+    window.fetchAllActivities = fetchAllActivities
     let store = configureStore();
+    window.dispatch = store.dispatch
 
     if (window.currentUser) {
         const preloadedState = {

@@ -1,25 +1,66 @@
 import React from 'react'
 import ActivityItem from './activity_item';
-import ActivityMap from './map/activity_map'
 import {withRouter} from 'react-router-dom'
-import ActivityShow from './map/activity_show'
+import debounce from "lodash.debounce";
+
 
 
 class ActivityIndex extends React.Component {
 
     constructor(props){
         super(props)
-    }  
-        
+        this.state = {
+            page: 1,
+            error: false,
+            hasMore: true,
+            isLoading: false,
+            activities: [],
+            
+        };
+
+        this.fetchAllActivities = this.props.fetchAllActivities.bind(this);
+    
+
+
+    window.onscroll = debounce(() => {
+        const {
+            fetchAllActivities,
+            state: {
+                error,
+                isLoading,
+                hasMore,
+                page
+            },
+        } = this;
+
+        if (error || isLoading || !hasMore) return;
+        const fromBottom = (window.innerHeight + document.documentElement.scrollTop
+            - document.documentElement.offsetHeight)
+        console.log(fromBottom)
+        if (
+            (fromBottom <= 2) && (fromBottom > -2)
+        ) {
+            
+            this.state.page += 1
+            fetchAllActivities(this.state.page);
+
+            
+            }
+        }, 1000);
+    
+    }
 
     render(){
-        const activities = this.props.activities.slice(0,8).map(activity => {
+
+        const activities = this.props.activities.map((activity, index) => {
             const user = this.props.users[activity.user_id]
             return(
                 <ActivityItem 
                     key={activity.id}
+                    index = {index}
                     activity={activity} 
                     user={user}
+                    fetchActivityComments={this.props.fetchActivityComments}
                     />
             )
         })

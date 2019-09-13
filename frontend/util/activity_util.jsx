@@ -6,9 +6,10 @@ export const fetchActivity = (activityId) => (
     })
 )
 
-export const fetchActivities = () => (
+export const fetchActivities = (page) => (
     $.ajax({
-        url: `api/activities`,
-        method: 'GET'
+        url: `api/pages/${page}/activities/`,
+        method: 'GET',
+        data: {page}
     })
 )

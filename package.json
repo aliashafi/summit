@@ -8,6 +8,7 @@
     "@mapbox/togeojson": "^0.16.0",
     "babel-loader": "^8.0.6",
     "lodash": "^4.17.15",
+    "lodash.debounce": "^4.0.8",
     "mapbox-elevation": "^1.0.0",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
@@ -16,6 +17,7 @@
     "redux": "^4.0.4",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
+    "superagent": "^5.1.0",
     "webpack": "^4.39.3"
   },
   "description": "This README would normally document whatever steps are necessary to get the application up and running.",

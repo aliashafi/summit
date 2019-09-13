@@ -7,10 +7,11 @@ class Feed extends React.Component {
 
     constructor(props){
         super(props)
+        
     }
 
     componentDidMount(){
-        this.props.fetchAllActivities();
+        this.props.fetchAllActivities(1);
         this.props.fetchFollowers();
         this.props.fetchFollowing();
         this.props.fetchAllUsers();
@@ -31,6 +32,8 @@ class Feed extends React.Component {
                         <ActivityIndex
                             users={this.props.users} 
                             activities={this.props.activities}
+                            fetchAllActivities={this.props.fetchAllActivities}
+                            fetchActivityComments={this.props.fetchActivityComments}
                         /> 
 
                         <div className="grid-right">

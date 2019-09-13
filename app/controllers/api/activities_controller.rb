@@ -9,13 +9,16 @@ class Api::ActivitiesController < ApplicationController
             ids << follow.id
         end
         ids << current_user.id
+        
         @activities = Activity.where(user_id: ids)
+        .order("activities.time DESC").page(params[:page_id]).per(8)
+        @max = @activities.length
+        
+        
     end
 
     def show 
         @activity = Activity.find(params[:id])
-        # coordinates = JSON.parse(@activity.coordinates)
-        # @activity.coordinates = coordinates.values
         render :show
     end
 

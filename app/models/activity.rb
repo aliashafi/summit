@@ -2,6 +2,9 @@ class Activity < ApplicationRecord
     validates :activity_type, 	inclusion: { in: ['Run', 'Bike', 'Swim']}
     belongs_to :user
 
+    has_many :comments
+    has_many :kudos
+
     
     def self.find_midpoint(coords)
         ##get average of all lat/lng coordinates to find center

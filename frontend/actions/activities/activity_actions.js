@@ -14,8 +14,8 @@ const recieveActivity = (activity) => ({
     activity
 })
 
-export const fetchAllActivities = () => (dispatch) =>
-    ActivityUtil.fetchActivities().then((activities) => dispatch(receiveAllActivities(activities)));
+export const fetchAllActivities = (page) => (dispatch) =>
+    ActivityUtil.fetchActivities(page).then((activities) => dispatch(receiveAllActivities(activities)));
 
 
 export const fetchActivity = (activityId) => (dispatch) =>
