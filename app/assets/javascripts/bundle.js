@@ -369,7 +369,7 @@ function (_React$Component) {
     value: function render() {
       var _this = this;
 
-      var activities = this.props.activities.map(function (activity) {
+      var activities = this.props.activities.slice(0, 8).map(function (activity) {
         var user = _this.props.users[activity.user_id];
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_activity_item__WEBPACK_IMPORTED_MODULE_1__["default"], {
           key: activity.id,
@@ -447,6 +447,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _map_activity_map__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./map/activity_map */ "./frontend/components/activities/map/activity_map.jsx");
 /* harmony import */ var _util_date_util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../util/date_util */ "./frontend/util/date_util.jsx");
+/* harmony import */ var _util_gpx_util_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../util/gpx_util.js */ "./frontend/util/gpx_util.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -468,7 +469,8 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
- // import { fetchUser } from '../../util/users_util'
+
+
 
 var ActivityItem =
 /*#__PURE__*/
@@ -476,9 +478,13 @@ function (_React$Component) {
   _inherits(ActivityItem, _React$Component);
 
   function ActivityItem(props) {
+    var _this;
+
     _classCallCheck(this, ActivityItem);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(ActivityItem).call(this, props));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(ActivityItem).call(this, props));
+    _this.elevation = JSON.parse(_this.props.activity.elevation);
+    return _this;
   }
 
   _createClass(ActivityItem, [{
@@ -492,6 +498,7 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      var ele = Object(_util_gpx_util_js__WEBPACK_IMPORTED_MODULE_4__["calculateElevationGain"])(this.elevation);
       var dist = Math.round(this.props.activity.distance * 100) / 100;
       var speed = Math.round(this.props.activity.average_speed * 100) / 100;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -589,12 +596,36 @@ function (_React$Component) {
     };
     _this.handleClick = _this.handleClick.bind(_assertThisInitialized(_this));
     return _this;
-  }
+  } ///the below is taken from mapbox api
+
 
   _createClass(ActivityMap, [{
+    key: "getElevation",
+    value: function getElevation(lat, lng) {
+      mapboxgl.accessToken = 'pk.eyJ1IjoiYWxpYXNoYWZpIiwiYSI6ImNqenEzM3E5cDBjbzAzbW1wOGRic2huZTcifQ.P364O3bVxYCXn6iPnx3BLg';
+      var query = 'https://api.mapbox.com/v4/mapbox.mapbox-terrain-v2/tilequery/' + lng + ',' + lat + '.json?layers=contour&limit=50&access_token=' + mapboxgl.accessToken;
+      $.ajax({
+        method: 'GET',
+        url: query
+      }).done(function (data) {
+        var allFeatures = data.features;
+        console.log(allFeatures);
+        var elevations = [];
+
+        for (var i = 0; i < allFeatures.length; i++) {
+          elevations.push(allFeatures[i].properties.ele);
+        }
+
+        console.log(elevations);
+        var highestElevation = Math.max.apply(Math, elevations);
+        console.log(highestElevation);
+      });
+    }
+  }, {
     key: "componentDidMount",
     value: function componentDidMount() {
       var dupRoute = this.route.slice();
+      var zoom = this.route.length < 5000 ? 12 : 10;
       var centerRoute = dupRoute.sort()[Math.floor(this.route.length / 2)];
       mapboxgl.accessToken = 'pk.eyJ1IjoiYWxpYXNoYWZpIiwiYSI6ImNqenEzM3E5cDBjbzAzbW1wOGRic2huZTcifQ.P364O3bVxYCXn6iPnx3BLg';
       this.map = new mapboxgl.Map({
@@ -602,7 +633,7 @@ function (_React$Component) {
         style: 'mapbox://styles/mapbox/streets-v11',
         center: centerRoute,
         //this is the center
-        zoom: 9,
+        zoom: zoom,
         interactive: this.props.interactive
       });
       var routeLine = this.route.slice(0, this.route.length - 1);
@@ -639,6 +670,7 @@ function (_React$Component) {
           }
         });
       });
+      console.log(this.getElevation(37.76, -122.45));
     }
   }, {
     key: "handleClick",
@@ -770,7 +802,7 @@ function (_React$Component) {
         className: "splits"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Splits"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
         id: "spilts-table"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Mile"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Pace"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Elev")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "test1"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "test2"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "test3")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "test1"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "test2"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "test3")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "test1"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "test2"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "test3")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "test1"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "test2"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "test3")))), this.props.activity ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_activity_map__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Mile"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Pace"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Elev")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "test1"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "test2"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "test3")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "test1"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "test2"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "test3")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "test1"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "test2"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "test3")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "test1"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "test2"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "test3"))))), this.props.activity ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_activity_map__WEBPACK_IMPORTED_MODULE_1__["default"], {
         key: this.props.activity.id,
         activity: this.props.activity,
         user: this.props.users[this.props.activity.user_id],
@@ -936,7 +968,9 @@ function (_React$Component) {
       }), react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_activities_activity_index__WEBPACK_IMPORTED_MODULE_1__["default"], {
         users: this.props.users,
         activities: this.props.activities
-      })) : "");
+      }), react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", {
+        className: "grid-right"
+      }, react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("section", null, "Challenges"), "Insipration", react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("section", null, "Some of your friends"))) : "");
     }
   }]);
 
@@ -1680,6 +1714,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return UserFeedRecentActivity; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! constants */ "./node_modules/constants-browserify/constants.json");
+var constants__WEBPACK_IMPORTED_MODULE_1___namespace = /*#__PURE__*/__webpack_require__.t(/*! constants */ "./node_modules/constants-browserify/constants.json", 1);
+/* harmony import */ var _util_gpx_util_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../util/gpx_util.js */ "./frontend/util/gpx_util.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1697,6 +1734,8 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
 
 
 
@@ -1761,6 +1800,68 @@ function (_React$Component2) {
   }
 
   _createClass(UserFeedRecentActivity, [{
+    key: "compareDates",
+    value: function compareDates(date1, date2) {
+      var first = new Date(date1.time);
+      var second = new Date(date2.time);
+
+      if (first > second) {
+        return 1;
+      } else if (second > first) {
+        return -1;
+      } else {
+        return 0;
+      }
+    }
+  }, {
+    key: "subtractDays",
+    value: function subtractDays(time, d) {
+      var test = time;
+      test.setTime(test.getTime() - d * 24 * 60 * 60 * 1000);
+      return test;
+    }
+  }, {
+    key: "getLastSevenDays",
+    value: function getLastSevenDays(activityType) {
+      var bike = this.props.activity.filter(function (act) {
+        return act.activity_type === activityType;
+      });
+      bike = bike.sort(this.compareDates);
+      var end = new Date(bike[0].time);
+      var copy = "".concat(end);
+      var start = this.subtractDays(end, 7);
+      var newEnd = new Date(copy);
+      return [start, newEnd];
+    }
+  }, {
+    key: "between",
+    value: function between(dates, currentDate) {
+      var current = new Date(currentDate);
+
+      if (current >= dates[0] && current <= dates[1]) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }, {
+    key: "getElevation",
+    value: function getElevation(activity_elevation) {
+      var elevation = JSON.parse(activity_elevation);
+      var gains = Object(_util_gpx_util_js__WEBPACK_IMPORTED_MODULE_2__["calculateElevationGain"])(elevation);
+      return gains;
+    }
+  }, {
+    key: "getElapseTime",
+    value: function getElapseTime(elapsed_time) {
+      var measuredTime = new Date(null);
+      measuredTime.setSeconds(elapsed_time);
+      var MHSTime = measuredTime.toISOString().substr(11, 8);
+      var newTime = MHSTime.slice(1).split(":");
+      var displayTime = "".concat(newTime[0], "h ").concat(newTime[1], "m");
+      return displayTime;
+    }
+  }, {
     key: "selectTab",
     value: function selectTab(num) {
       this.setState({
@@ -1770,7 +1871,21 @@ function (_React$Component2) {
   }, {
     key: "makePanes",
     value: function makePanes() {
+      var _this3 = this;
+
+      var bikeDates = this.getLastSevenDays("Bike");
+      var runDates = this.getLastSevenDays("Run");
       var panes = {
+        "Bike": 0,
+        "Run": 0,
+        "Swim": 0
+      };
+      var panesElevation = {
+        "Bike": 0,
+        "Run": 0,
+        "Swim": 0
+      };
+      var panesTime = {
         "Bike": 0,
         "Run": 0,
         "Swim": 0
@@ -1778,26 +1893,40 @@ function (_React$Component2) {
       this.props.activity.forEach(function (act) {
         switch (act.activity_type) {
           case "Bike":
-            panes["Bike"] += act.distance;
+            if (_this3.between(bikeDates, act.time)) {
+              panes["Bike"] += act.distance;
+              panesElevation["Bike"] += _this3.getElevation(act.elevation);
+              panesTime["Bike"] += act.elapse_time;
+            }
+
             break;
 
           case "Run":
-            panes["Run"] += act.distance;
+            if (_this3.between(runDates, act.time)) {
+              panes["Run"] += act.distance;
+              panesElevation["Run"] += _this3.getElevation(act.elevation);
+              panesTime["Run"] += act.elapse_time;
+            }
+
             break;
 
           case "Swim":
-            panes["Swim"] += act.distance;
+            panes["Swim"] += act.distance; // panesElevation["Bike"] += this.getElevation(act.elevation)
+
             break;
         }
 
         ;
       });
-      return panes;
+      return [panes, panesElevation, panesTime];
     }
   }, {
     key: "render",
     value: function render() {
-      var panes = this.makePanes();
+      var allPanes = this.makePanes();
+      var panes = allPanes[0];
+      var panesElevation = allPanes[1];
+      var panesTime = allPanes[2];
       var pane = panes[this.state.selectedPane];
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "recent-activity-tab"
@@ -1809,7 +1938,18 @@ function (_React$Component2) {
         panes: panes
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "tab-content"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "THIS WEEK"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("article", null, Math.floor(panes[this.state.selectedPane]), " ", this.state.selectedPane === "Swim" ? "yd" : "mi"))));
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "THIS WEEK"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("article", null, Math.floor(panes[this.state.selectedPane]), " ", this.state.selectedPane === "Swim" ? "yd" : "mi"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, Math.floor(panesElevation[this.state.selectedPane]), " ft"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        id: "short-border-right"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, this.getElapseTime(panesTime[this.state.selectedPane]))), this.state.selectedPane === "Bike" ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: window.images.bike_icon_circle,
+        alt: ""
+      }) : this.state.selectedPane === "Run" ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: window.images.run_icon_circle,
+        alt: ""
+      }) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: window.images.swim_icon_circle,
+        alt: ""
+      }))));
     }
   }]);
 
@@ -2264,6 +2404,31 @@ var formatDate = function formatDate(date) {
 
 /***/ }),
 
+/***/ "./frontend/util/gpx_util.js":
+/*!***********************************!*\
+  !*** ./frontend/util/gpx_util.js ***!
+  \***********************************/
+/*! exports provided: calculateElevationGain */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "calculateElevationGain", function() { return calculateElevationGain; });
+var calculateElevationGain = function calculateElevationGain(ele) {
+  var gain = 0;
+
+  for (var i = 1; i < ele.length - 1; i++) {
+    if (ele[i] < ele[i + 1]) {
+      gain += ele[i + 1] - ele[i];
+    }
+  }
+
+  gain = gain * 3.281;
+  return gain;
+};
+
+/***/ }),
+
 /***/ "./frontend/util/route_util.jsx":
 /*!**************************************!*\
   !*** ./frontend/util/route_util.jsx ***!
@@ -2485,6 +2650,17 @@ function _inheritsLoose(subClass, superClass) {
 }
 
 module.exports = _inheritsLoose;
+
+/***/ }),
+
+/***/ "./node_modules/constants-browserify/constants.json":
+/*!**********************************************************!*\
+  !*** ./node_modules/constants-browserify/constants.json ***!
+  \**********************************************************/
+/*! exports provided: O_RDONLY, O_WRONLY, O_RDWR, S_IFMT, S_IFREG, S_IFDIR, S_IFCHR, S_IFBLK, S_IFIFO, S_IFLNK, S_IFSOCK, O_CREAT, O_EXCL, O_NOCTTY, O_TRUNC, O_APPEND, O_DIRECTORY, O_NOFOLLOW, O_SYNC, O_SYMLINK, O_NONBLOCK, S_IRWXU, S_IRUSR, S_IWUSR, S_IXUSR, S_IRWXG, S_IRGRP, S_IWGRP, S_IXGRP, S_IRWXO, S_IROTH, S_IWOTH, S_IXOTH, E2BIG, EACCES, EADDRINUSE, EADDRNOTAVAIL, EAFNOSUPPORT, EAGAIN, EALREADY, EBADF, EBADMSG, EBUSY, ECANCELED, ECHILD, ECONNABORTED, ECONNREFUSED, ECONNRESET, EDEADLK, EDESTADDRREQ, EDOM, EDQUOT, EEXIST, EFAULT, EFBIG, EHOSTUNREACH, EIDRM, EILSEQ, EINPROGRESS, EINTR, EINVAL, EIO, EISCONN, EISDIR, ELOOP, EMFILE, EMLINK, EMSGSIZE, EMULTIHOP, ENAMETOOLONG, ENETDOWN, ENETRESET, ENETUNREACH, ENFILE, ENOBUFS, ENODATA, ENODEV, ENOENT, ENOEXEC, ENOLCK, ENOLINK, ENOMEM, ENOMSG, ENOPROTOOPT, ENOSPC, ENOSR, ENOSTR, ENOSYS, ENOTCONN, ENOTDIR, ENOTEMPTY, ENOTSOCK, ENOTSUP, ENOTTY, ENXIO, EOPNOTSUPP, EOVERFLOW, EPERM, EPIPE, EPROTO, EPROTONOSUPPORT, EPROTOTYPE, ERANGE, EROFS, ESPIPE, ESRCH, ESTALE, ETIME, ETIMEDOUT, ETXTBSY, EWOULDBLOCK, EXDEV, SIGHUP, SIGINT, SIGQUIT, SIGILL, SIGTRAP, SIGABRT, SIGIOT, SIGBUS, SIGFPE, SIGKILL, SIGUSR1, SIGSEGV, SIGUSR2, SIGPIPE, SIGALRM, SIGTERM, SIGCHLD, SIGCONT, SIGSTOP, SIGTSTP, SIGTTIN, SIGTTOU, SIGURG, SIGXCPU, SIGXFSZ, SIGVTALRM, SIGPROF, SIGWINCH, SIGIO, SIGSYS, SSL_OP_ALL, SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION, SSL_OP_CIPHER_SERVER_PREFERENCE, SSL_OP_CISCO_ANYCONNECT, SSL_OP_COOKIE_EXCHANGE, SSL_OP_CRYPTOPRO_TLSEXT_BUG, SSL_OP_DONT_INSERT_EMPTY_FRAGMENTS, SSL_OP_EPHEMERAL_RSA, SSL_OP_LEGACY_SERVER_CONNECT, SSL_OP_MICROSOFT_BIG_SSLV3_BUFFER, SSL_OP_MICROSOFT_SESS_ID_BUG, SSL_OP_MSIE_SSLV2_RSA_PADDING, SSL_OP_NETSCAPE_CA_DN_BUG, SSL_OP_NETSCAPE_CHALLENGE_BUG, SSL_OP_NETSCAPE_DEMO_CIPHER_CHANGE_BUG, SSL_OP_NETSCAPE_REUSE_CIPHER_CHANGE_BUG, SSL_OP_NO_COMPRESSION, SSL_OP_NO_QUERY_MTU, SSL_OP_NO_SESSION_RESUMPTION_ON_RENEGOTIATION, SSL_OP_NO_SSLv2, SSL_OP_NO_SSLv3, SSL_OP_NO_TICKET, SSL_OP_NO_TLSv1, SSL_OP_NO_TLSv1_1, SSL_OP_NO_TLSv1_2, SSL_OP_PKCS1_CHECK_1, SSL_OP_PKCS1_CHECK_2, SSL_OP_SINGLE_DH_USE, SSL_OP_SINGLE_ECDH_USE, SSL_OP_SSLEAY_080_CLIENT_DH_BUG, SSL_OP_SSLREF2_REUSE_CERT_TYPE_BUG, SSL_OP_TLS_BLOCK_PADDING_BUG, SSL_OP_TLS_D5_BUG, SSL_OP_TLS_ROLLBACK_BUG, ENGINE_METHOD_DSA, ENGINE_METHOD_DH, ENGINE_METHOD_RAND, ENGINE_METHOD_ECDH, ENGINE_METHOD_ECDSA, ENGINE_METHOD_CIPHERS, ENGINE_METHOD_DIGESTS, ENGINE_METHOD_STORE, ENGINE_METHOD_PKEY_METHS, ENGINE_METHOD_PKEY_ASN1_METHS, ENGINE_METHOD_ALL, ENGINE_METHOD_NONE, DH_CHECK_P_NOT_SAFE_PRIME, DH_CHECK_P_NOT_PRIME, DH_UNABLE_TO_CHECK_GENERATOR, DH_NOT_SUITABLE_GENERATOR, NPN_ENABLED, RSA_PKCS1_PADDING, RSA_SSLV23_PADDING, RSA_NO_PADDING, RSA_PKCS1_OAEP_PADDING, RSA_X931_PADDING, RSA_PKCS1_PSS_PADDING, POINT_CONVERSION_COMPRESSED, POINT_CONVERSION_UNCOMPRESSED, POINT_CONVERSION_HYBRID, F_OK, R_OK, W_OK, X_OK, UV_UDP_REUSEADDR, default */
+/***/ (function(module) {
+
+module.exports = JSON.parse("{\"O_RDONLY\":0,\"O_WRONLY\":1,\"O_RDWR\":2,\"S_IFMT\":61440,\"S_IFREG\":32768,\"S_IFDIR\":16384,\"S_IFCHR\":8192,\"S_IFBLK\":24576,\"S_IFIFO\":4096,\"S_IFLNK\":40960,\"S_IFSOCK\":49152,\"O_CREAT\":512,\"O_EXCL\":2048,\"O_NOCTTY\":131072,\"O_TRUNC\":1024,\"O_APPEND\":8,\"O_DIRECTORY\":1048576,\"O_NOFOLLOW\":256,\"O_SYNC\":128,\"O_SYMLINK\":2097152,\"O_NONBLOCK\":4,\"S_IRWXU\":448,\"S_IRUSR\":256,\"S_IWUSR\":128,\"S_IXUSR\":64,\"S_IRWXG\":56,\"S_IRGRP\":32,\"S_IWGRP\":16,\"S_IXGRP\":8,\"S_IRWXO\":7,\"S_IROTH\":4,\"S_IWOTH\":2,\"S_IXOTH\":1,\"E2BIG\":7,\"EACCES\":13,\"EADDRINUSE\":48,\"EADDRNOTAVAIL\":49,\"EAFNOSUPPORT\":47,\"EAGAIN\":35,\"EALREADY\":37,\"EBADF\":9,\"EBADMSG\":94,\"EBUSY\":16,\"ECANCELED\":89,\"ECHILD\":10,\"ECONNABORTED\":53,\"ECONNREFUSED\":61,\"ECONNRESET\":54,\"EDEADLK\":11,\"EDESTADDRREQ\":39,\"EDOM\":33,\"EDQUOT\":69,\"EEXIST\":17,\"EFAULT\":14,\"EFBIG\":27,\"EHOSTUNREACH\":65,\"EIDRM\":90,\"EILSEQ\":92,\"EINPROGRESS\":36,\"EINTR\":4,\"EINVAL\":22,\"EIO\":5,\"EISCONN\":56,\"EISDIR\":21,\"ELOOP\":62,\"EMFILE\":24,\"EMLINK\":31,\"EMSGSIZE\":40,\"EMULTIHOP\":95,\"ENAMETOOLONG\":63,\"ENETDOWN\":50,\"ENETRESET\":52,\"ENETUNREACH\":51,\"ENFILE\":23,\"ENOBUFS\":55,\"ENODATA\":96,\"ENODEV\":19,\"ENOENT\":2,\"ENOEXEC\":8,\"ENOLCK\":77,\"ENOLINK\":97,\"ENOMEM\":12,\"ENOMSG\":91,\"ENOPROTOOPT\":42,\"ENOSPC\":28,\"ENOSR\":98,\"ENOSTR\":99,\"ENOSYS\":78,\"ENOTCONN\":57,\"ENOTDIR\":20,\"ENOTEMPTY\":66,\"ENOTSOCK\":38,\"ENOTSUP\":45,\"ENOTTY\":25,\"ENXIO\":6,\"EOPNOTSUPP\":102,\"EOVERFLOW\":84,\"EPERM\":1,\"EPIPE\":32,\"EPROTO\":100,\"EPROTONOSUPPORT\":43,\"EPROTOTYPE\":41,\"ERANGE\":34,\"EROFS\":30,\"ESPIPE\":29,\"ESRCH\":3,\"ESTALE\":70,\"ETIME\":101,\"ETIMEDOUT\":60,\"ETXTBSY\":26,\"EWOULDBLOCK\":35,\"EXDEV\":18,\"SIGHUP\":1,\"SIGINT\":2,\"SIGQUIT\":3,\"SIGILL\":4,\"SIGTRAP\":5,\"SIGABRT\":6,\"SIGIOT\":6,\"SIGBUS\":10,\"SIGFPE\":8,\"SIGKILL\":9,\"SIGUSR1\":30,\"SIGSEGV\":11,\"SIGUSR2\":31,\"SIGPIPE\":13,\"SIGALRM\":14,\"SIGTERM\":15,\"SIGCHLD\":20,\"SIGCONT\":19,\"SIGSTOP\":17,\"SIGTSTP\":18,\"SIGTTIN\":21,\"SIGTTOU\":22,\"SIGURG\":16,\"SIGXCPU\":24,\"SIGXFSZ\":25,\"SIGVTALRM\":26,\"SIGPROF\":27,\"SIGWINCH\":28,\"SIGIO\":23,\"SIGSYS\":12,\"SSL_OP_ALL\":2147486719,\"SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION\":262144,\"SSL_OP_CIPHER_SERVER_PREFERENCE\":4194304,\"SSL_OP_CISCO_ANYCONNECT\":32768,\"SSL_OP_COOKIE_EXCHANGE\":8192,\"SSL_OP_CRYPTOPRO_TLSEXT_BUG\":2147483648,\"SSL_OP_DONT_INSERT_EMPTY_FRAGMENTS\":2048,\"SSL_OP_EPHEMERAL_RSA\":0,\"SSL_OP_LEGACY_SERVER_CONNECT\":4,\"SSL_OP_MICROSOFT_BIG_SSLV3_BUFFER\":32,\"SSL_OP_MICROSOFT_SESS_ID_BUG\":1,\"SSL_OP_MSIE_SSLV2_RSA_PADDING\":0,\"SSL_OP_NETSCAPE_CA_DN_BUG\":536870912,\"SSL_OP_NETSCAPE_CHALLENGE_BUG\":2,\"SSL_OP_NETSCAPE_DEMO_CIPHER_CHANGE_BUG\":1073741824,\"SSL_OP_NETSCAPE_REUSE_CIPHER_CHANGE_BUG\":8,\"SSL_OP_NO_COMPRESSION\":131072,\"SSL_OP_NO_QUERY_MTU\":4096,\"SSL_OP_NO_SESSION_RESUMPTION_ON_RENEGOTIATION\":65536,\"SSL_OP_NO_SSLv2\":16777216,\"SSL_OP_NO_SSLv3\":33554432,\"SSL_OP_NO_TICKET\":16384,\"SSL_OP_NO_TLSv1\":67108864,\"SSL_OP_NO_TLSv1_1\":268435456,\"SSL_OP_NO_TLSv1_2\":134217728,\"SSL_OP_PKCS1_CHECK_1\":0,\"SSL_OP_PKCS1_CHECK_2\":0,\"SSL_OP_SINGLE_DH_USE\":1048576,\"SSL_OP_SINGLE_ECDH_USE\":524288,\"SSL_OP_SSLEAY_080_CLIENT_DH_BUG\":128,\"SSL_OP_SSLREF2_REUSE_CERT_TYPE_BUG\":0,\"SSL_OP_TLS_BLOCK_PADDING_BUG\":512,\"SSL_OP_TLS_D5_BUG\":256,\"SSL_OP_TLS_ROLLBACK_BUG\":8388608,\"ENGINE_METHOD_DSA\":2,\"ENGINE_METHOD_DH\":4,\"ENGINE_METHOD_RAND\":8,\"ENGINE_METHOD_ECDH\":16,\"ENGINE_METHOD_ECDSA\":32,\"ENGINE_METHOD_CIPHERS\":64,\"ENGINE_METHOD_DIGESTS\":128,\"ENGINE_METHOD_STORE\":256,\"ENGINE_METHOD_PKEY_METHS\":512,\"ENGINE_METHOD_PKEY_ASN1_METHS\":1024,\"ENGINE_METHOD_ALL\":65535,\"ENGINE_METHOD_NONE\":0,\"DH_CHECK_P_NOT_SAFE_PRIME\":2,\"DH_CHECK_P_NOT_PRIME\":1,\"DH_UNABLE_TO_CHECK_GENERATOR\":4,\"DH_NOT_SUITABLE_GENERATOR\":8,\"NPN_ENABLED\":1,\"RSA_PKCS1_PADDING\":1,\"RSA_SSLV23_PADDING\":2,\"RSA_NO_PADDING\":3,\"RSA_PKCS1_OAEP_PADDING\":4,\"RSA_X931_PADDING\":5,\"RSA_PKCS1_PSS_PADDING\":6,\"POINT_CONVERSION_COMPRESSED\":2,\"POINT_CONVERSION_UNCOMPRESSED\":4,\"POINT_CONVERSION_HYBRID\":6,\"F_OK\":0,\"R_OK\":4,\"W_OK\":2,\"X_OK\":1,\"UV_UDP_REUSEADDR\":4}");
 
 /***/ }),
 

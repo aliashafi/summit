@@ -32,10 +32,22 @@ class Feed extends React.Component {
                             users={this.props.users} 
                             activities={this.props.activities}
                         /> 
+
+                        <div className="grid-right">
+                            <section>Challenges
+        
+                    </section>Insipration
+        
+                    <section>Some of your friends
+        
+                    </section>
+
+                        </div>
                     </div>
                 
                 : ""
                 }
+
 
             </div>
                 

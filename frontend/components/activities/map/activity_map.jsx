@@ -16,10 +16,37 @@ class ActivityMap extends React.Component {
     
     }
 
+    ///the below is taken from mapbox api
+
+    getElevation(lat, lng) {
+        mapboxgl.accessToken = 'pk.eyJ1IjoiYWxpYXNoYWZpIiwiYSI6ImNqenEzM3E5cDBjbzAzbW1wOGRic2huZTcifQ.P364O3bVxYCXn6iPnx3BLg';
+        var query = 'https://api.mapbox.com/v4/mapbox.mapbox-terrain-v2/tilequery/' + lng + ',' + lat + 
+                '.json?layers=contour&limit=50&access_token=' + mapboxgl.accessToken;
+        $.ajax({
+            method: 'GET',
+            url: query,
+            }).done(function (data) {
+                var allFeatures = data.features;
+                console.log(allFeatures);
+                var elevations = [];
+                for (let i = 0; i < allFeatures.length; i++) {
+                    elevations.push(allFeatures[i].properties.ele);
+                }
+                console.log(elevations);
+                var highestElevation = Math.max(...elevations);
+
+                console.log(highestElevation);
+        });
+    }
+
+
+
+
 
 
     componentDidMount(){
         const dupRoute = this.route.slice()
+        const zoom = this.route.length < 5000 ? 12 : 10
 
         const centerRoute = dupRoute.sort()[Math.floor(this.route.length / 2)]
         mapboxgl.accessToken = 'pk.eyJ1IjoiYWxpYXNoYWZpIiwiYSI6ImNqenEzM3E5cDBjbzAzbW1wOGRic2huZTcifQ.P364O3bVxYCXn6iPnx3BLg';
@@ -27,7 +54,7 @@ class ActivityMap extends React.Component {
             container: this.props.container,
             style: 'mapbox://styles/mapbox/streets-v11',
             center: centerRoute, //this is the center
-            zoom: 9,
+            zoom: zoom,
             interactive: this.props.interactive
         });
 
@@ -62,7 +89,9 @@ class ActivityMap extends React.Component {
                 }
             });
         })
+        console.log(this.getElevation(37.76, -122.45))
     
+
     };
 
     handleClick(){

@@ -2,13 +2,16 @@ import React from 'react';
 import {withRouter} from 'react-router-dom';
 import ActivityMap from './map/activity_map'
 import { formatDate } from '../../util/date_util'
-// import { fetchUser } from '../../util/users_util'
+import { calculateElevationGain } from '../../util/gpx_util.js'
+
 
 
 class ActivityItem extends React.Component {
 
     constructor(props){
         super(props)
+        this.elevation = JSON.parse(this.props.activity.elevation)
+        
     }
 
     getElapseTime(){
@@ -19,7 +22,9 @@ class ActivityItem extends React.Component {
     }
     
 
-    render(){        
+    render(){
+        const ele = calculateElevationGain(this.elevation);
+
         const dist = Math.round(this.props.activity.distance * 100)/ 100
         const speed = Math.round(this.props.activity.average_speed * 100)/ 100
         return (

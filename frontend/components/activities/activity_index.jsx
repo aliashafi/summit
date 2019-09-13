@@ -9,11 +9,11 @@ class ActivityIndex extends React.Component {
 
     constructor(props){
         super(props)
-    }
-
+    }  
+        
 
     render(){
-        const activities = this.props.activities.map(activity => {
+        const activities = this.props.activities.slice(0,8).map(activity => {
             const user = this.props.users[activity.user_id]
             return(
                 <ActivityItem 

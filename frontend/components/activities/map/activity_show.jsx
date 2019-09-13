@@ -29,6 +29,7 @@ class ActivityShow extends React.Component {
                         <div className="splits">
                             <h2>Splits</h2>
                             <table id="spilts-table">
+                                <tbody>
                                 <tr>
                                     <th>Mile</th>
                                     <th>Pace</th>
@@ -54,6 +55,7 @@ class ActivityShow extends React.Component {
                                     <td>test2</td>
                                     <td>test3</td>
                                 </tr>
+                                </tbody>
                             </table>
 
                         </div>
