@@ -65,6 +65,8 @@ class ActivityIndex extends React.Component {
                     user={user}
                     comments={this.props.comments}
                     users={this.props.users}
+                    createKudo={this.props.createKudo}
+                    currentUser={this.props.users[this.props.current_user.id]}
                     />
             )
         })

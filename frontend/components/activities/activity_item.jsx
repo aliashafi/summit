@@ -5,6 +5,7 @@ import { formatDate } from '../../util/date_util'
 import { calculateElevationGain } from '../../util/gpx_util.js'
 import CommentIndex from './comments/comment_index'
 import CommentFormContainer from './comments/comment_form_container'
+import KudoIndex from './kudos/kudo_index'
 
 
 
@@ -17,6 +18,7 @@ class ActivityItem extends React.Component {
         }
         this.elevation = JSON.parse(this.props.activity.elevation)
         this.handleClick = this.handleClick.bind(this);
+        this.kudoActivity = this.kudoActivity.bind(this);
         
     }
 
@@ -32,6 +34,14 @@ class ActivityItem extends React.Component {
         measuredTime.setSeconds(this.props.activity.elapse_time); 
         let MHSTime = measuredTime.toISOString().substr(11, 8);
         return MHSTime.slice(1)
+    }
+
+    kudoActivity(){
+        const kudo = {
+            user_id: this.props.currentUser.id, 
+            activity_id: this.props.activity.id
+        }
+        this.props.createKudo(kudo)
     }
     
 
@@ -94,9 +104,19 @@ class ActivityItem extends React.Component {
                 container={`map-${this.props.activity.id}`} 
             />
 
-            <div id='comment-icon' onClick={this.handleClick}>
-                <img src={window.images.comment_icon} alt="" />
+            <div className="like-comment">
+                    <KudoIndex key={this.props.activity.id} activity={this.props.activity} currentUser={this.props.currentUser} />
+                <div id='comment-icon' onClick={this.handleClick}>
+                    <img src={window.images.comment_icon} alt="" />
+                </div>
+
+                <div id='comment-icon' onClick={this.kudoActivity}>
+                    <img src={window.images.like_icon} alt="" />
+                </div>
+                
+                
             </div>
+
             
             <CommentIndex users={this.props.users} activity={this.props.activity} />
 

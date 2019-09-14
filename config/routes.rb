@@ -7,7 +7,10 @@ Rails.application.routes.draw do
 
     resources :activities do 
       resources :comments, only: [:index]
+      resources :kudos, only: [:index]
     end
+
+    resources :kudos, only: [:create, :destroy, :show]
 
     resources :comments, only: [:create, :destroy, :show]
 

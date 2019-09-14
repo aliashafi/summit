@@ -3,6 +3,7 @@ import CommentItem from './comment_item'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import {fetchAllActivities} from '../../../actions/activities/activity_actions'
+import { fetchActivityComments} from '../../../actions/comments/comment_actions'
 
 const mapStateToProps = (state, ownProps) => ({
     activities: state.entities.activities,
@@ -24,6 +25,8 @@ class CommentIndex extends React.Component {
     componentDidUpdate(prevProps){
         if ( Object.values(prevProps.comments).length !== Object.values(this.props.comments).length) {
             this.props.fetchAllActivities(1)
+            // this.props.fetchActivityComments(this.props.activity.id)
+
         }
     }
 

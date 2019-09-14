@@ -13,3 +13,11 @@ json.comments do
     end
   end
 end
+
+json.kudos do 
+  @activities.each do |activity|
+    activity.kudos.each do |kudo|
+      json.partial! 'api/kudos/kudo', kudo: kudo
+    end
+  end
+end

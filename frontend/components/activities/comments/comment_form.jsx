@@ -44,10 +44,11 @@ class CommentForm extends React.Component {
             <div>
                 
                 {this.state.makeComment ? 
-                    <form onSubmit={this.handleSubmit}>
+                    <form id="add-comment" onSubmit={this.handleSubmit}>
                         <textarea
                             onChange={this.handleChange()}
                             value={this.state.body}
+                            placeholder="Add Comment"
                         />
 
                         <input type="submit" value="Post" />

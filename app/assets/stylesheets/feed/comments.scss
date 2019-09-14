@@ -36,13 +36,17 @@
     
 }
 
+.like-comment{
+    display: flex;
+    justify-content: flex-end;
+}
+
 #comment-icon{
     background-color: $strava-grey;
     width: 20px;
     padding: 5px;
     display: flex;
-    margin-left: auto;
-    margin-right: 3%;
+    margin-right: 1%;
     border-radius: 8px;
     border: 1px solid $strava-grey;
     margin-bottom: 3%;
@@ -61,4 +65,45 @@
 
 #comment-icon:hover{
         background-color: white;
+}
+
+#add-comment{
+    display: flex;
+    justify-content: center;
+    padding-bottom: 11px;
+
+    textarea{
+
+        height: 14px;
+        resize: none;
+        background-color: #F5F5FA;
+        padding-bottom: 10px;
+        width: 72%;
+        line-height: 1.5em;
+        transition: height 0.1s ease;
+        padding: 7px;
+        display: block;
+        margin-bottom: 0;
+        border: none;
+        border-radius: 3px;
+        font-family: $strava-font;
+        font-size: 12px;
+
+
+    }
+
+    input{
+        background-color: #FFFFFF;
+        font-family: $strava-font;
+        color: $strava-orange;
+        border: none;
+        border-radius: 3px;
+        margin-left: 1%;
+        width: 11%;
+        font-weight: 700;
+    } 
+
+    input:hover{
+        background-color: #F5F5FA;
+    }
 }
