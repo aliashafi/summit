@@ -1,7 +1,7 @@
 import React from 'react'
 
 const CommentItem = ({ comment, user }) => {
-
+    
     return (
         <div id="comment-item">
             <div className="profile-picture-small-comment">

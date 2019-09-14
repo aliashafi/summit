@@ -2,7 +2,6 @@ class Api::CommentsController < ApplicationController
 
     def index
         @comments = Comment.where(activity_id: params[:activity_id])
-        
     end
 
     def show
@@ -29,6 +28,6 @@ class Api::CommentsController < ApplicationController
 
     private
     def comment_params
-         params.require(:comment).permit(:body)
+         params.require(:comment).permit(:body, :user_id, :activity_id)
     end
 end

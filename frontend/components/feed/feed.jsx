@@ -19,6 +19,10 @@ class Feed extends React.Component {
         ])
     }
 
+    componentDidUpdate(){
+        
+    }
+
     render(){
         return(
             
@@ -33,6 +37,7 @@ class Feed extends React.Component {
                                 current_user={this.props.current_user}
                             />      
                         <ActivityIndex
+                            current_user={this.props.current_user}
                             users={this.props.users} 
                             activities={this.props.activities}
                             comments={this.props.comments}

@@ -8,10 +8,10 @@ const receiveActivityComments = (comments) => ({
     comments
 })
 
-const receiveComment = (comment) => {
+const receiveComment = (comment) => ({
     type: RECEIVE_COMMENT,
     comment
-} 
+}) 
 
 
 

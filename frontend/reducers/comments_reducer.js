@@ -11,7 +11,7 @@ export default (state = {}, action) => {
         case RECEIVE_ALL_ACTIVITIES:
             return merge({}, action.payload.comments)
         case RECEIVE_COMMENT:
-            return merge({}, { [action.comment.id]: action.comment })
+            return merge({}, state, action.comment)
         default:
             return state;
     }

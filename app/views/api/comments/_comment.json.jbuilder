@@ -1,3 +1,3 @@
-json.set! comment.id do 
-    json.extract! comment, :body, :id, :activity_id, :user_id
+json.set! comment.id do
+    json.extract! comment, :id, :user_id, :activity_id, :body
 end

@@ -4,6 +4,7 @@ import ActivityMap from './map/activity_map'
 import { formatDate } from '../../util/date_util'
 import { calculateElevationGain } from '../../util/gpx_util.js'
 import CommentIndex from './comments/comment_index'
+import CommentFormContainer from './comments/comment_form_container'
 
 
 
@@ -11,8 +12,18 @@ class ActivityItem extends React.Component {
 
     constructor(props){
         super(props)
+        this.state ={
+            makeComment: false
+        }
         this.elevation = JSON.parse(this.props.activity.elevation)
+        this.handleClick = this.handleClick.bind(this);
         
+    }
+
+    
+
+    handleClick() {
+        this.setState({ makeComment: !this.state.makeComment })
     }
 
 
@@ -83,10 +94,18 @@ class ActivityItem extends React.Component {
                 container={`map-${this.props.activity.id}`} 
             />
 
-            {comments.length > 0 ? 
-                <CommentIndex comments={comments} users={this.props.users} /> : ""
+            <div id='comment-icon' onClick={this.handleClick}>
+                <img src={window.images.comment_icon} alt="" />
+            </div>
+            
+            <CommentIndex users={this.props.users} activity={this.props.activity} />
+
+            {this.state.makeComment ? 
+                <CommentFormContainer activity={this.props.activity} /> :
+                ""
             }
 
+            
         </div>
        
         )
