@@ -27,15 +27,15 @@ class ActivityMap extends React.Component {
             url: query,
             }).done(function (data) {
                 var allFeatures = data.features;
-                console.log(allFeatures);
+                // console.log(allFeatures);
                 var elevations = [];
                 for (let i = 0; i < allFeatures.length; i++) {
                     elevations.push(allFeatures[i].properties.ele);
                 }
-                console.log(elevations);
+                // console.log(elevations);
                 var highestElevation = Math.max(...elevations);
 
-                console.log(highestElevation);
+                // console.log(highestElevation);
         });
     }
 

@@ -32,10 +32,14 @@ class KudoIndex extends React.Component {
     render(){
         let kudos = this.props.activity.kudo_ids.map(kudoId => this.props.kudos[kudoId])
         let users = []
-        console.log(kudos)
         if (kudos[0]){ 
-            users = kudos.map(kudo => this.props.users[kudo.user_id])
+            
+            users = kudos.map(kudo => {
+                if (kudo) {
+                    return this.props.users[kudo.user_id];
+                }})
         }
+        users = users.filter(user => user)
         return(
             <div id="kudos">
             <div id="user-kudos"> {users.slice(0,3).map(user => {

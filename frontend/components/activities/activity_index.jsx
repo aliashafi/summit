@@ -38,7 +38,6 @@ class ActivityIndex extends React.Component {
         if (error || isLoading || !hasMore) return;
         const fromBottom = (window.innerHeight + document.documentElement.scrollTop
             - document.documentElement.offsetHeight)
-        console.log(fromBottom)
         if (
             (fromBottom <= 2) && (fromBottom > -2)
         ) {

@@ -10,9 +10,13 @@ class Api::ActivitiesController < ApplicationController
         end
         ids << current_user.id
         
-        @activities = Activity.where(user_id: ids)
-        .order("activities.time DESC").page(params[:page_id]).per(5)
-        @max = @activities.length
+        if params[:page_id]
+            @activities = Activity.where(user_id: ids)
+            .order("activities.time DESC").page(params[:page_id]).per(5)
+            @max = @activities.length
+        else
+            @activities = Activity.where(user_id: current_user.id)
+        end
         
         
     end

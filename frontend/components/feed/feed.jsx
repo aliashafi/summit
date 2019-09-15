@@ -16,6 +16,7 @@ class Feed extends React.Component {
             this.props.fetchFollowers(),
             this.props.fetchFollowing(),
             this.props.fetchAllUsers(),
+            this.props.fetchUserActivities()
         ])
     }
 
@@ -35,6 +36,7 @@ class Feed extends React.Component {
                                 following={this.props.following}
                                 activities={this.props.activities}
                                 current_user={this.props.current_user}
+                                currentUserActivities={this.props.currentUserActivities}
                             />      
                         <ActivityIndex
                             current_user={this.props.current_user}
@@ -52,7 +54,7 @@ class Feed extends React.Component {
                                 <img src={window.images.challenge} alt=""/>
                                 <div id="challenges-description">
                                     <h2> Challenges</h2>
-                                    <p>Join a running group, get motivated. Try out a fitness challenge,
+                                    <p>Join a running group, get motivated. Try out a fitness
                                         challenge on Summit!
                                     </p>
                                 

@@ -63,6 +63,7 @@ export default class UserFeedRecentActivity extends React.Component {
 
     getLastSevenDays(activityType){
         let bike = this.props.activity.filter(act => act.activity_type === activityType);
+        if (bike.length === 0) return [0,0];
         bike = bike.sort(this.compareDates);
         let end = new Date(bike[0].time);
         let copy = `${end}`

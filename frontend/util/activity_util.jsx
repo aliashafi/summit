@@ -13,3 +13,10 @@ export const fetchActivities = (page) => (
         data: {page}
     })
 )
+
+export const fetchUserActivities = () => (
+    $.ajax({
+        url: `api//activities/`,
+        method: 'GET',
+    })
+)
