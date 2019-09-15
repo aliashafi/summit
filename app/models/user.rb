@@ -55,6 +55,8 @@ class User < ApplicationRecord
 
     ##active storage
     has_one_attached :photo
+
+    has_many :routes
     
 
 

@@ -180,8 +180,7 @@ ActiveRecord::Base.transaction do
     p "starting activity....u1"
 
     file_names[2..-1].each do |file|
-        next if file == ".DS_Store"
-        next if file == "."
+        next if File.extname(file) != ".gpx"
         r1 = makeRoute("#{Rails.root}/db/gpx_routes/#{file}", u1.id)
         Kudo.create!(user_id: u2.id, activity_id: r1.id)
         Kudo.create!(user_id: u3.id, activity_id: r1.id)
@@ -193,8 +192,7 @@ ActiveRecord::Base.transaction do
 
      p "starting activity....all users"
     file_names_everyone[2..-1].each do |file|
-        next if file == ".DS_Store"
-        next if file == "."
+        next if File.extname(file) != ".gpx"
         r2 = makeRoute("#{Rails.root}/db/gpx_everyone/#{file}", u2.id)
         r3 = makeRoute("#{Rails.root}/db/gpx_everyone/#{file}", u3.id)
         r4 = makeRoute("#{Rails.root}/db/gpx_everyone/#{file}", u4.id)
