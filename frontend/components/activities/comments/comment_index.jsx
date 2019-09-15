@@ -3,7 +3,7 @@ import CommentItem from './comment_item'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import {fetchAllActivities} from '../../../actions/activities/activity_actions'
-import { fetchActivityComments} from '../../../actions/comments/comment_actions'
+import { fetchActivityComments, removeComment} from '../../../actions/comments/comment_actions'
 
 const mapStateToProps = (state, ownProps) => ({
     activities: state.entities.activities,
@@ -14,6 +14,7 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = (dispatch) => ({
     fetchActivityComments: (activityId) => dispatch(fetchActivityComments(activityId)),
     fetchAllActivities: (page) => dispatch(fetchAllActivities(page)),
+    removeComment: (commentId) => dispatch(removeComment(commentId))
 })
 
 // const CommentIndex = ({users, comments, activity}) => {
@@ -33,12 +34,16 @@ class CommentIndex extends React.Component {
 
     render(){
     const actComments = this.props.activity.comment_ids.map(commentId => this.props.comments[commentId])
-    const allComments = actComments.map(comment => 
+    let allComments = actComments.map(comment => 
+        comment ? 
         <CommentItem 
             key={comment.id} 
             comment={comment} 
             user={this.props.users[comment.user_id]} 
-            activity={this.props.activity}/>)
+            activity={this.props.activity}
+            removeComment={this.props.removeComment}
+            currentUser={this.props.currentUser}
+            /> : "")
     return(
         <div>
             <div id= 'comments'>

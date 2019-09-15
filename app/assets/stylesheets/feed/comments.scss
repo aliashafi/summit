@@ -21,19 +21,35 @@
     padding-bottom: 2%;
     padding-left: 2%;
 
+    
+
     p, h3{
         margin-left: 20px;
         margin-top: 5px;
         font-family: $strava-font;
         color: $strava-black;
-        font-size: 12px
+        font-size: 12px;
     }
 
     h3{
         font-weight: 700;
     }
 
+    #delete-comment{
+        margin-left: 72%;
+        visibility: hidden;
+        #x{
+            width: 71%;
+        }
+    }
+
     
+
+    
+}
+
+#comment-item:hover #delete-comment{
+        visibility: visible;
 }
 
 .like-comment{

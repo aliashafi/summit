@@ -139,19 +139,22 @@ var fetchActivity = function fetchActivity(activityId) {
 /*!******************************************************!*\
   !*** ./frontend/actions/comments/comment_actions.js ***!
   \******************************************************/
-/*! exports provided: RECEIVE_ACTIVITY_COMMENTS, RECEIVE_COMMENT, fetchActivityComments, createComment */
+/*! exports provided: RECEIVE_ACTIVITY_COMMENTS, RECEIVE_COMMENT, REMOVE_COMMENT, fetchActivityComments, createComment, removeComment */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_ACTIVITY_COMMENTS", function() { return RECEIVE_ACTIVITY_COMMENTS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_COMMENT", function() { return RECEIVE_COMMENT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "REMOVE_COMMENT", function() { return REMOVE_COMMENT; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchActivityComments", function() { return fetchActivityComments; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createComment", function() { return createComment; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeComment", function() { return removeComment; });
 /* harmony import */ var _util_comment_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../util/comment_util */ "./frontend/util/comment_util.jsx");
 
 var RECEIVE_ACTIVITY_COMMENTS = 'RECEIVE_ACTIVITY_COMMENTS';
 var RECEIVE_COMMENT = 'RECEIVE_COMMENT';
+var REMOVE_COMMENT = 'REMOVE_COMMENT';
 
 var receiveActivityComments = function receiveActivityComments(comments) {
   return {
@@ -167,6 +170,13 @@ var receiveComment = function receiveComment(comment) {
   };
 };
 
+var deleteComment = function deleteComment(commentId) {
+  return {
+    type: REMOVE_COMMENT,
+    commentId: commentId
+  };
+};
+
 var fetchActivityComments = function fetchActivityComments(activityId) {
   return function (dispatch) {
     return _util_comment_util__WEBPACK_IMPORTED_MODULE_0__["fetchActivityComments"](activityId).then(function (comments) {
@@ -178,6 +188,13 @@ var createComment = function createComment(comment) {
   return function (dispatch) {
     return _util_comment_util__WEBPACK_IMPORTED_MODULE_0__["createComment"](comment).then(function (comment) {
       return dispatch(receiveComment(comment));
+    });
+  };
+};
+var removeComment = function removeComment(commentId) {
+  return function (dispatch) {
+    return _util_comment_util__WEBPACK_IMPORTED_MODULE_0__["deleteComment"](commentId).then(function (comment) {
+      return dispatch(deleteComment(commentId));
     });
   };
 };
@@ -724,7 +741,8 @@ function (_React$Component) {
         alt: ""
       }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_comments_comment_index__WEBPACK_IMPORTED_MODULE_5__["default"], {
         users: this.props.users,
-        activity: this.props.activity
+        activity: this.props.activity,
+        currentUser: this.props.currentUser
       }), this.state.makeComment ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_comments_comment_form_container__WEBPACK_IMPORTED_MODULE_6__["default"], {
         activity: this.props.activity
       }) : "");
@@ -952,6 +970,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     fetchAllActivities: function fetchAllActivities(page) {
       return dispatch(Object(_actions_activities_activity_actions__WEBPACK_IMPORTED_MODULE_4__["fetchAllActivities"])(page));
+    },
+    removeComment: function removeComment(commentId) {
+      return dispatch(Object(_actions_comments_comment_actions__WEBPACK_IMPORTED_MODULE_5__["removeComment"])(commentId));
     }
   };
 }; // const CommentIndex = ({users, comments, activity}) => {
@@ -984,12 +1005,14 @@ function (_React$Component) {
         return _this.props.comments[commentId];
       });
       var allComments = actComments.map(function (comment) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_comment_item__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        return comment ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_comment_item__WEBPACK_IMPORTED_MODULE_1__["default"], {
           key: comment.id,
           comment: comment,
           user: _this.props.users[comment.user_id],
-          activity: _this.props.activity
-        });
+          activity: _this.props.activity,
+          removeComment: _this.props.removeComment,
+          currentUser: _this.props.currentUser
+        }) : "";
       });
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "comments"
@@ -1019,7 +1042,9 @@ __webpack_require__.r(__webpack_exports__);
 
 var CommentItem = function CommentItem(_ref) {
   var comment = _ref.comment,
-      user = _ref.user;
+      user = _ref.user,
+      currentUser = _ref.currentUser,
+      removeComment = _ref.removeComment;
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     id: "comment-item"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -1027,7 +1052,16 @@ var CommentItem = function CommentItem(_ref) {
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
     src: user.photoUrl,
     alt: ""
-  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, user.first_name, " ", user.last_name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, comment.body)));
+  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, user.first_name, " ", user.last_name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, comment.body)), currentUser.id === user.id ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+    id: "delete-comment",
+    onClick: function onClick() {
+      return removeComment(comment.id);
+    }
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+    id: "x",
+    src: window.images.x,
+    alt: ""
+  })) : "");
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (CommentItem);
@@ -2699,6 +2733,11 @@ __webpack_require__.r(__webpack_exports__);
     case _actions_comments_comment_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_COMMENT"]:
       return lodash_merge__WEBPACK_IMPORTED_MODULE_2___default()({}, state, action.comment);
 
+    case _actions_comments_comment_actions__WEBPACK_IMPORTED_MODULE_0__["REMOVE_COMMENT"]:
+      var newState = lodash_merge__WEBPACK_IMPORTED_MODULE_2___default()({}, state);
+      delete newState[action.commentId];
+      return newState;
+
     default:
       return state;
   }
@@ -3059,13 +3098,14 @@ var fetchActivities = function fetchActivities(page) {
 /*!****************************************!*\
   !*** ./frontend/util/comment_util.jsx ***!
   \****************************************/
-/*! exports provided: fetchActivityComments, createComment */
+/*! exports provided: fetchActivityComments, createComment, deleteComment */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchActivityComments", function() { return fetchActivityComments; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createComment", function() { return createComment; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteComment", function() { return deleteComment; });
 var fetchActivityComments = function fetchActivityComments(activityId) {
   return $.ajax({
     url: "api/activities/".concat(activityId, "/comments"),
@@ -3079,6 +3119,12 @@ var createComment = function createComment(comment) {
     data: {
       comment: comment
     }
+  });
+};
+var deleteComment = function deleteComment(commentId) {
+  return $.ajax({
+    url: "api/comments/".concat(commentId),
+    method: 'DELETE'
   });
 };
 

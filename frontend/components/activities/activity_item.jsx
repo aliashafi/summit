@@ -118,7 +118,7 @@ class ActivityItem extends React.Component {
             </div>
 
             
-            <CommentIndex users={this.props.users} activity={this.props.activity} />
+            <CommentIndex users={this.props.users} activity={this.props.activity} currentUser={this.props.currentUser} />
 
             {this.state.makeComment ? 
                 <CommentFormContainer activity={this.props.activity} /> :
