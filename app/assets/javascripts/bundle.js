@@ -482,6 +482,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash_debounce__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(lodash_debounce__WEBPACK_IMPORTED_MODULE_3__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -549,7 +551,7 @@ function (_React$Component) {
 
       var activities = this.props.activities.map(function (activity, index) {
         var user = _this2.props.users[activity.user_id];
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_activity_item__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_activity_item__WEBPACK_IMPORTED_MODULE_1__["default"], _defineProperty({
           key: activity.id,
           index: index,
           activity: activity,
@@ -559,7 +561,7 @@ function (_React$Component) {
           createKudo: _this2.props.createKudo,
           currentUser: _this2.props.users[_this2.props.current_user.id],
           page: _this2.state.page
-        });
+        }, "user", user));
       });
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "grid-center"
@@ -1717,7 +1719,7 @@ function (_React$Component) {
   _createClass(Feed, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      Promise.all([this.props.fetchAllActivities(1), this.props.fetchFollowers(), this.props.fetchFollowing(), this.props.fetchAllUsers(), this.props.fetchUserActivities()]);
+      Promise.all([this.props.fetchAllUsers(), this.props.fetchUserActivities(), this.props.fetchAllActivities(1), this.props.fetchFollowers(), this.props.fetchFollowing()]);
     }
   }, {
     key: "componentDidUpdate",
@@ -1725,7 +1727,7 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", null, this.props.activities.length > 0 ? react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", {
+      return react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", null, this.props.activities.length > 0 && Object.values(this.props.users).length > 1 ? react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement("div", {
         className: "all-feed"
       }, react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_users_user_feed_profile__WEBPACK_IMPORTED_MODULE_2__["default"], {
         followers: this.props.followers,
@@ -1734,6 +1736,7 @@ function (_React$Component) {
         current_user: this.props.current_user,
         currentUserActivities: this.props.currentUserActivities
       }), react__WEBPACK_IMPORTED_MODULE_3___default.a.createElement(_activities_activity_index__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        fetchAllUsers: this.props.fetchAllUsers,
         current_user: this.props.current_user,
         users: this.props.users,
         activities: this.props.activities,

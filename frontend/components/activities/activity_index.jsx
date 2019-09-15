@@ -52,10 +52,12 @@ class ActivityIndex extends React.Component {
     }
 
 
-    render(){
 
+    render(){
+        
         const activities = this.props.activities.map((activity, index) => {
             const user = this.props.users[activity.user_id]
+            
             return(
                 <ActivityItem 
                     key={activity.id}
@@ -67,6 +69,7 @@ class ActivityIndex extends React.Component {
                     createKudo={this.props.createKudo}
                     currentUser={this.props.users[this.props.current_user.id]}
                     page={this.state.page}
+                    user={user}
                     />
             )
         })
@@ -83,8 +86,10 @@ class ActivityIndex extends React.Component {
                     
                 </div>
                 <section className="activity-feed">
-                    {activities}
-                </section>
+                        { activities }
+                    
+                </section> 
+                
                 
             </div>
         )

@@ -53,6 +53,7 @@ class ActivityItem extends React.Component {
         const dist = Math.round(this.props.activity.distance * 100)/ 100
         const speed = Math.round(this.props.activity.average_speed * 100)/ 100
         return (
+            
         <div id="activity-item">
             <div id="activity-username">
                     <div className="profile-picture-small">

@@ -12,11 +12,12 @@ class Feed extends React.Component {
 
     componentDidMount(){
         Promise.all([
+            this.props.fetchAllUsers(),
+            this.props.fetchUserActivities(),
             this.props.fetchAllActivities(1),
             this.props.fetchFollowers(),
             this.props.fetchFollowing(),
-            this.props.fetchAllUsers(),
-            this.props.fetchUserActivities()
+            
         ])
     }
 
@@ -29,7 +30,7 @@ class Feed extends React.Component {
             
             <div>
             
-                {this.props.activities.length > 0 ? 
+                {this.props.activities.length > 0 && Object.values(this.props.users).length > 1 ? 
                     <div className="all-feed">
                         <UserFeedProfile
                                 followers={this.props.followers}
@@ -39,6 +40,7 @@ class Feed extends React.Component {
                                 currentUserActivities={this.props.currentUserActivities}
                             />      
                         <ActivityIndex
+                            fetchAllUsers = {this.props.fetchAllUsers}
                             current_user={this.props.current_user}
                             users={this.props.users} 
                             activities={this.props.activities}
