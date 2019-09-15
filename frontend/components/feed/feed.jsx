@@ -46,13 +46,28 @@ class Feed extends React.Component {
                         /> 
 
                         <div className="grid-right">
-                            <section>Challenges
+                        <section>
+
+                            <div id="challenges">
+                                <img src={window.images.challenge} alt=""/>
+                                <div id="challenges-description">
+                                    <h2> Challenges</h2>
+                                    <p>Join a running group, get motivated. Try out a fitness challenge,
+                                        challenge on Summit!
+                                    </p>
+                                
+                                </div>
+
+                            </div>
         
-                    </section>Insipration
+                        </section>
+                            {/* Insipration */}
         
-                    <section>Some of your friends
+                        <section>
+                            
+                            {/* Some of your friends */}
         
-                    </section>
+                        </section>
 
                         </div>
                     </div>

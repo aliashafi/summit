@@ -10,7 +10,7 @@ Rails.application.routes.draw do
       resources :kudos, only: [:index]
     end
 
-    resources :kudos, only: [:create, :destroy, :show]
+    resources :kudos, only: [:create, :show, :destroy]
 
     resources :comments, only: [:create, :destroy, :show]
 

@@ -9,7 +9,7 @@ export const fetchKudo = (kudoId) => (
 
 export const fetchAllKudos = (activityId) => (
     $.ajax({
-        url: `api/activities/${activityId}`,
+        url: `api/activities/${activityId}/kudos`,
         method: "GET"
     })
 )

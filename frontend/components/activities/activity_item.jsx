@@ -42,6 +42,7 @@ class ActivityItem extends React.Component {
             activity_id: this.props.activity.id
         }
         this.props.createKudo(kudo)
+            
     }
     
 
@@ -105,7 +106,12 @@ class ActivityItem extends React.Component {
             />
 
             <div className="like-comment">
-                    <KudoIndex key={this.props.activity.id} activity={this.props.activity} currentUser={this.props.currentUser} />
+                    <KudoIndex 
+                        key={this.props.activity.id} 
+                        activity={this.props.activity} 
+                        currentUser={this.props.currentUser} 
+                        page={this.props.page}
+                        />
                 <div id='comment-icon' onClick={this.handleClick}>
                     <img src={window.images.comment_icon} alt="" />
                 </div>
@@ -118,7 +124,11 @@ class ActivityItem extends React.Component {
             </div>
 
             
-            <CommentIndex users={this.props.users} activity={this.props.activity} currentUser={this.props.currentUser} />
+            <CommentIndex 
+                users={this.props.users} 
+                activity={this.props.activity} 
+                currentUser={this.props.currentUser} 
+                page={this.props.page}/>
 
             {this.state.makeComment ? 
                 <CommentFormContainer activity={this.props.activity} /> :

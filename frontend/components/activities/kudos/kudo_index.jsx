@@ -11,7 +11,8 @@ const mapStateToProps = (state, ownProps) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    fetchAllActivities: (page) => dispatch(fetchAllActivities(page))
+    fetchAllActivities: (page) => dispatch(fetchAllActivities(page)), 
+    fetchAllKudos: (id) => dispatch(fetchAllKudos(id))
 })
 
 class KudoIndex extends React.Component {
@@ -22,13 +23,19 @@ class KudoIndex extends React.Component {
     }
     componentDidUpdate(prevProps){
         if (Object.values(prevProps.kudos).length !== Object.values(this.props.kudos).length) {
-            this.props.fetchAllActivities(1)
+            this.props.fetchAllActivities(this.props.page)
+            
+            // this.props.fetchAllKudos(this.props.activity.id)
         }
     }
 
     render(){
-        const kudos = this.props.activity.kudo_ids.map(kudoId => this.props.kudos[kudoId])
-        const users = kudos.map(kudo => this.props.users[kudo.user_id])
+        let kudos = this.props.activity.kudo_ids.map(kudoId => this.props.kudos[kudoId])
+        let users = []
+        console.log(kudos)
+        if (kudos[0]){ 
+            users = kudos.map(kudo => this.props.users[kudo.user_id])
+        }
         return(
             <div id="kudos">
             <div id="user-kudos"> {users.slice(0,3).map(user => {

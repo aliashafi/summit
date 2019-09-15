@@ -67,14 +67,21 @@ class ActivityIndex extends React.Component {
                     users={this.props.users}
                     createKudo={this.props.createKudo}
                     currentUser={this.props.users[this.props.current_user.id]}
+                    page={this.state.page}
                     />
             )
         })
 
         return(
             <div className="grid-center">
-                <div className="activity-img">
-                    <img src={window.images.quick_bike} alt=""/>
+                <div id="promotion">
+
+                    <div className="activity-img">
+                        <img src={window.images.quick_bike} alt=""/>
+                    </div>
+
+                    <p>Check out my Linked-In</p>
+                    
                 </div>
                 <section className="activity-feed">
                     {activities}

@@ -11,7 +11,7 @@ class Api::ActivitiesController < ApplicationController
         ids << current_user.id
         
         @activities = Activity.where(user_id: ids)
-        .order("activities.time DESC").page(params[:page_id]).per(8)
+        .order("activities.time DESC").page(params[:page_id]).per(5)
         @max = @activities.length
         
         

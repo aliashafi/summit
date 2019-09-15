@@ -123,3 +123,124 @@
         background-color: #F5F5FA;
     }
 }
+
+#view-all-comments{
+    font-family: $strava-font;
+    font-size: 12px;
+    margin-left: 47px;
+    padding-bottom: 10px;
+   
+}
+
+#view-all-comments:hover{
+    color: #007FB6;
+}
+
+.comment-modal{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    position: fixed;
+    z-index: 10986;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.6);
+    #modal-content{
+        display: flex;
+        width: 91vh;
+        background:  #F5F5FA;
+        border-radius: 3px;
+        flex-direction: column;
+        height: min-content;
+}
+
+#modal-header{
+    display: flex;
+
+    .profile-picture-small{
+    margin: 11px;
+    }
+
+    h1 {
+        font-family: $strava-font;
+        color: #2d2d32;;
+        padding-top: 2%;
+        font-size: 22px;
+        margin-left: 4%;
+        padding-top: 3%;
+
+        }
+
+    }
+        
+}
+
+.profile-picture-small-modal{
+    width: 31px;
+    height: 25px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+    
+
+    img{
+        display: inline;
+        margin: 0 auto;
+        height: 100%;
+        width: auto;
+    }
+        
+}
+
+#comment-item-modal{
+    display: flex;
+    margin-left: 4%;
+    margin-top: 2%;
+    padding-bottom: 9px;
+    border-bottom: 1px solid #e6e6eb;
+    margin-right: 4%;
+}
+
+.comment-content{
+    margin-left: 4%;
+    width: 100%;
+    font-family: $strava-font;
+        h3{
+            color: $strava-blue;
+            font-weight: 700;
+            font-size: 12px;
+        }
+        p{
+            font-size: 12px;
+            margin-top: 1%;
+        }
+
+}
+
+#delete-comment-modal{
+    margin-right: 3%;
+    visibility: hidden;
+}
+
+#comment-item-modal:hover #delete-comment-modal{
+        visibility: visible;
+}
+
+#x-modal{
+    height: 24px
+}
+
+.close{
+    width: 91vh;
+    display: flex;
+    justify-content: flex-end;
+    img{
+        margin-left: auto;
+    }
+}

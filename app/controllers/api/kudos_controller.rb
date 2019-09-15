@@ -6,7 +6,12 @@ class Api::KudosController < ApplicationController
 
     def create
         @kudo = Kudo.new(kudo_params)
-        if @kudo.save
+        @kudoed = Kudo.find_by(activity_id: kudo_params[:activity_id], user_id: current_user.id)
+        if @kudoed
+            id = @kudoed.id.dup()
+            @kudoed.destroy()
+            render json: [id]
+        elsif @kudo.save
             render :show
         end
     end
@@ -20,7 +25,7 @@ class Api::KudosController < ApplicationController
         if @kudo.user_id === current_user.id
             @kudo.destroy()
         else
-            render json: ["cannot remove someone elses comment"], status: 401
+            render json: ["cannot remove someone elses kudo"], status: 401
         end
 
     end

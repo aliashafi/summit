@@ -5,7 +5,14 @@
     display: flex;
 
     .grid-right{
-        width: 15vw;
+        width: 20vw;
+
+        section{
+            position: sticky;
+            top: 60px;
+        }
+
+    
     }
 
     .grid-left{
@@ -15,8 +22,10 @@
 
     .grid-center{
         width: 50vw;
-
+        margin: auto;
+        
     }
+        
 
 }
 
