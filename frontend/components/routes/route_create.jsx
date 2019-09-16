@@ -1,4 +1,5 @@
 import React from 'react'
+import RouteForm from './route_form'
 
 // https://blog.mapbox.com/map-hacks-directions-api-draw-tools-7557134622e9
 // this component was generated with help from this article
@@ -19,14 +20,14 @@ class RouteCreate extends React.Component{
         this.map = {}
         this.draw = {}
         this.toggleType = this.toggleType.bind(this);
-        this.testing = this.testing.bind(this)
+        this.toggleSave = this.toggleSave.bind(this);
 
         this.state = {
             routeType: "Ride",
             distance: 0,
             elevationGain: 0,
             coords: {},
-            
+            saveRoute: false
         }
     }
 
@@ -129,11 +130,7 @@ class RouteCreate extends React.Component{
         this.map.on('draw.update', this.updateRoute);
         this.map.on('draw.delete', this.removeRoute);
         this.map.on("click", this.updateRoute);
-    }
-
-    testing(){
-        console.log("hello")
-    }
+    }   
 
     updateRoute() {
             
@@ -212,6 +209,10 @@ class RouteCreate extends React.Component{
         }
     }
 
+    toggleSave(){
+        this.state.saveRoute ?
+        this.setState({saveRoute: false}) : this.setState({ saveRoute: true })
+    }
     
 
 
@@ -222,19 +223,23 @@ class RouteCreate extends React.Component{
             <div className="container">
                 <div id="map"></div>
                 {/* <div className="create-route-nav"> */}
-                    {/* <div onClick={() => this.toggleType("Run")} id="icon-type">
-                        <img src={window.images.running_icon} alt=""/>
-                        <p>Run</p>
-                    </div>
 
-                    <div onClick={() => this.toggleType("Ride")} id="icon-type">
-                        <img src={window.images.biking_icon} alt="" />
-                        <p>Ride</p>
-                    </div> */}
-                    {/* <div>Test</div> */}
+                {/* <div id="ride-run-icons"> */}
+                <div id="icon-type">
+                    <span onClick={() => this.toggleType("Run")}>
+                            <img src={window.images.running_icon} alt=""/>
+                            <p>Run</p>
+                        </span>
+                        <span onClick={() => this.toggleType("Ride")}>
+                            <img src={window.images.biking_icon} alt="" />
+                            <p>Ride</p>
+                        </span>
+                    </div>
                         <div 
+                        onClick={this.toggleSave}
                             id="save-button">
                                 Save Route</div>
+                        
                     
                 {/* </div> */}
                 <div className='info-box'>
@@ -257,6 +262,15 @@ class RouteCreate extends React.Component{
                     
 
                 </div>
+
+                {this.state.saveRoute ? 
+                <div onClick={this.toggleSave} className="comment-modal">
+                <RouteForm 
+                    coordinates={this.state.coords}
+                    createRoute={this.props.createRoute}
+                    currentUser={this.props.currentUser}/>
+                </div>
+                : ""}
             </div>
         )
     }

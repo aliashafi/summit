@@ -10,6 +10,7 @@ class Api::RoutesController < ApplicationController
 
     def create
         @route = Route.new(route_params)
+        debugger
         if @route.save
             render :show
         else
@@ -40,6 +41,6 @@ class Api::RoutesController < ApplicationController
     private
     def route_params
         params.require(:route).permit(
-            :title, :user_id, :coordinates)
+            :title, :user_id, :coordinates, :route_type, :description)
     end
 end

@@ -7,13 +7,13 @@ export const fetchAllRoutes = (userId) => (
     })
 )
 
-export const createRoute = (userId, route) => (
-    $.ajax({
+export const createRoute = (userId, route) => {
+    return ($.ajax({
         url: `api/users/${userId}/routes`,
         method: "POST",
         data: {route}
-    })
-)
+    }))
+}
 
 export const deleteRoute = (userId, routeId) => (
     $.ajax({

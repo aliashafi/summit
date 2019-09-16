@@ -2,12 +2,13 @@ import { connect } from 'react-redux';
 import {createRoute} from '../../actions/routes/route_actions'
 import RouteCreate from './route_create'
 
-const mapStateToProps = (  ) => ({
+const mapStateToProps = ( state ) => ({
+    currentUser: state.session.currentUser
    
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    createRoute: (route) => dispatch(createRoute(route))
+    createRoute: (userId, route) => dispatch(createRoute(userId, route))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RouteCreate);
