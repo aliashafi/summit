@@ -36,7 +36,9 @@
     }
 
     #delete-comment{
-        margin-left: 72%;
+        // margin-left: 72%;
+        display: flex;
+        justify-content: flex-end;
         visibility: hidden;
         #x{
             width: 71%;

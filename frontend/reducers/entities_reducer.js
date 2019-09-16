@@ -6,6 +6,7 @@ import FollowingReducer from './follows/following_reducer'
 import CommentsReducer from './comments_reducer'
 import KudosReducer from './kudos_reducer'
 import currentUserActivitiesReducer from '../reducers/activities/current_user_activities'
+import RouteReducer from '../reducers/routes/route_reducer'
 
 
 export default combineReducers({
@@ -16,4 +17,5 @@ export default combineReducers({
     comments: CommentsReducer,
     kudos: KudosReducer,
     currentUserActivities: currentUserActivitiesReducer,
+    routes: RouteReducer,
 });

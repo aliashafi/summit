@@ -24,6 +24,8 @@ export default (props) =>
                                 props.history.push('/login')}>Sign In
                     </div>)
                 }
+
+                
             </div>
         </section>
    </div>
