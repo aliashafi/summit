@@ -2066,8 +2066,25 @@ function (_React$Component) {
     _this.removeRoute = _this.removeRoute.bind(_assertThisInitialized(_this));
     _this.addRoute = _this.addRoute.bind(_assertThisInitialized(_this));
     mapboxgl.accessToken = 'pk.eyJ1IjoiYWxpYXNoYWZpIiwiYSI6ImNqenEzM3E5cDBjbzAzbW1wOGRic2huZTcifQ.P364O3bVxYCXn6iPnx3BLg';
+    _this.geocoder = new MapboxGeocoder({
+      // Initialize the geocoder
+      accessToken: mapboxgl.accessToken,
+      // Set the access token
+      mapboxgl: mapboxgl,
+      // Set the mapbox-gl instance
+      marker: false // Do not use the default marker style
+
+    });
     _this.map = {};
     _this.draw = {};
+    _this.toggleType = _this.toggleType.bind(_assertThisInitialized(_this));
+    _this.testing = _this.testing.bind(_assertThisInitialized(_this));
+    _this.state = {
+      routeType: "Ride",
+      distance: 0,
+      elevationGain: 0,
+      coords: {}
+    };
     return _this;
   }
 
@@ -2084,11 +2101,45 @@ function (_React$Component) {
         zoom: 13 // starting zoom
 
       });
+      var map = this.map;
+      var geocoder = this.geocoder;
+      this.map.on('load', function () {
+        map.addSource('single-point', {
+          type: 'geojson',
+          data: {
+            type: 'FeatureCollection',
+            features: []
+          }
+        });
+        map.addLayer({
+          id: 'point',
+          source: 'single-point',
+          type: 'circle',
+          paint: {
+            'circle-radius': 10,
+            'circle-color': '#448ee4'
+          }
+        }); // Listen for the `result` event from the Geocoder
+        // `result` event is triggered when a user makes a selection
+        //  Add a marker at the result's coordinates
+
+        geocoder.on('result', function (e) {
+          map.getSource('single-point').setData(e.result.geometry);
+        });
+      });
       this.drawMap();
+    }
+  }, {
+    key: "toggleType",
+    value: function toggleType(activityType) {
+      this.setState({
+        routeType: activityType
+      });
     }
   }, {
     key: "drawMap",
     value: function drawMap() {
+      var geocoder = this.geocoder;
       this.draw = new MapboxDraw({
         displayControlsDefault: false,
         controls: {
@@ -2098,6 +2149,7 @@ function (_React$Component) {
         styles: [{
           "id": "gl-draw-line",
           "type": "line",
+          //change this to "line" if you want to see something
           "filter": ["all", ["==", "$type", "LineString"], ["!=", "mode", "static"]],
           "layout": {
             "line-cap": "round",
@@ -2107,7 +2159,7 @@ function (_React$Component) {
             "line-color": "#3b9ddd",
             "line-dasharray": [0.2, 2],
             "line-width": 4,
-            "line-opacity": 0.7
+            "line-opacity": 0
           }
         }, {
           "id": "gl-draw-polygon-and-line-vertex-halo-active",
@@ -2127,14 +2179,22 @@ function (_React$Component) {
           }
         }]
       });
+      this.map.addControl(geocoder);
       this.map.addControl(this.draw);
       this.map.on('draw.create', this.updateRoute);
       this.map.on('draw.update', this.updateRoute);
       this.map.on('draw.delete', this.removeRoute);
+      this.map.on("click", this.updateRoute);
+    }
+  }, {
+    key: "testing",
+    value: function testing() {
+      console.log("hello");
     }
   }, {
     key: "updateRoute",
     value: function updateRoute() {
+      // this.addRoute()
       this.removeRoute(); // overwrite any existing layers
 
       var data = this.draw.getAll();
@@ -2142,6 +2202,9 @@ function (_React$Component) {
       var lastFeature = data.features.length - 1;
       var coords = data.features[lastFeature].geometry.coordinates;
       var newCoords = coords.join(';');
+      this.setState({
+        coords: newCoords
+      });
       this.getMatch(newCoords);
     }
   }, {
@@ -2162,7 +2225,9 @@ function (_React$Component) {
         var duration = jsonResponse.routes[0].duration / 60; // convert to minutes
         // add results to info box
 
-        document.getElementById('calculated-line').innerHTML = 'Distance: ' + distance.toFixed(2) + ' km<br>Duration: ' + duration.toFixed(2) + ' minutes';
+        document.getElementById('calculated-line').innerHTML = distance.toFixed(2);
+        document.getElementById('calculated-line-ele').innerHTML = duration.toFixed(2); // + ' km<br>Duration: ' + duration.toFixed(2) + ' minutes';
+
         var coords = jsonResponse.routes[0].geometry; // add the route to the map
 
         addRoute(coords);
@@ -2201,7 +2266,6 @@ function (_React$Component) {
       }
 
       ;
-      console.log(coords);
     }
   }, {
     key: "removeRoute",
@@ -2217,13 +2281,25 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "map"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        id: "save-button"
+      }, "Save Route"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "info-box"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Draw your route using the draw tools (25 points max)"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        id: "route-type-1"
+      }, this.state.routeType, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Route Type")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        id: "route-type"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        id: "calculated-line-ele"
+      }, "0 "), " min", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Duration")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        id: "route-type"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         id: "calculated-line"
-      })));
+      }, " 0 "), " mi", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Distance"))));
     }
   }]);
 

@@ -11,24 +11,74 @@ class RouteCreate extends React.Component{
         this.addRoute = this.addRoute.bind(this)
 
         mapboxgl.accessToken = 'pk.eyJ1IjoiYWxpYXNoYWZpIiwiYSI6ImNqenEzM3E5cDBjbzAzbW1wOGRic2huZTcifQ.P364O3bVxYCXn6iPnx3BLg';
+        this.geocoder = new MapboxGeocoder({ // Initialize the geocoder
+            accessToken: mapboxgl.accessToken, // Set the access token
+            mapboxgl: mapboxgl, // Set the mapbox-gl instance
+            marker: false, // Do not use the default marker style
+        });
         this.map = {}
         this.draw = {}
+        this.toggleType = this.toggleType.bind(this);
+        this.testing = this.testing.bind(this)
+
+        this.state = {
+            routeType: "Ride",
+            distance: 0,
+            elevationGain: 0,
+            coords: {},
+            
+        }
     }
 
     componentDidMount(){
         
-        this.map = new mapboxgl.Map({
-            container: 'map', // container id
-            style: 'mapbox://styles/mapbox/streets-v9', //hosted style id
-            center: [-122.401295, 37.798984], // starting position
-            zoom: 13, // starting zoom
+    this.map = new mapboxgl.Map({
+        container: 'map', // container id
+        style: 'mapbox://styles/mapbox/streets-v9', //hosted style id
+        center: [-122.401295, 37.798984], // starting position
+        zoom: 13, // starting zoom
+        
         });
+        let map = this.map;
+        let geocoder = this.geocoder
+        this.map.on('load', function () {
+            map.addSource('single-point', {
+                type: 'geojson',
+                data: {
+                    type: 'FeatureCollection',
+                    features: []
+                }
+            });
+
+            map.addLayer({
+                id: 'point',
+                source: 'single-point',
+                type: 'circle',
+                paint: {
+                    'circle-radius': 10,
+                    'circle-color': '#448ee4'
+                }
+            });
+
+            // Listen for the `result` event from the Geocoder
+            // `result` event is triggered when a user makes a selection
+            //  Add a marker at the result's coordinates
+            geocoder.on('result', function (e) {
+                map.getSource('single-point').setData(e.result.geometry);
+            });
+        });
+       
         this.drawMap()
         
     }
 
+    toggleType(activityType){
+        this.setState({ routeType: activityType})
+    }
 
     drawMap(){
+        
+        let geocoder = this.geocoder
         this.draw = new MapboxDraw({
             displayControlsDefault: false,
             controls: {
@@ -38,7 +88,7 @@ class RouteCreate extends React.Component{
             styles: [
                 {
                     "id": "gl-draw-line",
-                    "type": "line",
+                    "type": "line", //change this to "line" if you want to see something
                     "filter": ["all", ["==", "$type", "LineString"], ["!=", "mode", "static"]],
                     "layout": {
                         "line-cap": "round",
@@ -48,7 +98,7 @@ class RouteCreate extends React.Component{
                         "line-color": "#3b9ddd",
                         "line-dasharray": [0.2, 2],
                         "line-width": 4,
-                        "line-opacity": 0.7
+                        "line-opacity": 0
                     }
                 },
                 {
@@ -71,38 +121,51 @@ class RouteCreate extends React.Component{
                 },
             ]
         });
+        
+
+        this.map.addControl(geocoder);
         this.map.addControl(this.draw);
         this.map.on('draw.create', this.updateRoute);
         this.map.on('draw.update', this.updateRoute);
         this.map.on('draw.delete', this.removeRoute);
+        this.map.on("click", this.updateRoute);
     }
 
+    testing(){
+        console.log("hello")
+    }
 
     updateRoute() {
+            
+        // this.addRoute()
         this.removeRoute(); // overwrite any existing layers
-        var data = this.draw.getAll();
-        var answer = document.getElementById('calculated-line');
-        var lastFeature = data.features.length - 1;
-        var coords = data.features[lastFeature].geometry.coordinates;
-        var newCoords = coords.join(';')
+        let data = this.draw.getAll();
+        let answer = document.getElementById('calculated-line');
+        let lastFeature = data.features.length - 1;
+        let coords = data.features[lastFeature].geometry.coordinates;
+
+        let newCoords = coords.join(';')
+        this.setState({coords: newCoords})
         this.getMatch(newCoords);
     }
 
     getMatch(e) {
         mapboxgl.accessToken = 'pk.eyJ1IjoiYWxpYXNoYWZpIiwiYSI6ImNqenEzM3E5cDBjbzAzbW1wOGRic2huZTcifQ.P364O3bVxYCXn6iPnx3BLg';
         // https://www.mapbox.com/api-documentation/#directions
-        var url = 'https://api.mapbox.com/directions/v5/mapbox/cycling/' + e + '?geometries=geojson&steps=true&&access_token=' + mapboxgl.accessToken;
-        var req = new XMLHttpRequest();
+        let url = 'https://api.mapbox.com/directions/v5/mapbox/cycling/' + e + '?geometries=geojson&steps=true&&access_token=' + mapboxgl.accessToken;
+        let req = new XMLHttpRequest();
         req.responseType = 'json';
         req.open('GET', url, true);
         const addRoute = this.addRoute
         req.onload = function () {
-            var jsonResponse = req.response;
-            var distance = jsonResponse.routes[0].distance * 0.001; // convert to km
-            var duration = jsonResponse.routes[0].duration / 60; // convert to minutes
+            let jsonResponse = req.response;
+            let distance = jsonResponse.routes[0].distance * 0.001; // convert to km
+            let duration = jsonResponse.routes[0].duration / 60; // convert to minutes
             // add results to info box
-            document.getElementById('calculated-line').innerHTML = 'Distance: ' + distance.toFixed(2) + ' km<br>Duration: ' + duration.toFixed(2) + ' minutes';
-            var coords = jsonResponse.routes[0].geometry;
+            document.getElementById('calculated-line').innerHTML = distance.toFixed(2)
+            document.getElementById('calculated-line-ele').innerHTML = duration.toFixed(2)
+                // + ' km<br>Duration: ' + duration.toFixed(2) + ' minutes';
+            let coords = jsonResponse.routes[0].geometry;
             // add the route to the map
             addRoute(coords);
         };
@@ -113,6 +176,7 @@ class RouteCreate extends React.Component{
         if (this.map.getSource('route')) {
             this.map.removeLayer('route')
             this.map.removeSource('route')
+            
         } else {
             this.map.addLayer({
                 "id": "route",
@@ -136,7 +200,6 @@ class RouteCreate extends React.Component{
                 }
             });
         };
-        console.log(coords)
     }
 
     removeRoute() {
@@ -149,16 +212,50 @@ class RouteCreate extends React.Component{
         }
     }
 
+    
+
 
     render(){
         
         
         return(
-            <div>
+            <div className="container">
                 <div id="map"></div>
+                {/* <div className="create-route-nav"> */}
+                    {/* <div onClick={() => this.toggleType("Run")} id="icon-type">
+                        <img src={window.images.running_icon} alt=""/>
+                        <p>Run</p>
+                    </div>
+
+                    <div onClick={() => this.toggleType("Ride")} id="icon-type">
+                        <img src={window.images.biking_icon} alt="" />
+                        <p>Ride</p>
+                    </div> */}
+                    {/* <div>Test</div> */}
+                        <div 
+                            id="save-button">
+                                Save Route</div>
+                    
+                {/* </div> */}
                 <div className='info-box'>
-                    <p>Draw your route using the draw tools (25 points max)</p>
-                    <div id='calculated-line'></div>
+                    
+                    <div id="route-type-1"> 
+                        {this.state.routeType} 
+                        <p>Route Type</p>
+                    </div>
+
+                    <div id="route-type">
+                        <span id="calculated-line-ele">0 </span> min
+                        <p>Duration</p>
+                    </div>
+
+                    <div id="route-type">
+                        <span id="calculated-line"> 0 </span> mi
+                        <p>Distance</p>
+                    </div>
+
+                    
+
                 </div>
             </div>
         )
