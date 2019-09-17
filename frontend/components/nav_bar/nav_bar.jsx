@@ -11,12 +11,68 @@ export default (props) =>
                         <img onClick={() =>
                             props.history.push('/')} className="logo" src={window.images.logo} alt=""/>
                 </div>
+                
+                {props.currentUser ?
+                <div id="dash-container">
 
-                {props.currentUser ? (
+                        <div id="dashboard"> Dashboard <p>ˇ</p></div>
+
+                    <div id="dashboard-dropdown">
+
+                        <p onClick={() => props.history.push("/feed")}>Activity Feed</p>
+                        <p>My Routes</p>
+                        <p onClick={() => props.history.push("/routes/create")}>Create Route</p>
+
+                    </div>
+                    </div>
+                    : ""}
+
+                {props.currentUser ? 
+
+                        props.location.pathname === '/' ? 
+                    (
                         <div id="signIn-button" onClick={ () => 
                             props.logout().then(() => props.history.push('/login'))} >Logout
                         </div>
-                    ) : props.location.pathname === '/login' ? 
+                    ) : 
+                        (       <div className="profile-add">
+                                    <div id="user-route">
+                        
+                                        <div id="user-nav">
+                                            <div className="profile-picture-small-dash" >
+                                                <img src={props.currentUser.photoUrl} alt=""/>
+                                            </div>
+                                            <p>ˇ</p>
+                                            
+                                        
+                                        </div>
+
+                                    <div id="user-dropdown">
+                                        <p>Your Profile</p>
+                                        <p onClick={() =>
+                                            props.logout().then(() => props.history.push('/login'))}>Log Out</p>
+                                    </div>
+                                    </div>
+                                    
+                                    
+
+                                    <div id="poop">
+                                        <div id="add">
+                                            <p>+</p>
+                                        
+                                        </div>
+                                        <div id="add-route-dropdown">
+                                            <p id="drop-add"> <img src={window.images.upload} alt="" />
+                                                <div>Create Route</div></p>
+                                        </div>
+                                    </div>
+
+                                    
+                                </div>
+
+                        )
+                    
+                    : props.location.pathname === '/login' ? 
                     (<div id="signIn-button" onClick={() =>
                             props.history.push('/signup')}>Sign Up
                     </div>)  :

@@ -1927,13 +1927,57 @@ __webpack_require__.r(__webpack_exports__);
     src: window.images.logo,
     alt: ""
   })), props.currentUser ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    id: "dash-container"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    id: "dashboard"
+  }, " Dashboard ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "\u02C7")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    id: "dashboard-dropdown"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+    onClick: function onClick() {
+      return props.history.push("/feed");
+    }
+  }, "Activity Feed"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "My Routes"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+    onClick: function onClick() {
+      return props.history.push("/routes/create");
+    }
+  }, "Create Route"))) : "", props.currentUser ? props.location.pathname === '/' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     id: "signIn-button",
     onClick: function onClick() {
       return props.logout().then(function () {
         return props.history.push('/login');
       });
     }
-  }, "Logout") : props.location.pathname === '/login' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, "Logout") : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "profile-add"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    id: "user-route"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    id: "user-nav"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "profile-picture-small-dash"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+    src: props.currentUser.photoUrl,
+    alt: ""
+  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "\u02C7")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    id: "user-dropdown"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Your Profile"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+    onClick: function onClick() {
+      return props.logout().then(function () {
+        return props.history.push('/login');
+      });
+    }
+  }, "Log Out"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    id: "poop"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    id: "add"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "+")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    id: "add-route-dropdown"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+    id: "drop-add"
+  }, " ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+    src: window.images.upload,
+    alt: ""
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Create Route"))))) : props.location.pathname === '/login' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     id: "signIn-button",
     onClick: function onClick() {
       return props.history.push('/signup');
