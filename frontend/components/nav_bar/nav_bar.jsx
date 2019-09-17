@@ -63,7 +63,7 @@ export default (props) =>
                                         </div>
                                         <div id="add-route-dropdown">
                                             <p id="drop-add"> <img src={window.images.upload} alt="" />
-                                                <div>Create Route</div></p>
+                                                </p>
                                         </div>
                                     </div>
 

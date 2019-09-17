@@ -1,28 +1,55 @@
 import React from 'react'
-import { Link, withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
+import {
+    LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, AreaChart, Area
+} from 'recharts';
+import CustomTooltipContainer from './custom_tool_tip_container'
 
 
-class ActivityMap extends React.Component {
+
+
+
+
+
+
+class ActivityShowMap extends React.Component {
 
     constructor(props) {
         super(props);
         this.route = Object.values(JSON.parse(this.props.activity.coordinates));
         this.state = {
+            geojson: {},
             map: "",
-            routeLine: []
+            route: []
         }
-        this.handleClick = this.handleClick.bind(this)
-        
-    
+
+
     }
 
-    test(){
-        
-        document.getElementById("current-elevation")
+    componentDidUpdate(){
+
+        if (this.state.map.getSource("point")) this.moveDot();
+       
     }
 
 
-    componentDidMount(){
+
+    moveDot(){
+        let geojson = {
+            "type": "FeatureCollection",
+            "features": [{
+                "type": "Feature",
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": this.state.route[this.props.ui[0]]
+                }
+            }]
+        };
+       this.state.map.getSource('point').setData(geojson)
+    }
+
+    componentDidMount() {
+        
         const dupRoute = this.route.slice()
         const zoom = this.route.length < 5000 ? 12 : 10
 
@@ -36,11 +63,11 @@ class ActivityMap extends React.Component {
             interactive: this.props.interactive
         });
 
-        const routeLine = this.route.slice(0,this.route.length-1);
+        const routeLine = this.route.slice(0, this.route.length - 1);
         // this.setState({map: this.map, routeLine: routeLine, centerRoute: centerRoute})
         // last datapoint is not correct... check to see if this is the case for all
 
-        
+
         ///for animated point
         let geojson = {
             "type": "FeatureCollection",
@@ -52,18 +79,19 @@ class ActivityMap extends React.Component {
                 }
             }]
         };
-        
+
+        this.geojson = geojson;
 
         ///create map
         let map = this.map;
 
-        map.on('load', function() {
+        map.on('load', function () {
             map.addLayer({
                 "id": "route",
                 "type": "line",
                 "zoom": 11,
                 "source": {
-                    "type": "geojson", 
+                    "type": "geojson",
                     "data": {
                         "type": "Feature",
                         "properties": {},
@@ -97,26 +125,44 @@ class ActivityMap extends React.Component {
                     "circle-color": "#3887be"
                 }
             });
+            
+            geojson.features[0].geometry.coordinates = routeLine[100];
+
         })
+        
 
 
+        this.setState({map: this.map, geojson: geojson, route: routeLine})
 
     };
 
-    
-
-    handleClick(){
-        this.props.history.location.pathname === "/feed" ?
-        this.props.history.push(`/activity/${this.props.activity.id}`) :
-        ""
-    }
-
     render() {
         return (
-            <div onClick={this.handleClick} id={this.props.container}></div>
+            <div>
+            <div id={this.props.container}>
+
+            </div>
+                <div className="ele-graph">
+                    <AreaChart
+                        width={1000}
+                        height={300}
+                        data={this.props.data}
+                        syncId="anyId"
+                        margin={{
+                            top: 10, right: 30, left: 0, bottom: 0,
+                        }}
+                    >
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="dist" interval={this.props.interval} />
+                        <YAxis />
+                        <Tooltip content={<CustomTooltipContainer />} position={{ y: 20 }} isAnimationActive={false} />
+                        <Area name="elevation (ft)" type="monotone" dataKey="ele" stroke="#D9D9D9" fill="#D9D9D9" activeDot={{ r: 8 }} />
+                    </AreaChart>
+                </div>
+            </div>
         )
     }
 
 };
 
-export default withRouter(ActivityMap);
+export default withRouter(ActivityShowMap);
