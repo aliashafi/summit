@@ -10,7 +10,6 @@ class Api::RoutesController < ApplicationController
 
     def create
         @route = Route.new(route_params)
-        debugger
         if @route.save
             render :show
         else

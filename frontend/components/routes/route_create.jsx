@@ -27,6 +27,7 @@ class RouteCreate extends React.Component{
             distance: 0,
             elevationGain: 0,
             coords: {},
+            estimatedTime: 0,
             saveRoute: false
         }
     }
@@ -142,8 +143,12 @@ class RouteCreate extends React.Component{
         let coords = data.features[lastFeature].geometry.coordinates;
 
         let newCoords = coords.join(';')
-        this.setState({coords: newCoords})
+        
         this.getMatch(newCoords);
+    }
+
+    saveEstTime(time){
+        this.setState({ estimatedTime: time})
     }
 
     getMatch(e) {
@@ -154,6 +159,7 @@ class RouteCreate extends React.Component{
         req.responseType = 'json';
         req.open('GET', url, true);
         const addRoute = this.addRoute
+        const saveEstTime = this.saveEstTime
         req.onload = function () {
             let jsonResponse = req.response;
             let distance = jsonResponse.routes[0].distance * 0.001; // convert to km
@@ -161,10 +167,14 @@ class RouteCreate extends React.Component{
             // add results to info box
             document.getElementById('calculated-line').innerHTML = distance.toFixed(2)
             document.getElementById('calculated-line-ele').innerHTML = duration.toFixed(2)
+
+            
+            
                 // + ' km<br>Duration: ' + duration.toFixed(2) + ' minutes';
             let coords = jsonResponse.routes[0].geometry;
             // add the route to the map
             addRoute(coords);
+            // saveEstTime(duration)
         };
         req.send();
     }
@@ -197,6 +207,8 @@ class RouteCreate extends React.Component{
                 }
             });
         };
+        
+        this.setState({ coords: coords })
     }
 
     removeRoute() {
@@ -209,9 +221,18 @@ class RouteCreate extends React.Component{
         }
     }
 
-    toggleSave(){
-        this.state.saveRoute ?
-        this.setState({saveRoute: false}) : this.setState({ saveRoute: true })
+    toggleSave(e){
+        if (e.target.id === "save-button"){
+            this.state.saveRoute ?
+                this.setState({ saveRoute: false }) : this.setState({ saveRoute: true })
+        }else if (e.target.id === "save-route"){
+            return
+        }
+        if (e.target.form.className === "create-route-form"){
+            return 
+        }
+        
+        
     }
     
 
@@ -236,7 +257,7 @@ class RouteCreate extends React.Component{
                         </span>
                     </div>
                         <div 
-                        onClick={this.toggleSave}
+                        onClick={(e) => this.toggleSave(e)}
                             id="save-button">
                                 Save Route</div>
                         

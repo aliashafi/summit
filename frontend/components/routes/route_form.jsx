@@ -21,13 +21,21 @@ class RouteForm extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault()
+        let coordinates = this.props.coordinates.coordinates
+        let allCoords = {}
+        let newCoordinates = coordinates.forEach((latLng, idx) => {
+            allCoords[idx] = latLng
+        })
+        allCoords = JSON.stringify(allCoords)
+        
+        
         this.props.createRoute(this.props.currentUser.id,{ 
             title: this.state.title, 
             description: this.state.description,
             route_type: this.state.routeType,
             user_id: this.props.currentUser.id,
-            coordinates: this.props.coordinates
-        }).then(() => this.props.history.push("/feed"))
+            coordinates: allCoords
+        }).then(() => this.props.history.push("/routes"))
     }
 
     render(){

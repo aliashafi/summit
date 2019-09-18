@@ -12,6 +12,7 @@
 #require 'GPX'
 
 puts "here"
+# Distance = sqrt((miles_per_degree_latitude*latitude)^2 + (miles_per_degree_longitude*l longitude)^2)
 
 def makeRoute(path, userId)
     # path = "/Users/aliashafi/Documents/AppAcademy/Projects/summit/db/gpx/Morning_Ride_1.gpx"
@@ -61,8 +62,10 @@ def makeRoute(path, userId)
     )
 end
 
-file_names = Dir.entries("#{Rails.root}/db/gpx_routes")
-file_names_everyone = Dir.entries("#{Rails.root}/db/gpx_everyone")
+file_names_alia = Dir.entries("#{Rails.root}/db/gpx_alia")
+file_names_noah = Dir.entries("#{Rails.root}/db/gpx_noah")
+file_names_anand = Dir.entries("#{Rails.root}/db/gpx_anand")
+file_names_peter = Dir.entries("#{Rails.root}/db/gpx_peter")
 
 puts "files!"
 
@@ -179,34 +182,26 @@ ActiveRecord::Base.transaction do
 
     p "starting activity....u1"
 
-    file_names[2..-1].each do |file|
+    file_names_alia[2..-1].each do |file|
         next if File.extname(file) != ".gpx"
-        r1 = makeRoute("#{Rails.root}/db/gpx_routes/#{file}", u1.id)
+        r1 = makeRoute("#{Rails.root}/db/gpx_alia/#{file}", u1.id)
         Kudo.create!(user_id: u2.id, activity_id: r1.id)
         Kudo.create!(user_id: u3.id, activity_id: r1.id)
         Kudo.create!(user_id: u4.id, activity_id: r1.id)
         Kudo.create!(user_id: u5.id, activity_id: r1.id)
         Kudo.create!(user_id: u6.id, activity_id: r1.id)
         Kudo.create!(user_id: u7.id, activity_id: r1.id)
+        Comment.create!(body: "SOOO COOL!", user_id: u1.id, activity_id: r1.id)
+        Comment.create!(body: "So so so fast!", user_id: u2.id, activity_id: r1.id)
+        Comment.create!(body: "race ya next time", user_id: u3.id, activity_id: r1.id)
     end
 
      p "starting activity....all users"
-    file_names_everyone[2..-1].each do |file|
+
+    file_names_noah[2..-1].each do |file|
+        p "starting u1"
         next if File.extname(file) != ".gpx"
-        r2 = makeRoute("#{Rails.root}/db/gpx_everyone/#{file}", u2.id)
-        r3 = makeRoute("#{Rails.root}/db/gpx_everyone/#{file}", u3.id)
-        r4 = makeRoute("#{Rails.root}/db/gpx_everyone/#{file}", u4.id)
-        r5 = makeRoute("#{Rails.root}/db/gpx_everyone/#{file}", u5.id)
-        r6 = makeRoute("#{Rails.root}/db/gpx_everyone/#{file}", u6.id)
-        r7 = makeRoute("#{Rails.root}/db/gpx_everyone/#{file}", u7.id)
-        r8 = makeRoute("#{Rails.root}/db/gpx_everyone/#{file}", u8.id)
-        makeRoute("#{Rails.root}/db/gpx_everyone/#{file}", u9.id)
-        makeRoute("#{Rails.root}/db/gpx_everyone/#{file}", u10.id)
-        makeRoute("#{Rails.root}/db/gpx_everyone/#{file}", u11.id)
-        makeRoute("#{Rails.root}/db/gpx_everyone/#{file}", u12.id)
-        makeRoute("#{Rails.root}/db/gpx_everyone/#{file}", u13.id)
-        makeRoute("#{Rails.root}/db/gpx_everyone/#{file}", u14.id)
-        makeRoute("#{Rails.root}/db/gpx_everyone/#{file}", u15.id)
+        r3 = makeRoute("#{Rails.root}/db/gpx_noah/#{file}", u3.id)
 
         Comment.create!(body: "you are a beast!", user_id: u1.id, activity_id: r3.id)
         Comment.create!(body: "dude so fast!", user_id: u2.id, activity_id: r3.id)
@@ -214,18 +209,75 @@ ActiveRecord::Base.transaction do
         Comment.create!(body: "Can I be as cool as you?", user_id: u4.id, activity_id: r3.id)
 
 
-        Comment.create!(body: "SOOO COOL!", user_id: u1.id, activity_id: r5.id)
-        Comment.create!(body: "So so so fast!", user_id: u2.id, activity_id: r5.id)
-        Comment.create!(body: "race ya next time", user_id: u3.id, activity_id: r5.id)
+        Comment.create!(body: "SOOO COOL!", user_id: u1.id, activity_id: r3.id)
+        Comment.create!(body: "So so so fast!", user_id: u2.id, activity_id: r3.id)
+        Comment.create!(body: "race ya next time", user_id: u3.id, activity_id: r3.id)
+
+        Kudo.create!(user_id: u2.id, activity_id: r3.id)
+        Kudo.create!(user_id: u1.id, activity_id: r3.id)
+        Kudo.create!(user_id: u10.id, activity_id: r3.id)
+        Kudo.create!(user_id: u11.id, activity_id: r3.id)
+        Kudo.create!(user_id: u12.id, activity_id: r3.id)
+        Kudo.create!(user_id: u15.id, activity_id: r3.id)
+        Kudo.create!(user_id: u9.id, activity_id: r3.id)
+        Kudo.create!(user_id: u3.id, activity_id: r3.id)
+
+
+
+    end
+
+        file_names_peter[2..-1].each do |file|
+        p 'starting u2'
+        next if File.extname(file) != ".gpx"
+        r2 = makeRoute("#{Rails.root}/db/gpx_peter/#{file}", u2.id)
+        # r3 = makeRoute("#{Rails.root}/db/gpx_peter/#{file}", u3.id)
+        # r4 = makeRoute("#{Rails.root}/db/gpx_anand/#{file}", u4.id)
+
+        Comment.create!(body: "you are a beast!", user_id: u1.id, activity_id: r2.id)
+        Comment.create!(body: "dude so fast!", user_id: u2.id, activity_id: r2.id)
+        Comment.create!(body: "next time, invite me", user_id: u3.id, activity_id: r2.id)
+        Comment.create!(body: "Can I be as cool as you?", user_id: u4.id, activity_id: r2.id)
+
+
+        Comment.create!(body: "SOOO COOL!", user_id: u1.id, activity_id: r2.id)
+        Comment.create!(body: "So so so fast!", user_id: u2.id, activity_id: r2.id)
+        Comment.create!(body: "race ya next time", user_id: u3.id, activity_id: r2.id)
 
         Kudo.create!(user_id: u2.id, activity_id: r2.id)
-        Kudo.create!(user_id: u1.id, activity_id: r3.id)
+        Kudo.create!(user_id: u1.id, activity_id: r2.id)
+        Kudo.create!(user_id: u10.id, activity_id: r2.id)
+        Kudo.create!(user_id: u11.id, activity_id: r2.id)
+        Kudo.create!(user_id: u12.id, activity_id: r2.id)
+        Kudo.create!(user_id: u15.id, activity_id: r2.id)
+        Kudo.create!(user_id: u9.id, activity_id: r2.id)
+        Kudo.create!(user_id: u3.id, activity_id: r2.id)
+
+
+
+    end
+
+        file_names_anand[2..-1].each do |file|
+        p 'starting u3'
+        next if File.extname(file) != ".gpx"
+        r4 = makeRoute("#{Rails.root}/db/gpx_anand/#{file}", u4.id)
+
+        Comment.create!(body: "you are a beast!", user_id: u1.id, activity_id: r4.id)
+        Comment.create!(body: "dude so fast!", user_id: u2.id, activity_id: r4.id)
+        Comment.create!(body: "next time, invite me", user_id: u3.id, activity_id: r4.id)
+        Comment.create!(body: "Can I be as cool as you?", user_id: u4.id, activity_id: r4.id)
+
+
+        Comment.create!(body: "SOOO COOL!", user_id: u1.id, activity_id: r4.id)
+        Comment.create!(body: "So so so fast!", user_id: u2.id, activity_id: r4.id)
+        Comment.create!(body: "race ya next time", user_id: u3.id, activity_id: r4.id)
+
+        Kudo.create!(user_id: u2.id, activity_id: r4.id)
+        Kudo.create!(user_id: u1.id, activity_id: r4.id)
         Kudo.create!(user_id: u10.id, activity_id: r4.id)
-        Kudo.create!(user_id: u11.id, activity_id: r5.id)
-        Kudo.create!(user_id: u12.id, activity_id: r6.id)
-        Kudo.create!(user_id: u15.id, activity_id: r7.id)
-        Kudo.create!(user_id: u12.id, activity_id: r8.id)
-        Kudo.create!(user_id: u9.id, activity_id: r3.id)
+        Kudo.create!(user_id: u11.id, activity_id: r4.id)
+        Kudo.create!(user_id: u15.id, activity_id: r4.id)
+        Kudo.create!(user_id: u12.id, activity_id: r4.id)
+        Kudo.create!(user_id: u9.id, activity_id: r4.id)
         Kudo.create!(user_id: u3.id, activity_id: r4.id)
 
 
@@ -233,9 +285,7 @@ ActiveRecord::Base.transaction do
     end
 
 
-    # makeRoute("#{Rails.root}/db/gpx/Morning_Ride.gpx", u1.id, "Bike")
-    # makeRoute("#{Rails.root}/db/gpx/Morning_Run.gpx", u2.id, "Run")
-    # makeRoute("#{Rails.root}/db/gpx/Ride3.gpx", u2.id, "Run")
+  
     
 
 end

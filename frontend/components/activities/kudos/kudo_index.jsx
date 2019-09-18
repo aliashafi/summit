@@ -24,8 +24,6 @@ class KudoIndex extends React.Component {
     componentDidUpdate(prevProps){
         if (Object.values(prevProps.kudos).length !== Object.values(this.props.kudos).length) {
             this.props.fetchAllActivities(this.props.page)
-            
-            // this.props.fetchAllKudos(this.props.activity.id)
         }
     }
 

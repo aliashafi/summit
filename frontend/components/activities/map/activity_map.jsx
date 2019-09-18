@@ -6,11 +6,14 @@ class ActivityMap extends React.Component {
 
     constructor(props) {
         super(props);
+        
         this.route = Object.values(JSON.parse(this.props.activity.coordinates));
+        
         this.state = {
             map: "",
             routeLine: []
         }
+        
         this.handleClick = this.handleClick.bind(this)
         
     
@@ -24,13 +27,19 @@ class ActivityMap extends React.Component {
 
     componentDidMount(){
         const dupRoute = this.route.slice()
-        const zoom = this.route.length < 5000 ? 12 : 10
+        
+        let zoom = this.route.length < 5000 ? 12 : 10
+
+        if (this.props.custom) {
+            zoom = 9;
+        }
 
         const centerRoute = dupRoute.sort()[Math.floor(this.route.length / 2)]
         mapboxgl.accessToken = 'pk.eyJ1IjoiYWxpYXNoYWZpIiwiYSI6ImNqenEzM3E5cDBjbzAzbW1wOGRic2huZTcifQ.P364O3bVxYCXn6iPnx3BLg';
         this.map = new mapboxgl.Map({
             container: this.props.container,
-            style: 'mapbox://styles/mapbox/streets-v11',
+            // style: 'mapbox://styles/mapbox/streets-v11',
+            style: 'mapbox://styles/aliashafi/ck0plinho0l7p1co4uxrfikvs',
             center: centerRoute, //this is the center
             zoom: zoom,
             interactive: this.props.interactive

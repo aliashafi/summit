@@ -46,7 +46,9 @@ class Feed extends React.Component {
                             activities={this.props.activities}
                             comments={this.props.comments}
                             fetchAllActivities={this.props.fetchAllActivities}
+                            fetchActivityComments={this.props.fetchActivityComments}
                             createKudo={this.props.createKudo}
+                            kudos={this.props.kudos}
                         /> 
 
                         <div className="grid-right">

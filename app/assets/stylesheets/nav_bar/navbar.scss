@@ -6,9 +6,10 @@
     flex-direction: row;
     justify-content: center;
     padding-bottom: 5px;
-    padding-top: 5px; 
+    // padding-top: 5px; 
     z-index : 10000;
     position: fixed;
+    box-shadow: 0px 2px 18px rgba(13,13,18,0.16)
 }
 
 .logo-container {
@@ -62,36 +63,6 @@
     height: 20px;
 }
 
-
-
-#dash-container{
-    width: 58%;
-}
-
-#dashboard-dropdown{
-    border: 0px 1px 1px 1px solid $strava-grey;
-    background-color: white;
-    position: absolute;
-    margin-top: -3px;
-    width: 130px;
-    visibility: hidden;
-
-    p{
-        width:124px;
-        padding-top: 15%;
-        padding-left: 3%;
-        padding-right: 2%;
-        padding-bottom: 15%;
-        font-family: $strava-font;
-        color: $strava-black;
-        cursor: pointer;
-    }
-
-    p:hover{
-        background-color: $strava-grey;
-    }
-}
-
  #dashboard{
         margin-top: 15px;
         display: flex;
@@ -101,13 +72,81 @@
         color: $strava-black;
         p{
             font-size: 36px;
-            margin-left: 5px;
             font-weight: 100;
         }
 }
 
-#dash-container:hover #dashboard-dropdown{
-        visibility: visible;
+
+
+
+#dashboard-dropdown{
+    border: 1px solid #666;
+    background-color: white;
+    position: absolute;
+    margin-top: -3px;
+    width: 130px;
+    display: none;
+    flex-direction: column;
+    top: 32px;
+    left: -6px;
+    z-index: -1;
+
+
+    p{
+        font-size: 16px;
+        font-weight: 100;
+        // width: 130px;
+        padding-top: 15%;
+        padding-left: 8%;
+        padding-bottom: 15%;
+        font-family: $strava-font;
+        color: #2d2d32;
+        cursor: pointer;
+        font-weight: 300;
+    }
+
+    p:hover{
+        font-size: 16px;
+        font-weight: 100;
+        font-family: $strava-font;
+        color: #2d2d32;
+        cursor: pointer;
+        font-weight: 300;
+        background-color: $strava-grey
+    
+    }
+}
+
+
+#drop-down-butn{
+    display: flex;
+    position: relative;
+    cursor: pointer;
+
+    div{
+        margin-left: 2px;
+    }
+}
+
+#drop-down-butn:hover #dashboard-dropdown{
+        display: flex;
+}
+
+#dash-container{
+    
+    background-color: white;
+    width: 101px;
+    padding: 3px;
+    height: 78%;
+    margin-right: auto;
+    margin-left: 62px;
+    
+
+}
+
+#dash-container:hover{
+    border: 1px solid #666;
+    border-bottom: none;
 }
 
 #dash-container:hover #dashboard{
@@ -121,7 +160,6 @@
     position: relative;
     overflow: hidden;
     border-radius: 50%;
-    margin-left: -19%;
     
 
     img{
@@ -133,56 +171,115 @@
 
 }
 
-#user-nav{
-    display: flex;
 
-    p{
-        font-family: $strava-font;
-        margin-top: 7%;
-        margin-bottom: auto;
-        margin-left: 9px;
-        font-size: 35px;
-        font-weight: 100;
-
-    }
-}
 
 #user-dropdown{
+    border: 1px solid #666;
     background-color: white;
-    margin-top: 2px;
+    position: absolute;
+    margin-top: -3px;
     width: 130px;
-    visibility: hidden;
-    margin-left: -65%;
+    display: none;
+    flex-direction: column;
+    top: 44px;
+    right: -1px;
+    z-index: -1;
+    
+
 
     p{
-        width:124px;
+        font-size: 16px;
+        font-weight: 100;
+        // width: 130px;
         padding-top: 15%;
-        padding-left: 3%;
-        padding-right: 2%;
+        padding-left: 8%;
         padding-bottom: 15%;
         font-family: $strava-font;
-        color: $strava-black;
+        color: #2d2d32;
         cursor: pointer;
-    }
-
-    p:nth-child(2){
-        // padding-bottom: 15%;
+        font-weight: 300;
     }
 
     p:hover{
-        background-color: $strava-grey;
+        font-size: 16px;
+        font-weight: 100;
+        font-family: $strava-font;
+        color: #2d2d32;
+        cursor: pointer;
+        font-weight: 300;
+        background-color: $strava-grey
+    
     }
+
 }
 
 
-#user-route:hover #user-dropdown{
-        visibility: visible;
+
+
+
+
+#user-route{
+    margin-top: 5px;
+    display: flex;
+}
+
+#user-nav-button{
+    display: flex;
+    position: relative;
+    padding-left: 20px;
+    padding-right: 11px;
+    cursor: pointer;
+
+    > p{
+        font-family: $strava-font;
+        padding-top: 14px;
+        margin-left: 13px;
+        font-size: 36px;
+        font-weight: 100px;
+    }
+
+    
+
+}
+
+
+#user-nav-button:hover #user-dropdown{
+    display: flex;
 }
 
 #user-route:hover #user-nav{
         color: $strava-orange;
 
 }
+
+
+
+
+
+
+
+#add-circle{
+    margin-left: 74px;
+    margin-right: 92px;
+    // background-color: blue;
+    // height: 88%;
+    width: 52px;
+    display: flex;
+    justify-content: center;
+    // border: 1px solid #666;
+    border-bottom: none;
+   
+}
+
+#add-circle:hover{
+    // height: 88%;
+    height: none;
+    border: 1px solid #666;
+    border-bottom: none;
+    background-color: white;
+}
+
+
 
 #add{
     border: 1px solid $strava-orange;
@@ -205,50 +302,82 @@
     }
 }
 
-.profile-add{
+
+#add-route-dropdown{
+    border: 1px solid #666;
+    background-color: white;
+    position: absolute;
+    margin-top: -3px;
+    width: 130px;
+    display: none;
+    flex-direction: column;
+    top: 51px;
+    right: 131px;
+    z-index: -1;
+    
+
+
+    p{
+    font-size: 16px;
+    font-weight: 100;
+    padding-top: 15%;
+    padding-left: 3%;
+    padding-bottom: 7%;
+    font-family: $strava-font;
+    color: #2d2d32;
+    cursor: pointer;
+    font-weight: 300;
+    display: flex;
+        img{
+            width: 20%;
+        }
+    }
+
+    p:hover{
+        font-size: 16px;
+        font-weight: 100;
+        font-family: $strava-font;
+        color: #2d2d32;
+        cursor: pointer;
+        font-weight: 300;
+        background-color: $strava-grey
+    
+    }
+}
+
+#add-button:hover #add-route-dropdown{
     display: flex;
 }
 
 
 
 
-#add-route-dropdown{
-    visibility: hidden;
-    margin-top: 18px;
-    p{
-        display: flex;
-        width:124px;
-        // padding-top: 15%;
-        padding-left: 3%;
-        padding-right: 2%;
-        padding-bottom: 10%;
-        font-family: $strava-font;
-        color: $strava-black;
-        background-color: white;
-        cursor: pointer;
-
-        
-
-        img{
-            width: 20%
-        }
-    }
+.profile-add{
+    display: flex;
+    background-color: white;
+    height: 87%;
+    
 }
 
-#add-route-dropdown:hover p{
-    background-color: $strava-grey;
+.profile-add:hover{
+    border: 1px solid #666;
+    border-bottom: none;
+    color: $strava-orange;
 }
 
 #add:hover{
     background-color: $strava-orange;
-    p {
-        color: white;
+    p{
+    color: white;
     }
 }
 
-#poop:hover #add-route-dropdown{
-    visibility: visible;
-}
+
+
+
+
+
+
 
 #logout-dropdown:hover #user-dropdown{
     visibility: visible;
@@ -263,6 +392,10 @@
 
 .infoBox{
     background-color: blue;
+}
+
+.right-side-container{
+    display: flex
 }
 
 

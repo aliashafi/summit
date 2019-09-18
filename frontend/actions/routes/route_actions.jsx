@@ -13,8 +13,8 @@ const receiveAllRoutes = (routes) => ({
     routes
 });
 
-export const fetchAllRoutes = () => dispatch => 
-    RouteUtil.fetchAllRoutes().then(routes => dispatch(receiveAllRoutes(routes)));
+export const fetchAllRoutes = (id) => dispatch => 
+    RouteUtil.fetchAllRoutes(id).then(routes => dispatch(receiveAllRoutes(routes)));
 
 export const createRoute = (id, route) => dispatch => 
     RouteUtil.createRoute(id, route).then(route => dispatch(receiveRoute(route)));

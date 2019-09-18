@@ -48,7 +48,8 @@ class ActivityItem extends React.Component {
 
     render(){
         const comments = this.props.activity.comment_ids.map(commentId => this.props.comments[commentId])
-        
+        const kudos = this.props.activity.kudo_ids.map(kudoId => this.props.kudos[kudoId])
+
         const ele = calculateElevationGain(this.elevation);
         const dist = Math.round(this.props.activity.distance * 100)/ 100
         const speed = Math.round(this.props.activity.average_speed * 100)/ 100
@@ -112,6 +113,7 @@ class ActivityItem extends React.Component {
                         activity={this.props.activity} 
                         currentUser={this.props.currentUser} 
                         page={this.props.page}
+                        kudos={kudos}
                         />
                 <div id='comment-icon' onClick={this.handleClick}>
                     <img src={window.images.comment_icon} alt="" />
@@ -129,7 +131,8 @@ class ActivityItem extends React.Component {
                 users={this.props.users} 
                 activity={this.props.activity} 
                 currentUser={this.props.currentUser} 
-                page={this.props.page}/>
+                page={this.props.page}
+                comments={comments}/>
 
             {this.state.makeComment ? 
                 <CommentFormContainer activity={this.props.activity} /> :

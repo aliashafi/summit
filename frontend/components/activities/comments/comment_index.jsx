@@ -4,18 +4,18 @@ import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import {fetchAllActivities} from '../../../actions/activities/activity_actions'
 import { fetchActivityComments, removeComment} from '../../../actions/comments/comment_actions'
+import { fetchAllUsers} from '../../../actions/users/user_actions'
 import CommentItemModal from './comment_item_modal'
 
 const mapStateToProps = (state, ownProps) => ({
     activities: state.entities.activities,
-    comments: state.entities.comments,
+    // comments: state.entities.comments,
     users: state.entities.users
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    fetchActivityComments: (activityId) => dispatch(fetchActivityComments(activityId)),
     fetchAllActivities: (page) => dispatch(fetchAllActivities(page)),
-    removeComment: (commentId) => dispatch(removeComment(commentId))
+    removeComment: (commentId) => dispatch(removeComment(commentId)),
 })
 
 class CommentIndex extends React.Component {
@@ -42,18 +42,23 @@ class CommentIndex extends React.Component {
 
 
     render(){
-    const actComments = this.props.activity.comment_ids.map(commentId => this.props.comments[commentId])
-    let allComments = actComments.map(comment => 
-        comment ? 
-        <CommentItem 
-            key={comment.id} 
-            comment={comment} 
-            user={this.props.users[comment.user_id]} 
-            activity={this.props.activity}
-            removeComment={this.props.removeComment}
-            currentUser={this.props.currentUser}
-            /> : "")
-    let allCommentsModal = actComments.map(comment =>
+    
+    // const actComments = this.props.activity.comment_ids.map(commentId => this.props.comments[commentId])
+
+    
+    // debugger
+    let allComments = this.props.comments.map(comment => {
+            
+           return ( <CommentItem 
+                key={comment.id} 
+                comment={comment} 
+                user={this.props.users[comment.user_id]} 
+                activity={this.props.activity}
+                removeComment={this.props.removeComment}
+                currentUser={this.props.currentUser}
+        />)})
+    
+    let allCommentsModal = this.props.comments.map(comment =>
         comment ?
             <CommentItemModal
                 key={comment.id}
@@ -63,16 +68,17 @@ class CommentIndex extends React.Component {
                 removeComment={this.props.removeComment}
                 currentUser={this.props.currentUser}
             /> : "")
+     
     return(
         <div>
             <div id= 'comments'>
                 <div>
                     {allComments.slice(0,2)}
                 </div>
-                {actComments.length > 2 ? 
+                {this.props.comments.length > 2 ? 
                     <p onClick={this.handleClick}
                         id="view-all-comments"> 
-                        See all {actComments.length} comments
+                        See all {this.props.comments.length} comments
                     </p>
                         
 

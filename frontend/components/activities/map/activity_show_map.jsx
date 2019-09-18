@@ -57,7 +57,7 @@ class ActivityShowMap extends React.Component {
         mapboxgl.accessToken = 'pk.eyJ1IjoiYWxpYXNoYWZpIiwiYSI6ImNqenEzM3E5cDBjbzAzbW1wOGRic2huZTcifQ.P364O3bVxYCXn6iPnx3BLg';
         this.map = new mapboxgl.Map({
             container: this.props.container,
-            style: 'mapbox://styles/mapbox/streets-v11',
+            style: 'mapbox://styles/aliashafi/ck0plinho0l7p1co4uxrfikvs',
             center: centerRoute, //this is the center
             zoom: zoom,
             interactive: this.props.interactive
@@ -122,7 +122,7 @@ class ActivityShowMap extends React.Component {
                 "source": "point",
                 "paint": {
                     "circle-radius": 6,
-                    "circle-color": "#3887be"
+                    "circle-color": "#3887be",
                 }
             });
             
@@ -145,18 +145,31 @@ class ActivityShowMap extends React.Component {
                 <div className="ele-graph">
                     <AreaChart
                         width={1000}
-                        height={300}
+                        height={200}
                         data={this.props.data}
                         syncId="anyId"
                         margin={{
                             top: 10, right: 30, left: 0, bottom: 0,
                         }}
+                        
                     >
                         <CartesianGrid strokeDasharray="3 3" />
                         <XAxis dataKey="dist" interval={this.props.interval} unit="mi"/>
                         <YAxis unit="ft"/>
-                        <Tooltip content={<CustomTooltipContainer />} position={{ y: 20 }} isAnimationActive={false} />
-                        <Area name="elevation (ft)" type="monotone" dataKey="ele" stroke="#D9D9D9" fill="#D9D9D9" activeDot={{ r: 8 }} />
+                        <Tooltip content={<CustomTooltipContainer />} position={{ y: 20 }} isAnimationActive={false} stroke="#3887be"
+                            />
+                        <defs>
+                            {/* <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="5%" stopColor="#3887be" stopOpacity={0.8} />
+                                <stop offset="95%" stopColor="#3887be" stopOpacity={0} />
+                            </linearGradient>
+                            <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="5%" stopColor="#3887be" stopOpacity={0.8} />
+                                <stop offset="95%" stopColor="#3887be" stopOpacity={0} />
+                            </linearGradient> */}
+                        </defs>
+                        <Area name="elevation (ft)" type="monotone" dataKey="ele" fill="#666" stroke="#666" 
+                            activeDot={{ r: 8, color:"#3887be"}} />
                     </AreaChart>
                 </div>
             </div>

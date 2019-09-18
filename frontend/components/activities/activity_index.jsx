@@ -20,7 +20,6 @@ class ActivityIndex extends React.Component {
         this.fetchAllActivities = this.props.fetchAllActivities.bind(this);
 
 
-
     
 
 
@@ -54,6 +53,7 @@ class ActivityIndex extends React.Component {
 
 
     render(){
+
         
         const activities = this.props.activities.map((activity, index) => {
             const user = this.props.users[activity.user_id]
@@ -70,6 +70,7 @@ class ActivityIndex extends React.Component {
                     currentUser={this.props.users[this.props.current_user.id]}
                     page={this.state.page}
                     user={user}
+                    kudos={this.props.kudos}
                     />
             )
         })

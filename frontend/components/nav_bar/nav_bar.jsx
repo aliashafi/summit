@@ -14,16 +14,25 @@ export default (props) =>
                 
                 {props.currentUser ?
                 <div id="dash-container">
+                        <div id="dashboard"> 
+                                
 
-                        <div id="dashboard"> Dashboard <p>ˇ</p></div>
+                                <div id="drop-down-butn">
+                                    <div>Dashboard</div>
+                                    <p>ˇ</p>
+                                    <div id="dashboard-dropdown">
 
-                    <div id="dashboard-dropdown">
+                                        <p onClick={() => props.history.push("/feed")}>Activity Feed</p>
+                                        <p onClick={() => props.history.push("/routes")} >My Routes</p>
+                                        <p onClick={() => props.history.push("/routes/create")}>Create Route</p>
+                                    </div>
+                                </div>
+                        </div>
 
-                        <p onClick={() => props.history.push("/feed")}>Activity Feed</p>
-                        <p>My Routes</p>
-                        <p onClick={() => props.history.push("/routes/create")}>Create Route</p>
 
-                    </div>
+                       
+
+                    
                     </div>
                     : ""}
 
@@ -35,40 +44,46 @@ export default (props) =>
                             props.logout().then(() => props.history.push('/login'))} >Logout
                         </div>
                     ) : 
-                        (       <div className="profile-add">
+                        (       
+                            <div className="right-side-container">
+                            <div className="profile-add">
                                     <div id="user-route">
-                        
-                                        <div id="user-nav">
+
+                                        <div id="user-nav-button">
                                             <div className="profile-picture-small-dash" >
                                                 <img src={props.currentUser.photoUrl} alt=""/>
                                             </div>
                                             <p>ˇ</p>
-                                            
-                                        
+
+                                        <div id="user-dropdown">
+                                            <p>Your Profile</p>
+                                            <p onClick={() =>
+                                                props.logout().then(() => props.history.push('/login'))}>Log Out</p>
                                         </div>
 
-                                    <div id="user-dropdown">
-                                        <p>Your Profile</p>
-                                        <p onClick={() =>
-                                            props.logout().then(() => props.history.push('/login'))}>Log Out</p>
+                                        
+                                        </div>
+                            
                                     </div>
-                                    </div>
-                                    
-                                    
+    
+                                </div>
 
-                                    <div id="poop">
+                                {/* <div id="add-circle">
+                                    <div id="add-button">
                                         <div id="add">
                                             <p>+</p>
-                                        
                                         </div>
+
                                         <div id="add-route-dropdown">
                                             <p id="drop-add"> <img src={window.images.upload} alt="" />
-                                                </p>
+                                                Create Route
+                                            </p>
                                         </div>
-                                    </div>
 
-                                    
-                                </div>
+                                    </div> */}
+                                   
+                                {/* </div> */}
+                            </div>
 
                         )
                     
