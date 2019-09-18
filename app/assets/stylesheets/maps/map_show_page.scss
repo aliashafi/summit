@@ -3,12 +3,12 @@
     display: flex;
     flex-direction: column; 
     position: relative;
-    // height: 100vh;
+    align-items: center;
     width: 100vw;
     font-family: $strava-font;
 
     .userInfo-stats{
-        height: 50%;
+        width: 100%
     }
 
     .activity-map{
@@ -16,6 +16,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        margin-top: 31px;
 
         .splits{
             width: 20%;
@@ -31,11 +32,6 @@
             }
         }
 
-        #container-map{
-            height: 100%;
-            width: 50vw;
-
-        }
     }
 }
 
@@ -75,4 +71,131 @@
     display: flex;
     justify-content: center;
 }
+
+
+ #container-map{
+    height: 100%;
+    // width: 50vw;
+    margin-top: 75px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    #userInfo-stats{
+        height: 50%;
+        border: 1px solid;
+        width: 50%;
+        display: flex;
+
+        .profile-picture{
+        margin: 0px;
+        margin-top: 9px;
+        }
+
+        
+    }
+
+}
+
+#user-info-header{
+    h1{
+        padding: 2%;
+        background-color: #F5F5FA;
+        font-family: $strava-font;
+        font-size: 20px;
+        border: 1px solid $strava-grey;
+        border-top: none;
+        color: #2D2D32
+    }
+    
+}
+
+#activity-show-info{
+    display: flex;
+    border: 1px solid $strava-grey;
+    padding: 2%;
+    .profile-picture{
+        margin: 0px;
+        margin-top: 9px;
+        }
+}
+
+.activity-details-show{
+    display: flex;
+    flex-direction: column;
+    padding: 21px;
+    width: 50%;
+
+    div{
+        padding: 2%
+    }
+    
+
+    #activity-time{
+        color: #666;
+        font-size: 12px;
+    }
+    #activity-show-title{
+        font-weight: 700;
+        font-size: 24px;
+    }
+    #activity-description{
+        font-size: 14px;
+        color: #666;
+    }
+}
+
+
+#activity-show-stats{
+    display: flex;
+    padding: 2%;
+    // width: 40%;
+    justify-content: space-around;
+    // border-left: 1px solid #e6e6eb;
+
+    section{
+       display: flex;
+       
+       span{
+           margin-top: auto;
+           color: #666;
+           margin-left: 2px;
+       }
+    }
+
+    p{
+        font-size: 28px;
+        color: $strava-black;
+        
+    }
+    h3{
+        margin-top: 3px;
+        color: #666;
+        
+    }
+}
+
+#all-activity-stats{
+    width: 45%;
+    border-left: 1px solid $strava-grey;
+
+    table{
+        border-collapse: separate;
+        border-spacing: 0px;
+        padding: 0;
+        margin: 10px 0 0 28px;
+        font-size: 12px;
+        font-family: $strava-font;
+        width: 100%;
+    }
+
+    th{
+        padding-bottom: 3%;
+        font-family: $strava-font;
+        font-weight: 700;
+    }
+}
+
+
+
 

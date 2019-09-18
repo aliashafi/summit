@@ -121,7 +121,7 @@ class ActivityShowMap extends React.Component {
                 "type": "circle",
                 "source": "point",
                 "paint": {
-                    "circle-radius": 10,
+                    "circle-radius": 6,
                     "circle-color": "#3887be"
                 }
             });
@@ -153,8 +153,8 @@ class ActivityShowMap extends React.Component {
                         }}
                     >
                         <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="dist" interval={this.props.interval} />
-                        <YAxis />
+                        <XAxis dataKey="dist" interval={this.props.interval} unit="mi"/>
+                        <YAxis unit="ft"/>
                         <Tooltip content={<CustomTooltipContainer />} position={{ y: 20 }} isAnimationActive={false} />
                         <Area name="elevation (ft)" type="monotone" dataKey="ele" stroke="#D9D9D9" fill="#D9D9D9" activeDot={{ r: 8 }} />
                     </AreaChart>

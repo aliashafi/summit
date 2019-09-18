@@ -40,18 +40,7 @@ class ActivityMap extends React.Component {
         // this.setState({map: this.map, routeLine: routeLine, centerRoute: centerRoute})
         // last datapoint is not correct... check to see if this is the case for all
 
-        
-        ///for animated point
-        let geojson = {
-            "type": "FeatureCollection",
-            "features": [{
-                "type": "Feature",
-                "geometry": {
-                    "type": "Point",
-                    "coordinates": routeLine[5]
-                }
-            }]
-        };
+    
         
 
         ///create map
@@ -83,20 +72,6 @@ class ActivityMap extends React.Component {
                 }
             });
 
-            map.addSource('point', {
-                "type": "geojson",
-                "data": geojson
-            })
-
-            map.addLayer({
-                "id": "point",
-                "type": "circle",
-                "source": "point",
-                "paint": {
-                    "circle-radius": 10,
-                    "circle-color": "#3887be"
-                }
-            });
         })
 
 
