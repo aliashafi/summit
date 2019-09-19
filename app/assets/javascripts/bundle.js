@@ -135,9 +135,9 @@ var fetchAllActivities = function fetchAllActivities(page) {
     });
   };
 };
-var fetchUserActivities = function fetchUserActivities(page) {
+var fetchUserActivities = function fetchUserActivities() {
   return function (dispatch) {
-    return _util_activity_util__WEBPACK_IMPORTED_MODULE_0__["fetchUserActivities"](page).then(function (activities) {
+    return _util_activity_util__WEBPACK_IMPORTED_MODULE_0__["fetchUserActivities"]().then(function (activities) {
       return dispatch(receiveCurrentUserActivities(activities));
     });
   };
@@ -1694,7 +1694,7 @@ function (_React$Component) {
         id: "activity-show-stats"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, dist), " ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "mi")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Distance")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, eleGain), " ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "ft")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Elevation")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, this.getElapseTime()), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Elapsed Time"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
         className: "route-data"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Avg"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Max"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Speed"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, speed, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("abbr", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Avg"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Max"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Speed"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, speed, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("abbr", {
         className: "unit",
         title: "miles per hour"
       }, "mi/h")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "32.7", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("abbr", {
@@ -1778,6 +1778,7 @@ function (_React$Component) {
       splitHover: []
     };
     _this.currentSegment = _this.currentSegment.bind(_assertThisInitialized(_this));
+    _this.toggleSeg = _this.toggleSeg.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -1915,6 +1916,15 @@ function (_React$Component) {
           "data": geojson
         });
         map.addLayer({
+          "id": "point1",
+          "type": "circle",
+          "source": "point",
+          "paint": {
+            "circle-radius": 8,
+            "circle-color": "#ffffff"
+          }
+        });
+        map.addLayer({
           "id": "point",
           "type": "circle",
           "source": "point",
@@ -1943,9 +1953,11 @@ function (_React$Component) {
         className: "table-splits"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Mile"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Split"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Elevation"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, Object.keys(splits).map(function (mile) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
+          key: mile,
           onMouseOver: function onMouseOver() {
             return _this2.currentSegment(mile);
-          }
+          },
+          onMouseOut: _this2.toggleSeg
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, mile), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, splits[mile].split), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, splits[mile].elevation));
       })))) : "", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: this.props.container
@@ -2264,6 +2276,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _activities_map_activity_map_container__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./activities/map/activity_map_container */ "./frontend/components/activities/map/activity_map_container.jsx");
 /* harmony import */ var _routes_route_create_container__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./routes/route_create_container */ "./frontend/components/routes/route_create_container.jsx");
 /* harmony import */ var _routes_route_index_container__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./routes/route_index_container */ "./frontend/components/routes/route_index_container.jsx");
+/* harmony import */ var _users_user_profile_container__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./users/user_profile_container */ "./frontend/components/users/user_profile_container.jsx");
+
 
 
 
@@ -2296,6 +2310,10 @@ __webpack_require__.r(__webpack_exports__);
     exact: true,
     path: "/routes/",
     component: _routes_route_index_container__WEBPACK_IMPORTED_MODULE_10__["default"]
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_5__["ProtectedRoute"], {
+    exact: true,
+    path: "/users/:userId",
+    component: _users_user_profile_container__WEBPACK_IMPORTED_MODULE_11__["default"]
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_5__["AuthRoute"], {
     exact: true,
     path: "/signup",
@@ -2386,7 +2404,7 @@ function (_React$Component) {
   _createClass(Feed, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      Promise.all([this.props.fetchAllUsers(), this.props.fetchUserActivities(), this.props.fetchAllActivities(1), this.props.fetchFollowers(), this.props.fetchFollowing()]);
+      Promise.all([this.props.fetchAllUsers(), this.props.fetchAllActivities(1), this.props.fetchUserActivities(), this.props.fetchFollowers(), this.props.fetchFollowing()]);
     }
   }, {
     key: "componentDidUpdate",
@@ -3745,6 +3763,375 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./frontend/components/users/stats/activity_callendar.jsx":
+/*!****************************************************************!*\
+  !*** ./frontend/components/users/stats/activity_callendar.jsx ***!
+  \****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _last_four_weeks_bar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./last_four_weeks_bar */ "./frontend/components/users/stats/last_four_weeks_bar.jsx");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+var ActivityCallendar =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(ActivityCallendar, _React$Component);
+
+  function ActivityCallendar() {
+    _classCallCheck(this, ActivityCallendar);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(ActivityCallendar).apply(this, arguments));
+  }
+
+  _createClass(ActivityCallendar, [{
+    key: "getDay",
+    value: function getDay(dateTime) {
+      var date = new Date(dateTime);
+      return date.getDay();
+    }
+  }, {
+    key: "addDays",
+    value: function addDays(time, d) {
+      var test = time;
+      test.setTime(test.getTime() + d * 24 * 60 * 60 * 1000);
+      return test;
+    }
+  }, {
+    key: "subtractDays",
+    value: function subtractDays(time, d) {
+      var test = time;
+      test.setTime(test.getTime() - d * 24 * 60 * 60 * 1000);
+      return test;
+    }
+  }, {
+    key: "between",
+    value: function between(dates, currentDate) {
+      var current = new Date(currentDate);
+
+      if (current >= dates[0] && current <= dates[1]) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }, {
+    key: "getWeekBounds",
+    value: function getWeekBounds(day) {
+      var start = day;
+      var copy = "".concat(start);
+      var end = this.addDays(start, 7);
+      var newEnd = new Date(copy);
+      return [newEnd, end];
+    }
+  }, {
+    key: "weekOneBounds",
+    value: function weekOneBounds() {
+      var currentDate = this.props.bounds[0];
+      var currentStartDateCopy = "".concat(currentDate);
+      var currentEndDateCopy = new Date(currentStartDateCopy);
+      var weekDay = currentDate.getDay();
+      var daysLeft = 8 - weekDay;
+      var start = this.subtractDays(currentDate, weekDay);
+      var end = this.addDays(currentEndDateCopy, daysLeft);
+      return [start, end];
+    }
+  }, {
+    key: "getWeekIntensities",
+    value: function getWeekIntensities(bounds) {
+      var _this = this;
+
+      var activities = this.props.activities.filter(function (activity) {
+        return _this.between(bounds, activity.time);
+      });
+      var intensities = {
+        0: 0,
+        1: 0,
+        2: 0,
+        3: 0,
+        4: 0,
+        5: 0,
+        6: 0,
+        7: 0
+      };
+      activities.forEach(function (act) {
+        var day = _this.getDay(act.time);
+
+        return intensities[day] += act.elapse_time;
+      });
+      return intensities;
+    }
+  }, {
+    key: "getAllIntensities",
+    value: function getAllIntensities() {
+      var intensityMap = {};
+      var week = 0;
+      var bounds = [];
+
+      while (week < 4) {
+        if (week === 0) {
+          bounds = this.weekOneBounds();
+          intensityMap[week] = this.getWeekIntensities(bounds);
+        } else {
+          bounds = this.getWeekBounds(bounds[1]);
+          intensityMap[week] = this.getWeekIntensities(bounds);
+        }
+
+        week += 1;
+      }
+
+      return intensityMap;
+    }
+  }, {
+    key: "normalize",
+    value: function normalize(max, min, num) {
+      var step1 = (num - min) / (max - min);
+      var step2 = 30 - 5;
+      return step1 * step2 + 5;
+    }
+  }, {
+    key: "normalizeMap",
+    value: function normalizeMap(mapI) {
+      var _this2 = this;
+
+      var ans = [];
+      mapI.map(function (week) {
+        ans = ans.concat(Object.values(week));
+      });
+      var max = Math.max.apply(Math, _toConsumableArray(ans));
+      var min = Math.min.apply(Math, _toConsumableArray(ans));
+      var normalizedIntensities = [];
+      mapI.forEach(function (week) {
+        var weekNorm = {};
+        Object.values(week).forEach(function (count, day) {
+          var norm = _this2.normalize(max, min, count);
+
+          weekNorm[day] = Math.floor(norm);
+        });
+        normalizedIntensities.push(weekNorm);
+      });
+      return normalizedIntensities;
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var intensities = [];
+      var hourIntensities = [];
+
+      if (this.props.bounds.length > 0) {
+        hourIntensities = Object.values(this.getAllIntensities());
+        intensities = this.normalizeMap(hourIntensities);
+      }
+
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "activity-call-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
+        className: "month-table"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        scope: "col"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "weekday"
+      }, "M")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        scope: "col"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "weekday"
+      }, "T")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        scope: "col"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "weekday"
+      }, "W")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        scope: "col"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "weekday"
+      }, "T")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        scope: "col"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "weekday"
+      }, "F")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        scope: "col"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "weekday"
+      }, "S")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+        scope: "col"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "weekday"
+      }, "S")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, intensities.map(function (week) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", {
+          key: Math.random(4),
+          id: "bubbles"
+        }, Object.keys(week).map(function (day) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
+            key: day
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            id: "bubble-container"
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+            id: "intensity-bubble",
+            style: {
+              width: week[day],
+              height: week[day]
+            }
+          })));
+        }));
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_last_four_weeks_bar__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        data: hourIntensities,
+        activities: this.props.activities
+      }));
+    }
+  }]);
+
+  return ActivityCallendar;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (ActivityCallendar);
+
+/***/ }),
+
+/***/ "./frontend/components/users/stats/last_four_weeks_bar.jsx":
+/*!*****************************************************************!*\
+  !*** ./frontend/components/users/stats/last_four_weeks_bar.jsx ***!
+  \*****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var recharts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! recharts */ "./node_modules/recharts/es6/index.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+var renderCustomizedLabel = function renderCustomizedLabel(props) {
+  var x = props.x,
+      y = props.y,
+      width = props.width,
+      height = props.height,
+      value = props.value;
+  var radius = 10;
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("g", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("circle", {
+    cx: x + width / 2,
+    cy: y - radius,
+    r: radius,
+    fill: "#8884d8"
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("text", {
+    x: x + width / 2,
+    y: y - radius,
+    fill: "#666",
+    textAnchor: "middle",
+    dominantBaseline: "middle"
+  }, value));
+};
+
+var LastFourWeeksBar =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(LastFourWeeksBar, _React$Component);
+
+  function LastFourWeeksBar(props) {
+    _classCallCheck(this, LastFourWeeksBar);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(LastFourWeeksBar).call(this, props));
+  }
+
+  _createClass(LastFourWeeksBar, [{
+    key: "arrSum",
+    value: function arrSum(arr) {
+      return arr.reduce(function (a, b) {
+        return a + b;
+      }, 0);
+    }
+  }, {
+    key: "getActivityHours",
+    value: function getActivityHours(intensities) {
+      var _this = this;
+
+      var allWeeks = [];
+      intensities.forEach(function (count, week) {
+        var hours = {};
+        hours["week"] = week;
+        hours["count"] = _this.arrSum(Object.values(count));
+        allWeeks.push(hours);
+      });
+      return allWeeks;
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var data = this.getActivityHours(this.props.data);
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        id: "chart"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_1__["BarChart"], {
+        width: 145,
+        height: 100,
+        data: data // layout="vertical"
+        // margin={{
+        //     top: 20, right: 30, left: 20, bottom: 5,
+        // }}
+
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_1__["Bar"], {
+        type: "category",
+        dataKey: "count",
+        fill: "#8884d8"
+      })));
+    }
+  }]);
+
+  return LastFourWeeksBar;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (LastFourWeeksBar);
+
+/***/ }),
+
 /***/ "./frontend/components/users/user_feed_profile.jsx":
 /*!*********************************************************!*\
   !*** ./frontend/components/users/user_feed_profile.jsx ***!
@@ -3801,7 +4188,7 @@ function (_React$Component) {
       var _this = this;
 
       var ownActivities = [];
-      this.props.activities.forEach(function (act) {
+      this.props.currentUserActivities.forEach(function (act) {
         if (act.user_id === _this.props.current_user.id) ownActivities.push(act);
       });
       return ownActivities;
@@ -4203,6 +4590,225 @@ function (_React$Component2) {
 
 
 ;
+
+/***/ }),
+
+/***/ "./frontend/components/users/user_profile.jsx":
+/*!****************************************************!*\
+  !*** ./frontend/components/users/user_profile.jsx ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_countup__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-countup */ "./node_modules/react-countup/build/index.js");
+/* harmony import */ var react_countup__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_countup__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _stats_activity_callendar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./stats/activity_callendar */ "./frontend/components/users/stats/activity_callendar.jsx");
+/* harmony import */ var _user_feed_recent_activity__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./user_feed_recent_activity */ "./frontend/components/users/user_feed_recent_activity.jsx");
+/* harmony import */ var _activities_map_activity_map__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../activities/map/activity_map */ "./frontend/components/activities/map/activity_map.jsx");
+/* harmony import */ var _util_date_util__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../util/date_util */ "./frontend/util/date_util.jsx");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+
+
+
+
+var UserProfile =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(UserProfile, _React$Component);
+
+  function UserProfile(props) {
+    _classCallCheck(this, UserProfile);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(UserProfile).call(this, props));
+  }
+
+  _createClass(UserProfile, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.props.fetchUserActivities();
+    }
+  }, {
+    key: "subtractDays",
+    value: function subtractDays(time, d) {
+      var test = time;
+      test.setTime(test.getTime() - d * 24 * 60 * 60 * 1000);
+      return test;
+    }
+  }, {
+    key: "getLastFourWeeks",
+    value: function getLastFourWeeks() {
+      var activities = this.props.activities;
+      var end = new Date(activities[this.props.activities.length - 1].time);
+      var copy = "".concat(end);
+      var start = this.subtractDays(end, 28);
+      var newEnd = new Date(copy);
+      return [start, newEnd];
+    }
+  }, {
+    key: "between",
+    value: function between(dates, currentDate) {
+      var current = new Date(currentDate);
+
+      if (current >= dates[0] && current <= dates[1]) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }, {
+    key: "getElapseTime",
+    value: function getElapseTime(activity) {
+      var measuredTime = new Date(null);
+      measuredTime.setSeconds(activity.elapse_time);
+      var MHSTime = measuredTime.toISOString().substr(11, 8);
+      return MHSTime.slice(1);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this = this;
+
+      var dateBounds4 = [];
+      var last4 = [];
+
+      if (this.props.activities.length !== 0) {
+        dateBounds4 = this.getLastFourWeeks();
+        last4 = this.props.activities.filter(function (activity) {
+          var date = new Date(activity.time);
+          if (_this.between(dateBounds4, date)) return activity;
+        });
+      }
+
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.props.activities.length > 0 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "user-profile-page"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "user-content"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "profile-page-picture"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: this.props.current_user.photoUrl
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+        id: "user-name"
+      }, this.props.current_user.first_name, " ", this.props.current_user.last_name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "top-section"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        id: "last-4-weeks"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Last 4 Weeks"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_countup__WEBPACK_IMPORTED_MODULE_1___default.a, {
+        end: last4.length
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Total Activities")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_stats_activity_callendar__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        activities: last4,
+        bounds: dateBounds4
+      }))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        id: "user-feed-recent-profile"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_user_feed_recent_activity__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        activity: this.props.activities
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "user-profile-maps"
+      }, last4.map(function (activity) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          id: "profile-activity-details"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+          id: "activity-details"
+        }, activity.activity_type !== 'Bike' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          src: window.images.running_icon,
+          alt: ""
+        }) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          src: window.images.biking_icon,
+          alt: ""
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          id: "activity-header"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
+          id: "activity-title"
+        }, activity.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+          id: "time"
+        }, Object(_util_date_util__WEBPACK_IMPORTED_MODULE_5__["formatDate"])(activity.time)))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+          id: "show-stats"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Distance"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, Math.round(activity.distance * 100) / 100, " mi")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Avg Speed"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, Math.round(activity.average_speed * 100) / 100)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Time"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, _this.getElapseTime(activity))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_activities_map_activity_map__WEBPACK_IMPORTED_MODULE_4__["default"], {
+          key: activity.id,
+          activity: activity,
+          interactive: false,
+          container: "map-".concat(activity.id)
+        }));
+      }))) : "");
+    }
+  }]);
+
+  return UserProfile;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (UserProfile);
+
+/***/ }),
+
+/***/ "./frontend/components/users/user_profile_container.jsx":
+/*!**************************************************************!*\
+  !*** ./frontend/components/users/user_profile_container.jsx ***!
+  \**************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _user_profile__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./user_profile */ "./frontend/components/users/user_profile.jsx");
+/* harmony import */ var _actions_follows_follows_action__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../..//actions/follows/follows_action */ "./frontend/actions/follows/follows_action.js");
+/* harmony import */ var _actions_activities_activity_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/activities/activity_actions */ "./frontend/actions/activities/activity_actions.js");
+
+
+
+
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    followers: Object.values(state.entities.followers),
+    following: Object.values(state.entities.followers),
+    current_user: state.session.currentUser,
+    activities: Object.values(state.entities.currentUserActivities),
+    users: Object.values(state.entities.users),
+    comments: state.entities.comments,
+    kudos: state.entities.kudos
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    fetchUserActivities: function fetchUserActivities() {
+      return dispatch(Object(_actions_activities_activity_actions__WEBPACK_IMPORTED_MODULE_3__["fetchUserActivities"])());
+    },
+    fetchFollowers: function fetchFollowers() {
+      return dispatch(Object(_actions_follows_follows_action__WEBPACK_IMPORTED_MODULE_2__["fetchFollowers"])());
+    },
+    fetchFollowing: function fetchFollowing() {
+      return dispatch(Object(_actions_follows_follows_action__WEBPACK_IMPORTED_MODULE_2__["fetchFollowing"])());
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_user_profile__WEBPACK_IMPORTED_MODULE_1__["default"]));
 
 /***/ }),
 
@@ -4767,7 +5373,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var configureStore = function configureStore() {
   var preloadedState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  return Object(redux__WEBPACK_IMPORTED_MODULE_0__["createStore"])(_reducers_root_reducer__WEBPACK_IMPORTED_MODULE_3__["default"], preloadedState, Object(redux__WEBPACK_IMPORTED_MODULE_0__["applyMiddleware"])(redux_thunk__WEBPACK_IMPORTED_MODULE_2__["default"], redux_logger__WEBPACK_IMPORTED_MODULE_1___default.a));
+  return Object(redux__WEBPACK_IMPORTED_MODULE_0__["createStore"])(_reducers_root_reducer__WEBPACK_IMPORTED_MODULE_3__["default"], preloadedState, Object(redux__WEBPACK_IMPORTED_MODULE_0__["applyMiddleware"])(redux_thunk__WEBPACK_IMPORTED_MODULE_2__["default"]));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (configureStore);
@@ -7348,6 +7954,21 @@ $export($export.P + $export.F * ($fails(function () {
   }
 });
 
+
+/***/ }),
+
+/***/ "./node_modules/countup.js/dist/countUp.min.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/countup.js/dist/countUp.min.js ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;!function(a,n){ true?!(__WEBPACK_AMD_DEFINE_FACTORY__ = (n),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.call(exports, __webpack_require__, exports, module)) :
+				__WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)):undefined}(this,function(a,n,t){var e=function(a,n,t,e,i,r){function o(a){var n,t,e,i,r,o,s=a<0;if(a=Math.abs(a).toFixed(l.decimals),a+="",n=a.split("."),t=n[0],e=n.length>1?l.options.decimal+n[1]:"",l.options.useGrouping){for(i="",r=0,o=t.length;r<o;++r)0!==r&&r%3===0&&(i=l.options.separator+i),i=t[o-r-1]+i;t=i}return l.options.numerals.length&&(t=t.replace(/[0-9]/g,function(a){return l.options.numerals[+a]}),e=e.replace(/[0-9]/g,function(a){return l.options.numerals[+a]})),(s?"-":"")+l.options.prefix+t+e+l.options.suffix}function s(a,n,t,e){return t*(-Math.pow(2,-10*a/e)+1)*1024/1023+n}function u(a){return"number"==typeof a&&!isNaN(a)}var l=this;if(l.version=function(){return"1.9.3"},l.options={useEasing:!0,useGrouping:!0,separator:",",decimal:".",easingFn:s,formattingFn:o,prefix:"",suffix:"",numerals:[]},r&&"object"==typeof r)for(var m in l.options)r.hasOwnProperty(m)&&null!==r[m]&&(l.options[m]=r[m]);""===l.options.separator?l.options.useGrouping=!1:l.options.separator=""+l.options.separator;for(var d=0,c=["webkit","moz","ms","o"],f=0;f<c.length&&!window.requestAnimationFrame;++f)window.requestAnimationFrame=window[c[f]+"RequestAnimationFrame"],window.cancelAnimationFrame=window[c[f]+"CancelAnimationFrame"]||window[c[f]+"CancelRequestAnimationFrame"];window.requestAnimationFrame||(window.requestAnimationFrame=function(a,n){var t=(new Date).getTime(),e=Math.max(0,16-(t-d)),i=window.setTimeout(function(){a(t+e)},e);return d=t+e,i}),window.cancelAnimationFrame||(window.cancelAnimationFrame=function(a){clearTimeout(a)}),l.initialize=function(){return!!l.initialized||(l.error="",l.d="string"==typeof a?document.getElementById(a):a,l.d?(l.startVal=Number(n),l.endVal=Number(t),u(l.startVal)&&u(l.endVal)?(l.decimals=Math.max(0,e||0),l.dec=Math.pow(10,l.decimals),l.duration=1e3*Number(i)||2e3,l.countDown=l.startVal>l.endVal,l.frameVal=l.startVal,l.initialized=!0,!0):(l.error="[CountUp] startVal ("+n+") or endVal ("+t+") is not a number",!1)):(l.error="[CountUp] target is null or undefined",!1))},l.printValue=function(a){var n=l.options.formattingFn(a);"INPUT"===l.d.tagName?this.d.value=n:"text"===l.d.tagName||"tspan"===l.d.tagName?this.d.textContent=n:this.d.innerHTML=n},l.count=function(a){l.startTime||(l.startTime=a),l.timestamp=a;var n=a-l.startTime;l.remaining=l.duration-n,l.options.useEasing?l.countDown?l.frameVal=l.startVal-l.options.easingFn(n,0,l.startVal-l.endVal,l.duration):l.frameVal=l.options.easingFn(n,l.startVal,l.endVal-l.startVal,l.duration):l.countDown?l.frameVal=l.startVal-(l.startVal-l.endVal)*(n/l.duration):l.frameVal=l.startVal+(l.endVal-l.startVal)*(n/l.duration),l.countDown?l.frameVal=l.frameVal<l.endVal?l.endVal:l.frameVal:l.frameVal=l.frameVal>l.endVal?l.endVal:l.frameVal,l.frameVal=Math.round(l.frameVal*l.dec)/l.dec,l.printValue(l.frameVal),n<l.duration?l.rAF=requestAnimationFrame(l.count):l.callback&&l.callback()},l.start=function(a){l.initialize()&&(l.callback=a,l.rAF=requestAnimationFrame(l.count))},l.pauseResume=function(){l.paused?(l.paused=!1,delete l.startTime,l.duration=l.remaining,l.startVal=l.frameVal,requestAnimationFrame(l.count)):(l.paused=!0,cancelAnimationFrame(l.rAF))},l.reset=function(){l.paused=!1,delete l.startTime,l.initialized=!1,l.initialize()&&(cancelAnimationFrame(l.rAF),l.printValue(l.startVal))},l.update=function(a){if(l.initialize()){if(a=Number(a),!u(a))return void(l.error="[CountUp] update() - new endVal is not a number: "+a);l.error="",a!==l.frameVal&&(cancelAnimationFrame(l.rAF),l.paused=!1,delete l.startTime,l.startVal=l.frameVal,l.endVal=a,l.countDown=l.startVal>l.endVal,l.rAF=requestAnimationFrame(l.count))}},l.initialize()&&l.printValue(l.startVal)};return e});
 
 /***/ }),
 
@@ -33850,6 +34471,601 @@ module.exports.polyfill = function(object) {
 }
 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
+
+/***/ }),
+
+/***/ "./node_modules/react-countup/build/index.js":
+/*!***************************************************!*\
+  !*** ./node_modules/react-countup/build/index.js ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, '__esModule', { value: true });
+
+function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
+
+var PropTypes = _interopDefault(__webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js"));
+var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+var React__default = _interopDefault(React);
+var warning = _interopDefault(__webpack_require__(/*! warning */ "./node_modules/warning/warning.js"));
+var CountUp = _interopDefault(__webpack_require__(/*! countup.js */ "./node_modules/countup.js/dist/countUp.min.js"));
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+function _defineProperties(target, props) {
+  for (var i = 0; i < props.length; i++) {
+    var descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if ("value" in descriptor) descriptor.writable = true;
+    Object.defineProperty(target, descriptor.key, descriptor);
+  }
+}
+
+function _createClass(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties(Constructor, staticProps);
+  return Constructor;
+}
+
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+function ownKeys(object, enumerableOnly) {
+  var keys = Object.keys(object);
+
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+    if (enumerableOnly) symbols = symbols.filter(function (sym) {
+      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+    });
+    keys.push.apply(keys, symbols);
+  }
+
+  return keys;
+}
+
+function _objectSpread2(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? arguments[i] : {};
+
+    if (i % 2) {
+      ownKeys(source, true).forEach(function (key) {
+        _defineProperty(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      ownKeys(source).forEach(function (key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
+  }
+
+  return target;
+}
+
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function");
+  }
+
+  subClass.prototype = Object.create(superClass && superClass.prototype, {
+    constructor: {
+      value: subClass,
+      writable: true,
+      configurable: true
+    }
+  });
+  if (superClass) _setPrototypeOf(subClass, superClass);
+}
+
+function _getPrototypeOf(o) {
+  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
+    return o.__proto__ || Object.getPrototypeOf(o);
+  };
+  return _getPrototypeOf(o);
+}
+
+function _setPrototypeOf(o, p) {
+  _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
+    o.__proto__ = p;
+    return o;
+  };
+
+  return _setPrototypeOf(o, p);
+}
+
+function _assertThisInitialized(self) {
+  if (self === void 0) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+
+  return self;
+}
+
+function _possibleConstructorReturn(self, call) {
+  if (call && (typeof call === "object" || typeof call === "function")) {
+    return call;
+  }
+
+  return _assertThisInitialized(self);
+}
+
+function _slicedToArray(arr, i) {
+  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest();
+}
+
+function _arrayWithHoles(arr) {
+  if (Array.isArray(arr)) return arr;
+}
+
+function _iterableToArrayLimit(arr, i) {
+  var _arr = [];
+  var _n = true;
+  var _d = false;
+  var _e = undefined;
+
+  try {
+    for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+      _arr.push(_s.value);
+
+      if (i && _arr.length === i) break;
+    }
+  } catch (err) {
+    _d = true;
+    _e = err;
+  } finally {
+    try {
+      if (!_n && _i["return"] != null) _i["return"]();
+    } finally {
+      if (_d) throw _e;
+    }
+  }
+
+  return _arr;
+}
+
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance");
+}
+
+var createCountUpInstance = function createCountUpInstance(el, props) {
+  var decimal = props.decimal,
+      decimals = props.decimals,
+      duration = props.duration,
+      easingFn = props.easingFn,
+      end = props.end,
+      formattingFn = props.formattingFn,
+      prefix = props.prefix,
+      separator = props.separator,
+      start = props.start,
+      suffix = props.suffix,
+      useEasing = props.useEasing;
+  return new CountUp(el, start, end, decimals, duration, {
+    decimal: decimal,
+    easingFn: easingFn,
+    formattingFn: formattingFn,
+    separator: separator,
+    prefix: prefix,
+    suffix: suffix,
+    useEasing: useEasing,
+    useGrouping: !!separator
+  });
+};
+
+var CountUp$1 =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(CountUp$$1, _Component);
+
+  function CountUp$$1() {
+    var _getPrototypeOf2;
+
+    var _this;
+
+    _classCallCheck(this, CountUp$$1);
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(CountUp$$1)).call.apply(_getPrototypeOf2, [this].concat(args)));
+
+    _defineProperty(_assertThisInitialized(_this), "createInstance", function () {
+      if (typeof _this.props.children === 'function') {
+        // Warn when user didn't use containerRef at all
+        warning(_this.containerRef.current && (_this.containerRef.current instanceof HTMLElement || _this.containerRef.current instanceof SVGTextElement), "Couldn't find attached element to hook the CountUp instance into! Try to attach \"containerRef\" from the render prop to a an HTMLElement, eg. <span ref={containerRef} />.");
+      }
+
+      return createCountUpInstance(_this.containerRef.current, _this.props);
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "pauseResume", function () {
+      var _assertThisInitialize = _assertThisInitialized(_this),
+          reset = _assertThisInitialize.reset,
+          start = _assertThisInitialize.restart,
+          update = _assertThisInitialize.update;
+
+      var onPauseResume = _this.props.onPauseResume;
+
+      _this.instance.pauseResume();
+
+      onPauseResume({
+        reset: reset,
+        start: start,
+        update: update
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "reset", function () {
+      var _assertThisInitialize2 = _assertThisInitialized(_this),
+          pauseResume = _assertThisInitialize2.pauseResume,
+          start = _assertThisInitialize2.restart,
+          update = _assertThisInitialize2.update;
+
+      var onReset = _this.props.onReset;
+
+      _this.instance.reset();
+
+      onReset({
+        pauseResume: pauseResume,
+        start: start,
+        update: update
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "restart", function () {
+      _this.reset();
+
+      _this.start();
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "start", function () {
+      var _assertThisInitialize3 = _assertThisInitialized(_this),
+          pauseResume = _assertThisInitialize3.pauseResume,
+          reset = _assertThisInitialize3.reset,
+          start = _assertThisInitialize3.restart,
+          update = _assertThisInitialize3.update;
+
+      var _this$props = _this.props,
+          delay = _this$props.delay,
+          onEnd = _this$props.onEnd,
+          onStart = _this$props.onStart;
+
+      var run = function run() {
+        return _this.instance.start(function () {
+          return onEnd({
+            pauseResume: pauseResume,
+            reset: reset,
+            start: start,
+            update: update
+          });
+        });
+      }; // Delay start if delay prop is properly set
+
+
+      if (delay > 0) {
+        _this.timeoutId = setTimeout(run, delay * 1000);
+      } else {
+        run();
+      }
+
+      onStart({
+        pauseResume: pauseResume,
+        reset: reset,
+        update: update
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "update", function (newEnd) {
+      var _assertThisInitialize4 = _assertThisInitialized(_this),
+          pauseResume = _assertThisInitialize4.pauseResume,
+          reset = _assertThisInitialize4.reset,
+          start = _assertThisInitialize4.restart;
+
+      var onUpdate = _this.props.onUpdate;
+
+      _this.instance.update(newEnd);
+
+      onUpdate({
+        pauseResume: pauseResume,
+        reset: reset,
+        start: start
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "containerRef", React__default.createRef());
+
+    return _this;
+  }
+
+  _createClass(CountUp$$1, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this$props2 = this.props,
+          children = _this$props2.children,
+          delay = _this$props2.delay;
+      this.instance = this.createInstance(); // Don't invoke start if component is used as a render prop
+
+      if (typeof children === 'function' && delay !== 0) return; // Otherwise just start immediately
+
+      this.start();
+    }
+  }, {
+    key: "shouldComponentUpdate",
+    value: function shouldComponentUpdate(nextProps) {
+      var _this$props3 = this.props,
+          end = _this$props3.end,
+          start = _this$props3.start,
+          suffix = _this$props3.suffix,
+          prefix = _this$props3.prefix,
+          redraw = _this$props3.redraw,
+          duration = _this$props3.duration,
+          separator = _this$props3.separator;
+      var hasCertainPropsChanged = duration !== nextProps.duration || end !== nextProps.end || start !== nextProps.start || suffix !== nextProps.suffix || prefix !== nextProps.prefix || separator !== nextProps.separator;
+      return hasCertainPropsChanged || redraw;
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps) {
+      // If duration, suffix, prefix, separator or start has changed
+      // there's no way to update the values.
+      // So we need to re-create the CountUp instance in order to
+      // restart it.
+      var _this$props4 = this.props,
+          end = _this$props4.end,
+          start = _this$props4.start,
+          suffix = _this$props4.suffix,
+          prefix = _this$props4.prefix,
+          duration = _this$props4.duration,
+          separator = _this$props4.separator,
+          preserveValue = _this$props4.preserveValue;
+
+      if (duration !== prevProps.duration || start !== prevProps.start || suffix !== prevProps.suffix || prefix !== prevProps.suffix || separator !== prevProps.separator) {
+        this.instance.reset();
+        this.instance = this.createInstance();
+        this.start();
+      } // Only end value has changed, so reset and and re-animate with the updated
+      // end value.
+
+
+      if (end !== prevProps.end) {
+        if (!preserveValue) {
+          this.instance.reset();
+        }
+
+        this.instance.update(end);
+      }
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      if (this.timeoutId) {
+        clearTimeout(this.timeoutId);
+      }
+
+      this.instance.reset();
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this$props5 = this.props,
+          children = _this$props5.children,
+          className = _this$props5.className,
+          style = _this$props5.style;
+      var containerRef = this.containerRef,
+          pauseResume = this.pauseResume,
+          reset = this.reset,
+          restart = this.restart,
+          update = this.update;
+
+      if (typeof children === 'function') {
+        return children({
+          countUpRef: containerRef,
+          pauseResume: pauseResume,
+          reset: reset,
+          start: restart,
+          update: update
+        });
+      }
+
+      return React__default.createElement("span", {
+        className: className,
+        ref: containerRef,
+        style: style
+      });
+    }
+  }]);
+
+  return CountUp$$1;
+}(React.Component);
+
+_defineProperty(CountUp$1, "propTypes", {
+  decimal: PropTypes.string,
+  decimals: PropTypes.number,
+  delay: PropTypes.number,
+  easingFn: PropTypes.func,
+  end: PropTypes.number.isRequired,
+  formattingFn: PropTypes.func,
+  onEnd: PropTypes.func,
+  onStart: PropTypes.func,
+  prefix: PropTypes.string,
+  redraw: PropTypes.bool,
+  separator: PropTypes.string,
+  start: PropTypes.number,
+  suffix: PropTypes.string,
+  style: PropTypes.object,
+  useEasing: PropTypes.bool,
+  preserveValue: PropTypes.bool
+});
+
+_defineProperty(CountUp$1, "defaultProps", {
+  decimal: '.',
+  decimals: 0,
+  delay: null,
+  duration: null,
+  easingFn: null,
+  formattingFn: null,
+  onEnd: function onEnd() {},
+  onPauseResume: function onPauseResume() {},
+  onReset: function onReset() {},
+  onStart: function onStart() {},
+  onUpdate: function onUpdate() {},
+  prefix: '',
+  redraw: false,
+  separator: '',
+  start: 0,
+  suffix: '',
+  style: undefined,
+  useEasing: true,
+  preserveValue: false
+});
+
+// since it only checks for truthy values -1 is enough to mock an element.
+
+var NO_ELEMENT = -1;
+
+var useCountUp = function useCountUp(props) {
+  var _props = _objectSpread2({}, CountUp$1.defaultProps, {}, props);
+
+  var start = _props.start,
+      formattingFn = _props.formattingFn;
+
+  var _useState = React.useState(typeof formattingFn === 'function' ? formattingFn(start) : start),
+      _useState2 = _slicedToArray(_useState, 2),
+      count = _useState2[0],
+      setCount = _useState2[1];
+
+  var countUpRef = React.useRef(null);
+
+  var createInstance = function createInstance() {
+    var countUp = createCountUpInstance(NO_ELEMENT, _props);
+    var formattingFnRef = countUp.options.formattingFn;
+
+    countUp.options.formattingFn = function () {
+      var result = formattingFnRef.apply(void 0, arguments);
+      setCount(result);
+    };
+
+    return countUp;
+  };
+
+  var getCountUp = function getCountUp() {
+    var countUp = countUpRef.current;
+
+    if (countUp !== null) {
+      return countUp;
+    }
+
+    var newCountUp = createInstance();
+    countUpRef.current = newCountUp;
+    return newCountUp;
+  };
+
+  var reset = function reset() {
+    var onReset = _props.onReset;
+    getCountUp().reset();
+    onReset({
+      pauseResume: pauseResume,
+      start: restart,
+      update: update
+    });
+  };
+
+  var restart = function restart() {
+    var onStart = _props.onStart,
+        onEnd = _props.onEnd;
+    getCountUp().reset();
+    getCountUp().start(function () {
+      onEnd({
+        pauseResume: pauseResume,
+        reset: reset,
+        start: restart,
+        update: update
+      });
+    });
+    onStart({
+      pauseResume: pauseResume,
+      reset: reset,
+      update: update
+    });
+  };
+
+  var pauseResume = function pauseResume() {
+    var onPauseResume = _props.onPauseResume;
+    getCountUp().pauseResume();
+    onPauseResume({
+      reset: reset,
+      start: restart,
+      update: update
+    });
+  };
+
+  var update = function update(newEnd) {
+    var onUpdate = _props.onUpdate;
+    getCountUp().update(newEnd);
+    onUpdate({
+      pauseResume: pauseResume,
+      reset: reset,
+      start: restart
+    });
+  };
+
+  React.useEffect(function () {
+    var delay = _props.delay,
+        onStart = _props.onStart,
+        onEnd = _props.onEnd;
+    var timeout = setTimeout(function () {
+      onStart({
+        pauseResume: pauseResume,
+        reset: reset,
+        update: update
+      });
+      getCountUp().start(function () {
+        clearTimeout(timeout);
+        onEnd({
+          pauseResume: pauseResume,
+          reset: reset,
+          start: restart,
+          update: update
+        });
+      });
+    }, delay * 1000);
+    return reset;
+  }, []);
+  return {
+    countUp: count,
+    start: restart,
+    pauseResume: pauseResume,
+    reset: reset,
+    update: update
+  };
+};
+
+exports.default = CountUp$1;
+exports.useCountUp = useCountUp;
+
 
 /***/ }),
 
@@ -61317,7 +62533,7 @@ exports.default = _ResizeDetector2.default;
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
+/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -91158,6 +92374,80 @@ function valueEqual(a, b) {
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (valueEqual);
+
+/***/ }),
+
+/***/ "./node_modules/warning/warning.js":
+/*!*****************************************!*\
+  !*** ./node_modules/warning/warning.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) 2014-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+
+
+/**
+ * Similar to invariant but only logs a warning if the condition is not met.
+ * This can be used to log issues in development environments in critical
+ * paths. Removing the logging code for production environments will keep the
+ * same logic and follow the same code paths.
+ */
+
+var __DEV__ = "development" !== 'production';
+
+var warning = function() {};
+
+if (__DEV__) {
+  var printWarning = function printWarning(format, args) {
+    var len = arguments.length;
+    args = new Array(len > 1 ? len - 1 : 0);
+    for (var key = 1; key < len; key++) {
+      args[key - 1] = arguments[key];
+    }
+    var argIndex = 0;
+    var message = 'Warning: ' +
+      format.replace(/%s/g, function() {
+        return args[argIndex++];
+      });
+    if (typeof console !== 'undefined') {
+      console.error(message);
+    }
+    try {
+      // --- Welcome to debugging React ---
+      // This error was thrown as a convenience so that you can use this stack
+      // to find the callsite that caused this warning to fire.
+      throw new Error(message);
+    } catch (x) {}
+  }
+
+  warning = function(condition, format, args) {
+    var len = arguments.length;
+    args = new Array(len > 2 ? len - 2 : 0);
+    for (var key = 2; key < len; key++) {
+      args[key - 2] = arguments[key];
+    }
+    if (format === undefined) {
+      throw new Error(
+          '`warning(condition, format, ...args)` requires a warning ' +
+          'message argument'
+      );
+    }
+    if (!condition) {
+      printWarning.apply(null, [format].concat(args));
+    }
+  };
+}
+
+module.exports = warning;
+
 
 /***/ }),
 

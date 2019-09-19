@@ -1,0 +1,133 @@
+
+.user-profile-page{
+    display: flex;
+    flex-direction: column;
+    padding-top: 20vh;
+    padding-left: 20%;
+    padding-right: 20%;
+}
+    
+
+    .user-content{
+
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+    
+
+    }
+
+.profile-page-picture{
+    width: 200px;
+    height: 200px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+    img{
+        display: inline;
+        margin: 0 auto;
+        height: 100%;
+        width: auto;
+
+    }
+}
+
+#user-name{
+    text-align: center;
+    font-family: $strava-font;
+    color: $strava-black;
+    font-size: 24px;
+    font-weight: 700;
+    width: 200px;
+    margin-top: 7px;
+
+}
+
+.top-section{
+    display: flex;
+    justify-content: flex-end;
+    color: $strava-black;
+
+    section{
+        display: flex;
+        width: 61%;
+        justify-content: space-evenly;
+
+        #last-4-weeks{
+            font-family: $strava-font;
+            font-size: 13px;
+
+            :nth-child(2){
+                font-size: 72px;
+                font-weight: 700;
+                text-align: center;
+            }
+
+            p:nth-child(3){
+                color: #666;
+            }
+        }
+    }
+
+}
+
+.month-table{
+    margin-top: -15px;
+    thead{
+        tr{
+            font-family: $strava-font;
+            
+            padding-top: 6px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            // padding-right: 12px;
+        }
+    }
+
+}
+
+#bubbles{
+    padding-top: 6px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    
+}
+#intensity-bubble{
+    background-color:$strava-black;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+}  
+
+#bubble-container{
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.weekday{
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.activity-call-container{
+    display: flex;
+    
+}
+
+#chart{
+    margin-top: 20px;
+    transform: rotate(90deg);
+    margin-left: 14px;
+}

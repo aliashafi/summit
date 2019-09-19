@@ -23,8 +23,8 @@ const recieveActivity = (activity) => ({
 export const fetchAllActivities = (page) => (dispatch) =>
     ActivityUtil.fetchActivities(page).then((activities) => dispatch(receiveAllActivities(activities)));
 
-export const fetchUserActivities = (page) => (dispatch) =>
-    ActivityUtil.fetchUserActivities(page).then((activities) => dispatch(receiveCurrentUserActivities(activities)));
+export const fetchUserActivities = () => (dispatch) =>
+    ActivityUtil.fetchUserActivities().then((activities) => dispatch(receiveCurrentUserActivities(activities)));
 
 
 export const fetchActivity = (activityId) => (dispatch) =>

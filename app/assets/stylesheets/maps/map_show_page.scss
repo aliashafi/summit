@@ -204,25 +204,25 @@
 }
 
 .table-splits{
-    width: 400px;
+    // width: 293px;
     font-family: $strava-font;
 
     td, th {
         border: 1px solid #dddddd;
         text-align: left;
-        padding: 8px;
+        padding: 10px;
 
         
     }
 
     tr:nth-child(even) {
-    background-color: $strava-grey;
+    // background-color: $strava-grey;
         
     }
      
 
     tr:hover{
-            background-color:#666;
+            background-color: $strava-grey;
     }
 
 }

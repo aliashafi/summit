@@ -13,8 +13,8 @@ class Feed extends React.Component {
     componentDidMount(){
         Promise.all([
             this.props.fetchAllUsers(),
-            this.props.fetchUserActivities(),
             this.props.fetchAllActivities(1),
+            this.props.fetchUserActivities(),
             this.props.fetchFollowers(),
             this.props.fetchFollowing(),
             

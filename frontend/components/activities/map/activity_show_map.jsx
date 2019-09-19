@@ -25,7 +25,7 @@ class ActivityShowMap extends React.Component {
         }
 
         this.currentSegment = this.currentSegment.bind(this);
-
+        this.toggleSeg = this.toggleSeg.bind(this)
 
     }
 
@@ -177,6 +177,16 @@ class ActivityShowMap extends React.Component {
             })
 
             map.addLayer({
+                "id": "point1",
+                "type": "circle",
+                "source": "point",
+                "paint": {
+                    "circle-radius": 8,
+                    "circle-color": "#ffffff",
+                }
+            });
+
+            map.addLayer({
                 "id": "point",
                 "type": "circle",
                 "source": "point",
@@ -185,6 +195,7 @@ class ActivityShowMap extends React.Component {
                     "circle-color": "#3887be",
                 }
             });
+           
             
             geojson.features[0].geometry.coordinates = routeLine[100];
 
@@ -215,7 +226,7 @@ class ActivityShowMap extends React.Component {
                         </thead>
                         <tbody>
                             {Object.keys(splits).map(mile => {
-                                return (<tr onMouseOver={() => this.currentSegment(mile)}>
+                                return (<tr key={mile} onMouseOver={() => this.currentSegment(mile)} onMouseOut={this.toggleSeg}>
                                     <td>{mile}</td>
                                     <td>{splits[mile].split}</td>
                                     <td>{splits[mile].elevation}</td>

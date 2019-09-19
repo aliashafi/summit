@@ -9,7 +9,7 @@ import ErrorPage from './error_page'
 import ActivityShowContainer from './activities/map/activity_map_container';
 import RouteCreateContainer from './routes/route_create_container'
 import RouteIndexContainer from './routes/route_index_container'
- 
+import UserProfilContainer from './users/user_profile_container' 
 
 
 
@@ -22,6 +22,7 @@ export default () => (
             <ProtectedRoute exact path='/activity/:activityId' component={ActivityShowContainer} />
             <ProtectedRoute exact path='/routes/create' component={RouteCreateContainer} />
             <ProtectedRoute exact path='/routes/' component={RouteIndexContainer} />
+            <ProtectedRoute exact path='/users/:userId' component={UserProfilContainer} />
             <AuthRoute exact path="/signup" component={SignupContainer} />
             <AuthRoute exact path="/login" component={LoginContainer} />
             <Route component={ErrorPage}/>

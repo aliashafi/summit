@@ -106,7 +106,6 @@ class ActivityShow extends React.Component {
                                     <div>
                                         <table className="route-data">
                                             <thead>
-                                                <tbody></tbody>
                                                 <tr>
                                                     <th></th>
                                                     <th>Avg</th>

@@ -11,9 +11,10 @@ class UserFeedProfile extends React.Component {
     }
 
 
+
     ownActivities() {
         let ownActivities = [];
-        this.props.activities.forEach(act => {
+        this.props.currentUserActivities.forEach(act => {
             if (act.user_id === this.props.current_user.id) ownActivities.push(act);
         })
 
@@ -21,6 +22,7 @@ class UserFeedProfile extends React.Component {
     }
 
     latestActivity() {
+        
         let activities = Object.values(this.props.currentUserActivities)
         let last = activities[activities.length - 1]
         return last ? { "title": last.title, "date": last.time } : { "title": "", "date": "" }
@@ -29,6 +31,7 @@ class UserFeedProfile extends React.Component {
 
     render (){
         const activities = Object.values(this.props.currentUserActivities)
+
         return(
         <div className="grid-left">
         <div id="card">
