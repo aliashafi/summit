@@ -20,8 +20,11 @@ class ActivityShowMap extends React.Component {
         this.state = {
             geojson: {},
             map: "",
-            route: []
+            route: [],
+            splitHover: [] 
         }
+
+        this.currentSegment = this.currentSegment.bind(this);
 
 
     }
@@ -30,6 +33,38 @@ class ActivityShowMap extends React.Component {
 
         if (this.state.map.getSource("point")) this.moveDot();
        
+    }
+
+    currentSegment(mile){
+        let bounds = this.props.splits[mile].interval
+        let segment = this.route.slice(bounds[0], bounds[1])
+
+        let geojson = {
+            "type": "Feature",
+            "properties": {},
+            "geometry": {
+                "type": "LineString",
+                "coordinates": segment
+            }
+        };
+        
+        this.state.map.getSource('segment').setData(geojson)
+        // this.toggleSeg()
+    }
+
+    toggleSeg() {
+
+        let geojson = {
+            "type": "Feature",
+            "properties": {},
+            "geometry": {
+                "type": "LineString",
+                "coordinates": []
+            }
+        };
+
+        this.state.map.getSource('segment').setData(geojson)
+
     }
 
 
@@ -111,6 +146,31 @@ class ActivityShowMap extends React.Component {
                 }
             });
 
+            map.addLayer({
+                "id": "segment",
+                "type": "line",
+                "zoom": 11,
+                "source": {
+                    "type": "geojson",
+                    "data": {
+                        "type": "Feature",
+                        "properties": {},
+                        "geometry": {
+                            "type": "LineString",
+                            "coordinates": []
+                        }
+                    }
+                },
+                "layout": {
+                    "line-join": "round",
+                    "line-cap": "round"
+                },
+                "paint": {
+                    "line-color": "#3887be",
+                    "line-width": 5
+                }
+            });
+
             map.addSource('point', {
                 "type": "geojson",
                 "data": geojson
@@ -137,11 +197,42 @@ class ActivityShowMap extends React.Component {
     };
 
     render() {
+        const splits = this.props.splits
         return (
             <div>
-            <div id={this.props.container}>
 
-            </div>
+            <div id="splits-show-map">
+                    {this.props.activity.activity_type === "Run" ?
+                    <section>
+                    <h1>Splits</h1>
+                    <table className="table-splits">
+                        <thead>
+                            <tr>
+                                <th>Mile</th>
+                                <th>Split</th>
+                                <th>Elevation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {Object.keys(splits).map(mile => {
+                                return (<tr onMouseOver={() => this.currentSegment(mile)}>
+                                    <td>{mile}</td>
+                                    <td>{splits[mile].split}</td>
+                                    <td>{splits[mile].elevation}</td>
+                                </tr>)
+                            })}
+                        </tbody>
+
+                    </table>
+                    </section>
+                    : ""}
+            
+                <div id={this.props.container}></div>
+                    
+
+                </div>
+
+
                 <div className="ele-graph">
                     <AreaChart
                         width={1000}
@@ -158,16 +249,6 @@ class ActivityShowMap extends React.Component {
                         <YAxis unit="ft"/>
                         <Tooltip content={<CustomTooltipContainer />} position={{ y: 20 }} isAnimationActive={false} stroke="#3887be"
                             />
-                        <defs>
-                            {/* <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-                                <stop offset="5%" stopColor="#3887be" stopOpacity={0.8} />
-                                <stop offset="95%" stopColor="#3887be" stopOpacity={0} />
-                            </linearGradient>
-                            <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
-                                <stop offset="5%" stopColor="#3887be" stopOpacity={0.8} />
-                                <stop offset="95%" stopColor="#3887be" stopOpacity={0} />
-                            </linearGradient> */}
-                        </defs>
                         <Area name="elevation (ft)" type="monotone" dataKey="ele" fill="#666" stroke="#666" 
                             activeDot={{ r: 8, color:"#3887be"}} />
                     </AreaChart>

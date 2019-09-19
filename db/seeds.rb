@@ -33,6 +33,9 @@ def makeRoute(path, userId)
     ele = doc.xpath('//xmlns:ele/text()').map{|pt| pt.to_s.to_f}
     ele = ele.to_json
     title = doc.xpath('//xmlns:name/text()').map{|pt| pt.to_s}
+    
+    all_time = doc.xpath('//xmlns:time/text()').map{|pt| pt.to_s}
+    all_time = all_time.to_json
 
     activity_type = ""
     if act_type[0] == "9"
@@ -58,7 +61,8 @@ def makeRoute(path, userId)
         "elevation": ele, 
         "distance": distance,
         "average_speed": average_speed,
-        "time": time 
+        "time": time,
+        "time_stamps": all_time
     )
 end
 
@@ -236,12 +240,12 @@ ActiveRecord::Base.transaction do
         Comment.create!(body: "you are a beast!", user_id: u1.id, activity_id: r2.id)
         Comment.create!(body: "dude so fast!", user_id: u2.id, activity_id: r2.id)
         Comment.create!(body: "next time, invite me", user_id: u3.id, activity_id: r2.id)
-        Comment.create!(body: "Can I be as cool as you?", user_id: u4.id, activity_id: r2.id)
+        Comment.create!(body: "send ittt", user_id: u4.id, activity_id: r2.id)
 
 
         Comment.create!(body: "SOOO COOL!", user_id: u1.id, activity_id: r2.id)
-        Comment.create!(body: "So so so fast!", user_id: u2.id, activity_id: r2.id)
-        Comment.create!(body: "race ya next time", user_id: u3.id, activity_id: r2.id)
+        Comment.create!(body: "heeeellllla sick!", user_id: u2.id, activity_id: r2.id)
+        Comment.create!(body: "im so pumped for you to race", user_id: u12.id, activity_id: r2.id)
 
         Kudo.create!(user_id: u2.id, activity_id: r2.id)
         Kudo.create!(user_id: u1.id, activity_id: r2.id)

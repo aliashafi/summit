@@ -7,7 +7,10 @@ export const calculateElevationGain = (ele) =>{
         }
     }
     gain = gain * 3.281
+
+
     return gain
 
 }
+
 

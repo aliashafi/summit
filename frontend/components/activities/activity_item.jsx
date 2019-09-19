@@ -132,7 +132,7 @@ class ActivityItem extends React.Component {
                 activity={this.props.activity} 
                 currentUser={this.props.currentUser} 
                 page={this.props.page}
-                comments={comments}/>
+                />
 
             {this.state.makeComment ? 
                 <CommentFormContainer activity={this.props.activity} /> :

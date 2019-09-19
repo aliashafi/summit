@@ -26,6 +26,7 @@ class RouteIndex extends React.Component{
             
             
             allRoutes = routes.map(route => {
+                if (route){
                return ( 
                 <div key={route.id * 5} className="custom-route-details-map">
                <ActivityMap
@@ -44,7 +45,7 @@ class RouteIndex extends React.Component{
                 </div>
                 
                 )
-            })
+            }})
         }
         return(
 

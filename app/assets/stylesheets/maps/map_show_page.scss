@@ -15,7 +15,7 @@
         height: 50%;
         display: flex;
         justify-content: center;
-        align-items: center;
+        // align-items: center;
         margin-top: 31px;
 
         > div{
@@ -202,6 +202,51 @@
         font-weight: 700;
     }
 }
+
+.table-splits{
+    width: 400px;
+    font-family: $strava-font;
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+
+        
+    }
+
+    tr:nth-child(even) {
+    background-color: $strava-grey;
+        
+    }
+     
+
+    tr:hover{
+            background-color:#666;
+    }
+
+}
+
+#splits-show-map{
+    display: flex;
+    section{
+
+        h1{
+            background-color: $strava-grey;
+            font-size: 20px;
+            font-family: $strava-font;
+            text-align: center;
+            padding: 14px;
+            font-weight: 700;
+
+        }
+    }
+    
+}
+
+
+
+
 
 
 

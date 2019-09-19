@@ -1,7 +1,7 @@
 import React from 'react';
 import ActivityShowMapContainer from './activity_show_map_container';
 import ElevationGraph from './elevation_graph'
-import {getElevationPerMile} from '../../../util/elevation_util'
+import {getElevationPerMile, getSplits} from '../../../util/elevation_util'
 import { formatDate } from '../../../util/date_util'
 import { calculateElevationGain } from '../../../util/gpx_util.js'
 
@@ -34,7 +34,8 @@ class ActivityShow extends React.Component {
         let user = {};
         let dist = 0;
         let speed = 0;
-        let eleGain = 0
+        let eleGain = 0;
+        let splits = {};
 
         if (this.props.activity){
             data = getElevationPerMile(this.props.activity.elevation, this.props.activity.distance)
@@ -43,9 +44,11 @@ class ActivityShow extends React.Component {
             speed = Math.round(this.props.activity.average_speed * 100) / 100
             let elevation = JSON.parse(this.props.activity.elevation)
             eleGain = Math.floor(calculateElevationGain(elevation));
+            splits = getSplits(this.props.activity.time_stamps, this.props.activity.distance, this.props.activity.elevation)
         }
 
-                
+        
+        
         return(
             
             <div className="activity-show-page">
@@ -103,6 +106,7 @@ class ActivityShow extends React.Component {
                                     <div>
                                         <table className="route-data">
                                             <thead>
+                                                <tbody></tbody>
                                                 <tr>
                                                     <th></th>
                                                     <th>Avg</th>
@@ -129,6 +133,9 @@ class ActivityShow extends React.Component {
                     : ""}
 
                     <section className="activity-map">
+
+                       
+
                         {this.props.activity ? 
                             <ActivityShowMapContainer
                                 key={this.props.activity.id}
@@ -138,9 +145,13 @@ class ActivityShow extends React.Component {
                                 container={`map-show-${this.props.activity.id}`}
                                 data={data[0]} 
                                 interval={data[1]}
+                                splits = {splits}
+                    
                             /> :
                             ""
                         }
+
+                        
 
                         
                     </section>

@@ -29,3 +29,38 @@ export const getElevationPerMile = (elevation_coords, total_distance) => {
 
     
 }
+
+
+export const getSplits = (time, totalDis, elevation) => {
+    let elevationArr = JSON.parse(elevation)
+    let timeStamps = JSON.parse(time)
+    let timeStampsLength = timeStamps.length
+    let distanceByTimestamps = totalDis / timeStampsLength
+
+    var interval = Math.floor(1 / distanceByTimestamps)
+    var splits= {}
+    var lastTime = new Date(timeStamps[0])
+    var lastEle = elevationArr[0]
+    var mileCount = 1
+
+    for (let i = interval; i < timeStamps.length; i = i + interval){
+        let start = lastTime
+        let end = new Date(timeStamps[i])
+        
+        let diffMs = (end - start);
+
+        let splitMin = ( (diffMs % 86400000) % 3600000) / 60000
+        
+        let splitSec = (splitMin - Math.floor(splitMin)) * 60
+    
+        let eleDiff = Math.floor(elevationArr[i] - lastEle) * 100 / 100
+
+        splitSec = Math.round(splitSec * 100) / 100
+        splits[mileCount] = {split: `${Math.floor(splitMin)}:${splitSec}`, elevation: eleDiff, interval: [(i - interval), i]}
+        
+        lastTime = end
+        lastEle = elevationArr[i]
+        mileCount += 1
+    }
+    return splits
+}

@@ -9,7 +9,7 @@ import CommentItemModal from './comment_item_modal'
 
 const mapStateToProps = (state, ownProps) => ({
     activities: state.entities.activities,
-    // comments: state.entities.comments,
+    comments: state.entities.comments,
     users: state.entities.users
 })
 
@@ -43,22 +43,22 @@ class CommentIndex extends React.Component {
 
     render(){
     
-    // const actComments = this.props.activity.comment_ids.map(commentId => this.props.comments[commentId])
-
-    
-    // debugger
-    let allComments = this.props.comments.map(comment => {
-            
-           return ( <CommentItem 
+    const actComments = this.props.activity.comment_ids.map(commentId => this.props.comments[commentId])
+    let allComments = []
+    let allCommentsModal = []
+    if (actComments[0]){
+        allComments = actComments.map(comment => {
+        if (comment)
+           {return ( <CommentItem 
                 key={comment.id} 
                 comment={comment} 
                 user={this.props.users[comment.user_id]} 
                 activity={this.props.activity}
                 removeComment={this.props.removeComment}
                 currentUser={this.props.currentUser}
-        />)})
+        />)}})
     
-    let allCommentsModal = this.props.comments.map(comment =>
+        allCommentsModal = actComments.map(comment =>
         comment ?
             <CommentItemModal
                 key={comment.id}
@@ -68,6 +68,7 @@ class CommentIndex extends React.Component {
                 removeComment={this.props.removeComment}
                 currentUser={this.props.currentUser}
             /> : "")
+        }
      
     return(
         <div>
@@ -75,10 +76,10 @@ class CommentIndex extends React.Component {
                 <div>
                     {allComments.slice(0,2)}
                 </div>
-                {this.props.comments.length > 2 ? 
+                {actComments.length > 2 ? 
                     <p onClick={this.handleClick}
                         id="view-all-comments"> 
-                        See all {this.props.comments.length} comments
+                        See all {actComments.length} comments
                     </p>
                         
 
