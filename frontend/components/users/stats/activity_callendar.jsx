@@ -59,12 +59,14 @@ class ActivityCallendar extends React.Component {
             this.between(bounds, activity.time)
         ))
 
-        let intensities = { 0: 0, 1: 0 , 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0 }
+        let intensities = { 0: [0,0], 1: [0,0] , 2: [0,0], 3: [0,0], 4: [0,0], 5: [0,0], 6: [0,0], 7: [0,0] }
         activities.forEach(act => {
-            
+            let date = new Date(act.time).getDate()
             let day = this.getDay(act.time)
-            return intensities[day] += act.elapse_time
+            intensities[day][0] += act.elapse_time
+            intensities[day][1] = date
         })
+
 
         return intensities
         
@@ -102,6 +104,7 @@ class ActivityCallendar extends React.Component {
         mapI.map(week => {
             ans =  ans.concat(Object.values(week))
         })
+        ans = ans.map(el => el[0])
         let max = Math.max(...ans) 
         let min = Math.min(...ans) 
 
@@ -109,8 +112,9 @@ class ActivityCallendar extends React.Component {
         mapI.forEach(week => {
             let weekNorm = {}
             Object.values(week).forEach((count, day) => {
-                let norm = this.normalize(max, min, count)
-                weekNorm[day] = Math.floor(norm)
+                let norm = this.normalize(max, min, count[0])
+                norm = Math.floor(norm)
+                weekNorm[day] = [norm, count[1]]
             })
             normalizedIntensities.push(weekNorm)
         })
@@ -127,12 +131,24 @@ class ActivityCallendar extends React.Component {
     render(){
         let intensities = []
         let hourIntensities = []
+        let modified = []
         if (this.props.bounds.length > 0){
             hourIntensities = Object.values(this.getAllIntensities())
             intensities = this.normalizeMap(hourIntensities)
+
+            modified = []
+            hourIntensities.forEach(obj => {
+                let subObj = {}
+                Object.keys(obj).forEach(key => {
+                    subObj[key] = obj[key][0]
+                })
+                modified.push(subObj);
+            })
+            
         }
     return(
         <div className="activity-call-container">
+            
             <table className="month-table">
                 <thead>
                     <tr>
@@ -165,9 +181,11 @@ class ActivityCallendar extends React.Component {
                         return(
                             <tr key={Math.random(4)} id="bubbles">
                                 {Object.keys(week).map( day => (
-                                    <td key={day}>
+                                    <td key={Math.random(5)}>
                                         <div id="bubble-container">
-                                            <div id="intensity-bubble" style={{ width: week[day], height: week[day] }}></div>
+                                            <div id="intensity-bubble" style={{ width: week[day][0], height: week[day][0] }}>
+                                                <p id="hidden-date">{week[day][1]}</p>
+                                            </div>
                                         </div>
                                     </td>
                                 ))}
@@ -179,8 +197,7 @@ class ActivityCallendar extends React.Component {
                 </tbody>
             </table>
 
-
-            <LastFourWeeksBar data={hourIntensities} activities={this.props.activities}/>
+            <LastFourWeeksBar data={modified} activities={this.props.activities}/>
         </div>
     )
     }

@@ -51,6 +51,7 @@
     section{
         display: flex;
         width: 61%;
+        margin-top: -15%;
         justify-content: space-evenly;
 
         #last-4-weeks{
@@ -131,3 +132,26 @@
     transform: rotate(90deg);
     margin-left: 14px;
 }
+
+#hidden-date{
+   display: none; 
+   align-items: center;
+   font-family: $strava-font;
+   font-weight: 700;
+
+}
+
+#intensity-bubble{
+    cursor: pointer;
+}
+
+#intensity-bubble:hover{
+    background-color: white;
+}
+
+#intensity-bubble:hover #hidden-date{
+    display: flex;
+    text-decoration: underline;
+    
+}
+

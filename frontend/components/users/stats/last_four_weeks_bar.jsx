@@ -48,10 +48,8 @@ class LastFourWeeksBar extends React.Component{
     render(){
 
         let data = this.getActivityHours(this.props.data)
-        
         return(
             <div id="chart">
-
                 <BarChart
                     width={145}
                     height={100}
@@ -70,8 +68,6 @@ class LastFourWeeksBar extends React.Component{
                     </Bar>
                     {/* <Bar dataKey="week" stackId="a" fill="#82ca9d" /> */}
                 </BarChart>
-
-
             </div>
         )
     }

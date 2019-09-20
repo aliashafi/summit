@@ -3876,19 +3876,22 @@ function (_React$Component) {
         return _this.between(bounds, activity.time);
       });
       var intensities = {
-        0: 0,
-        1: 0,
-        2: 0,
-        3: 0,
-        4: 0,
-        5: 0,
-        6: 0,
-        7: 0
+        0: [0, 0],
+        1: [0, 0],
+        2: [0, 0],
+        3: [0, 0],
+        4: [0, 0],
+        5: [0, 0],
+        6: [0, 0],
+        7: [0, 0]
       };
       activities.forEach(function (act) {
+        var date = new Date(act.time).getDate();
+
         var day = _this.getDay(act.time);
 
-        return intensities[day] += act.elapse_time;
+        intensities[day][0] += act.elapse_time;
+        intensities[day][1] = date;
       });
       return intensities;
     }
@@ -3929,15 +3932,19 @@ function (_React$Component) {
       mapI.map(function (week) {
         ans = ans.concat(Object.values(week));
       });
+      ans = ans.map(function (el) {
+        return el[0];
+      });
       var max = Math.max.apply(Math, _toConsumableArray(ans));
       var min = Math.min.apply(Math, _toConsumableArray(ans));
       var normalizedIntensities = [];
       mapI.forEach(function (week) {
         var weekNorm = {};
         Object.values(week).forEach(function (count, day) {
-          var norm = _this2.normalize(max, min, count);
+          var norm = _this2.normalize(max, min, count[0]);
 
-          weekNorm[day] = Math.floor(norm);
+          norm = Math.floor(norm);
+          weekNorm[day] = [norm, count[1]];
         });
         normalizedIntensities.push(weekNorm);
       });
@@ -3948,10 +3955,19 @@ function (_React$Component) {
     value: function render() {
       var intensities = [];
       var hourIntensities = [];
+      var modified = [];
 
       if (this.props.bounds.length > 0) {
         hourIntensities = Object.values(this.getAllIntensities());
         intensities = this.normalizeMap(hourIntensities);
+        modified = [];
+        hourIntensities.forEach(function (obj) {
+          var subObj = {};
+          Object.keys(obj).forEach(function (key) {
+            subObj[key] = obj[key][0];
+          });
+          modified.push(subObj);
+        });
       }
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -3992,19 +4008,21 @@ function (_React$Component) {
           id: "bubbles"
         }, Object.keys(week).map(function (day) {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", {
-            key: day
+            key: Math.random(5)
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
             id: "bubble-container"
           }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
             id: "intensity-bubble",
             style: {
-              width: week[day],
-              height: week[day]
+              width: week[day][0],
+              height: week[day][0]
             }
-          })));
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+            id: "hidden-date"
+          }, week[day][1]))));
         }));
       }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_last_four_weeks_bar__WEBPACK_IMPORTED_MODULE_1__["default"], {
-        data: hourIntensities,
+        data: modified,
         activities: this.props.activities
       }));
     }
@@ -5378,7 +5396,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var configureStore = function configureStore() {
   var preloadedState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  return Object(redux__WEBPACK_IMPORTED_MODULE_0__["createStore"])(_reducers_root_reducer__WEBPACK_IMPORTED_MODULE_3__["default"], preloadedState, Object(redux__WEBPACK_IMPORTED_MODULE_0__["applyMiddleware"])(redux_thunk__WEBPACK_IMPORTED_MODULE_2__["default"], redux_logger__WEBPACK_IMPORTED_MODULE_1___default.a));
+  return Object(redux__WEBPACK_IMPORTED_MODULE_0__["createStore"])(_reducers_root_reducer__WEBPACK_IMPORTED_MODULE_3__["default"], preloadedState, Object(redux__WEBPACK_IMPORTED_MODULE_0__["applyMiddleware"])(redux_thunk__WEBPACK_IMPORTED_MODULE_2__["default"]));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (configureStore);
