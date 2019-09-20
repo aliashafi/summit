@@ -1,5 +1,6 @@
 import { RECEIVE_CURRENT_USER } from '../actions/session';
 import { RECEIVE_USER, RECEIVE_ALL_USERS } from '../actions/users/user_actions';
+import {RECEIVE_ROUTE} from '../actions/routes/route_actions';
 import merge from 'lodash/merge';
 
 export default (state = {}, action) => {

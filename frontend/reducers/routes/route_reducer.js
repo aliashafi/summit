@@ -7,7 +7,7 @@ export default (state = {}, action) => {
         case RECEIVE_ALL_ROUTES:
             return merge({}, state, action.routes);
         case RECEIVE_ROUTE:
-            return merge({}, state, { [action.route.id]: action.routes })
+            return merge({}, state, action.route)
         default:
             return state;
     }

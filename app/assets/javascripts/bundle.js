@@ -3253,17 +3253,13 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this = this;
-
       var user = {};
       var routes = Object.values(this.props.routes);
       var allRoutes = [];
 
       if (routes.length !== 0) {
-        user = this.props.users[this.props.currentUser.id];
-        routes = user.route_ids.map(function (route) {
-          return _this.props.routes[route];
-        });
+        // user = this.props.users[this.props.currentUser.id]
+        // routes = user.route_ids.map(route => this.props.routes[route])
         allRoutes = routes.map(function (route) {
           if (route) {
             return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -5192,8 +5188,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_routes_route_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../actions/routes/route_actions */ "./frontend/actions/routes/route_actions.jsx");
 /* harmony import */ var lodash_merge__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash/merge */ "./node_modules/lodash/merge.js");
 /* harmony import */ var lodash_merge__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash_merge__WEBPACK_IMPORTED_MODULE_1__);
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 
 
 /* harmony default export */ __webpack_exports__["default"] = (function () {
@@ -5206,7 +5200,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return lodash_merge__WEBPACK_IMPORTED_MODULE_1___default()({}, state, action.routes);
 
     case _actions_routes_route_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_ROUTE"]:
-      return lodash_merge__WEBPACK_IMPORTED_MODULE_1___default()({}, state, _defineProperty({}, action.route.id, action.routes));
+      return lodash_merge__WEBPACK_IMPORTED_MODULE_1___default()({}, state, action.route);
 
     default:
       return state;
@@ -5335,9 +5329,11 @@ var UIReducer = function UIReducer() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_session__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/session */ "./frontend/actions/session.js");
 /* harmony import */ var _actions_users_user_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions/users/user_actions */ "./frontend/actions/users/user_actions.js");
-/* harmony import */ var lodash_merge__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash/merge */ "./node_modules/lodash/merge.js");
-/* harmony import */ var lodash_merge__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash_merge__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _actions_routes_route_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../actions/routes/route_actions */ "./frontend/actions/routes/route_actions.jsx");
+/* harmony import */ var lodash_merge__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lodash/merge */ "./node_modules/lodash/merge.js");
+/* harmony import */ var lodash_merge__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(lodash_merge__WEBPACK_IMPORTED_MODULE_3__);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -5349,10 +5345,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
   switch (action.type) {
     case _actions_users_user_actions__WEBPACK_IMPORTED_MODULE_1__["RECEIVE_USER"]:
-      return lodash_merge__WEBPACK_IMPORTED_MODULE_2___default()({}, _defineProperty({}, action.user.id, action.user));
+      return lodash_merge__WEBPACK_IMPORTED_MODULE_3___default()({}, _defineProperty({}, action.user.id, action.user));
 
     case _actions_users_user_actions__WEBPACK_IMPORTED_MODULE_1__["RECEIVE_ALL_USERS"]:
-      return lodash_merge__WEBPACK_IMPORTED_MODULE_2___default()({}, state, action.users);
+      return lodash_merge__WEBPACK_IMPORTED_MODULE_3___default()({}, state, action.users);
 
     default:
       return state;
@@ -5382,7 +5378,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var configureStore = function configureStore() {
   var preloadedState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  return Object(redux__WEBPACK_IMPORTED_MODULE_0__["createStore"])(_reducers_root_reducer__WEBPACK_IMPORTED_MODULE_3__["default"], preloadedState, Object(redux__WEBPACK_IMPORTED_MODULE_0__["applyMiddleware"])(redux_thunk__WEBPACK_IMPORTED_MODULE_2__["default"]));
+  return Object(redux__WEBPACK_IMPORTED_MODULE_0__["createStore"])(_reducers_root_reducer__WEBPACK_IMPORTED_MODULE_3__["default"], preloadedState, Object(redux__WEBPACK_IMPORTED_MODULE_0__["applyMiddleware"])(redux_thunk__WEBPACK_IMPORTED_MODULE_2__["default"], redux_logger__WEBPACK_IMPORTED_MODULE_1___default.a));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (configureStore);

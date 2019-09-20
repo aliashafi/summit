@@ -21,8 +21,8 @@ class RouteIndex extends React.Component{
         let allRoutes = []
 
         if (routes.length !== 0){
-            user = this.props.users[this.props.currentUser.id]
-            routes = user.route_ids.map(route => this.props.routes[route])
+            // user = this.props.users[this.props.currentUser.id]
+            // routes = user.route_ids.map(route => this.props.routes[route])
             
             
             allRoutes = routes.map(route => {
