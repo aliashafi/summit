@@ -69,7 +69,7 @@ export default class UserFeedRecentActivity extends React.Component {
         // bike = bike.sort(this.compareDates);
         let end = new Date(bike[0].time);
         let copy = `${end}`
-        let start = this.subtractDays(end, 7)
+        let start = this.subtractDays(end, 6)
         let newEnd = new Date(copy)
         return [start, newEnd]
     }

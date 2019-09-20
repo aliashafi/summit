@@ -4383,7 +4383,7 @@ function (_React$Component2) {
 
       var end = new Date(bike[0].time);
       var copy = "".concat(end);
-      var start = this.subtractDays(end, 7);
+      var start = this.subtractDays(end, 6);
       var newEnd = new Date(copy);
       return [start, newEnd];
     }
