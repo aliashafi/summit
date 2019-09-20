@@ -36,7 +36,9 @@ class UserFeedProfile extends React.Component {
         <div className="grid-left">
         <div id="card">
             <section className="profile-picture-container">
-            <div className="profile-picture">
+            <div className="profile-picture"
+                onClick={() =>
+                    this.props.history.push(`/users/${this.props.current_user.id}`)}>
                 <img src={this.props.current_user.photoUrl} />
             </div>
 

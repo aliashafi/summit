@@ -56,7 +56,8 @@ export default (props) =>
                                             <p>ˇ</p>
 
                                         <div id="user-dropdown">
-                                            <p>Your Profile</p>
+                                        <p onClick={() =>
+                                                props.history.push(`/users/${props.currentUser.id}`)}>Your Profile</p>
                                             <p onClick={() =>
                                                 props.logout().then(() => props.history.push('/login'))}>Log Out</p>
                                         </div>

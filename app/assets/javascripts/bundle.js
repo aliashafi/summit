@@ -2600,7 +2600,11 @@ __webpack_require__.r(__webpack_exports__);
     alt: ""
   })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "\u02C7"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     id: "user-dropdown"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Your Profile"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+    onClick: function onClick() {
+      return props.history.push("/users/".concat(props.currentUser.id));
+    }
+  }, "Your Profile"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
     onClick: function onClick() {
       return props.logout().then(function () {
         return props.history.push('/login');
@@ -4209,6 +4213,8 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      var _this2 = this;
+
       var activities = Object.values(this.props.currentUserActivities);
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "grid-left"
@@ -4217,7 +4223,10 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "profile-picture-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "profile-picture"
+        className: "profile-picture",
+        onClick: function onClick() {
+          return _this2.props.history.push("/users/".concat(_this2.props.current_user.id));
+        }
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: this.props.current_user.photoUrl
       }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -4370,8 +4379,8 @@ function (_React$Component2) {
       var bike = this.props.activity.filter(function (act) {
         return act.activity_type === activityType;
       });
-      if (bike.length === 0) return [0, 0];
-      bike = bike.sort(this.compareDates);
+      if (bike.length === 0) return [0, 0]; // bike = bike.sort(this.compareDates);
+
       var end = new Date(bike[0].time);
       var copy = "".concat(end);
       var start = this.subtractDays(end, 7);
