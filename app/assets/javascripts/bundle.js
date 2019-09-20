@@ -4375,8 +4375,8 @@ function (_React$Component2) {
       var bike = this.props.activity.filter(function (act) {
         return act.activity_type === activityType;
       });
-      if (bike.length === 0) return [0, 0]; // bike = bike.sort(this.compareDates);
-
+      if (bike.length === 0) return [0, 0];
+      bike = bike.sort(this.compareDates);
       var end = new Date(bike[0].time);
       var copy = "".concat(end);
       var start = this.subtractDays(end, 6);
