@@ -3,20 +3,35 @@ import {
     BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, LabelList
 } from 'recharts';
 
-const renderCustomizedLabel = (props) => {
-    const {
-        x, y, width, height, value,
-    } = props;
-    const radius = 10;
+class CustomizedLabel extends React.Component{
 
-    return (
-        <g>
-            <circle cx={x + width / 2} cy={y - radius} r={radius} fill="#8884d8" />
-            <text x={x + width / 2} y={y - radius} fill="#666" textAnchor="middle" dominantBaseline="middle">
-                {value}
-            </text>
-        </g>
-    );
+    constructor(props){
+        super(props)
+    }
+
+    getElapseTime(elapsed_time) {
+        let measuredTime = new Date(null)
+        measuredTime.setSeconds(elapsed_time);
+        let MHSTime = measuredTime.toISOString().substr(11, 8);
+        let newTime = MHSTime.slice(1).split(":")
+        let displayTime = `${newTime[0]}h ${newTime[1]}m`
+        return displayTime;
+    }
+
+    render() {
+        const { x, y, fill, value } = this.props;
+        return(
+        <text id="text-chart"
+            x={x}
+            y={y}
+            dy={-1}
+            fontSize='16'
+            fontFamily='sans-serif'
+            fill={fill}
+            >{this.getElapseTime(value)}
+        </text>
+        )
+    }
 };
 
 
@@ -64,7 +79,7 @@ class LastFourWeeksBar extends React.Component{
                         axisLine={false}/> */}
 
                     <Bar type="category" dataKey="count" fill="#8884d8" >
-                        {/* <LabelList dataKey="count" content={renderCustomizedLabel}/> */}
+                        
                     </Bar>
                     {/* <Bar dataKey="week" stackId="a" fill="#82ca9d" /> */}
                 </BarChart>

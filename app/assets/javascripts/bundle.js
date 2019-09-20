@@ -4078,31 +4078,56 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
-var renderCustomizedLabel = function renderCustomizedLabel(props) {
-  var x = props.x,
-      y = props.y,
-      width = props.width,
-      height = props.height,
-      value = props.value;
-  var radius = 10;
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("g", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("circle", {
-    cx: x + width / 2,
-    cy: y - radius,
-    r: radius,
-    fill: "#8884d8"
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("text", {
-    x: x + width / 2,
-    y: y - radius,
-    fill: "#666",
-    textAnchor: "middle",
-    dominantBaseline: "middle"
-  }, value));
-};
+var CustomizedLabel =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(CustomizedLabel, _React$Component);
+
+  function CustomizedLabel(props) {
+    _classCallCheck(this, CustomizedLabel);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(CustomizedLabel).call(this, props));
+  }
+
+  _createClass(CustomizedLabel, [{
+    key: "getElapseTime",
+    value: function getElapseTime(elapsed_time) {
+      var measuredTime = new Date(null);
+      measuredTime.setSeconds(elapsed_time);
+      var MHSTime = measuredTime.toISOString().substr(11, 8);
+      var newTime = MHSTime.slice(1).split(":");
+      var displayTime = "".concat(newTime[0], "h ").concat(newTime[1], "m");
+      return displayTime;
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this$props = this.props,
+          x = _this$props.x,
+          y = _this$props.y,
+          fill = _this$props.fill,
+          value = _this$props.value;
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("text", {
+        id: "text-chart",
+        x: x,
+        y: y,
+        dy: -1,
+        fontSize: "16",
+        fontFamily: "sans-serif",
+        fill: fill
+      }, this.getElapseTime(value));
+    }
+  }]);
+
+  return CustomizedLabel;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+;
 
 var LastFourWeeksBar =
 /*#__PURE__*/
-function (_React$Component) {
-  _inherits(LastFourWeeksBar, _React$Component);
+function (_React$Component2) {
+  _inherits(LastFourWeeksBar, _React$Component2);
 
   function LastFourWeeksBar(props) {
     _classCallCheck(this, LastFourWeeksBar);
