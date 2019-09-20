@@ -520,7 +520,7 @@ var receiveAllUsers = function receiveAllUsers(users) {
 
 var fetchUser = function fetchUser(userId) {
   return function (dispatch) {
-    return _util_users_util__WEBPACK_IMPORTED_MODULE_0__["fetchAllUsers"](userId).then(function (user) {
+    return _util_users_util__WEBPACK_IMPORTED_MODULE_0__["fetchUser"](userId).then(function (user) {
       return dispatch(receiveUser(user));
     });
   };
@@ -644,7 +644,12 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: window.images.quick_bike,
         alt: ""
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Check out my Linked-In")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Check out my Linked-In"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        id: "linked-in"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        rel: "stylesheet",
+        href: "https://www.linkedin.com/in/alia-shafi-9939a4a8/"
+      }, "Click Me"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "activity-feed"
       }, activities));
     }
@@ -1697,7 +1702,7 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Avg"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Max"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", null, "Speed"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, speed, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("abbr", {
         className: "unit",
         title: "miles per hour"
-      }, "mi/h")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, "32.7", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("abbr", {
+      }, "mi/h")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("abbr", {
         className: "unit",
         title: "miles per hour"
       }, "mi/h"))))))))) : "", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
@@ -4669,15 +4674,28 @@ function (_React$Component) {
   _inherits(UserProfile, _React$Component);
 
   function UserProfile(props) {
+    var _this;
+
     _classCallCheck(this, UserProfile);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(UserProfile).call(this, props));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(UserProfile).call(this, props));
+    _this.state = {
+      loading: true
+    };
+    return _this;
   }
 
   _createClass(UserProfile, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.props.fetchUserActivities();
+      var _this2 = this;
+
+      this.props.fetchUserActivities().then(function () {
+        return _this2.setState({
+          loading: false
+        });
+      });
+      this.props.fetchUser(this.props.match.params.userId);
     }
   }, {
     key: "subtractDays",
@@ -4718,20 +4736,23 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this = this;
+      var _this3 = this;
 
       var dateBounds4 = [];
       var last4 = [];
+      var user = {};
 
       if (this.props.activities.length !== 0) {
         dateBounds4 = this.getLastFourWeeks();
         last4 = this.props.activities.filter(function (activity) {
           var date = new Date(activity.time);
-          if (_this.between(dateBounds4, date)) return activity;
+          if (_this3.between(dateBounds4, date)) return activity;
         });
+        user = this.props.users[this.props.match.params.userId];
       }
 
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.props.activities.length > 0 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      console.log(this.state.loading);
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.state.loading ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "LOADING") : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "user-profile-page"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "background-prof"
@@ -4740,10 +4761,10 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "profile-page-picture"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        src: this.props.current_user.photoUrl
+        src: user.photoUrl
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         id: "user-name"
-      }, this.props.current_user.first_name, " ", this.props.current_user.last_name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, user.first_name, " ", user.last_name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "top-section"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "user-feed-recent-profile"
@@ -4776,13 +4797,13 @@ function (_React$Component) {
           id: "activity-title"
         }, activity.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, Object(_util_date_util__WEBPACK_IMPORTED_MODULE_5__["formatDate"])(activity.time)))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
           id: "show-stats"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Distance"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, Math.round(activity.distance * 100) / 100, " mi")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Avg Speed"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, Math.round(activity.average_speed * 100) / 100)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Time"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, _this.getElapseTime(activity))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_activities_map_activity_map__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Distance"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, Math.round(activity.distance * 100) / 100, " mi")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Avg Speed"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, Math.round(activity.average_speed * 100) / 100)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Time"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, _this3.getElapseTime(activity))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_activities_map_activity_map__WEBPACK_IMPORTED_MODULE_4__["default"], {
           key: activity.id,
           activity: activity,
           interactive: false,
           container: "map-".concat(activity.id)
         }));
-      }))) : "");
+      }))));
     }
   }]);
 
@@ -4806,6 +4827,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _user_profile__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./user_profile */ "./frontend/components/users/user_profile.jsx");
 /* harmony import */ var _actions_follows_follows_action__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../..//actions/follows/follows_action */ "./frontend/actions/follows/follows_action.js");
 /* harmony import */ var _actions_activities_activity_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/activities/activity_actions */ "./frontend/actions/activities/activity_actions.js");
+/* harmony import */ var _actions_users_user_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/users/user_actions */ "./frontend/actions/users/user_actions.js");
+
 
 
 
@@ -4817,7 +4840,7 @@ var mapStateToProps = function mapStateToProps(state) {
     following: Object.values(state.entities.followers),
     current_user: state.session.currentUser,
     activities: Object.values(state.entities.currentUserActivities),
-    users: Object.values(state.entities.users),
+    users: state.entities.users,
     comments: state.entities.comments,
     kudos: state.entities.kudos
   };
@@ -4833,6 +4856,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     fetchFollowing: function fetchFollowing() {
       return dispatch(Object(_actions_follows_follows_action__WEBPACK_IMPORTED_MODULE_2__["fetchFollowing"])());
+    },
+    fetchUser: function fetchUser(userId) {
+      return dispatch(Object(_actions_users_user_actions__WEBPACK_IMPORTED_MODULE_4__["fetchUser"])(userId));
     }
   };
 };
@@ -5402,7 +5428,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var configureStore = function configureStore() {
   var preloadedState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  return Object(redux__WEBPACK_IMPORTED_MODULE_0__["createStore"])(_reducers_root_reducer__WEBPACK_IMPORTED_MODULE_3__["default"], preloadedState, Object(redux__WEBPACK_IMPORTED_MODULE_0__["applyMiddleware"])(redux_thunk__WEBPACK_IMPORTED_MODULE_2__["default"]));
+  return Object(redux__WEBPACK_IMPORTED_MODULE_0__["createStore"])(_reducers_root_reducer__WEBPACK_IMPORTED_MODULE_3__["default"], preloadedState, Object(redux__WEBPACK_IMPORTED_MODULE_0__["applyMiddleware"])(redux_thunk__WEBPACK_IMPORTED_MODULE_2__["default"], redux_logger__WEBPACK_IMPORTED_MODULE_1___default.a));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (configureStore);

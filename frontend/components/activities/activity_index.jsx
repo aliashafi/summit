@@ -84,6 +84,8 @@ class ActivityIndex extends React.Component {
                     </div>
 
                     <p>Check out my Linked-In</p>
+
+                    <div id="linked-in"><a rel="stylesheet" href="https://www.linkedin.com/in/alia-shafi-9939a4a8/">Click Me</a></div>
                     
                 </div>
                 <section className="activity-feed">

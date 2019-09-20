@@ -15,7 +15,7 @@ const receiveAllUsers = (users) => ({
 
 
 export const fetchUser = (userId) => dispatch => 
-    UserUtil.fetchAllUsers(userId).then((user) => dispatch(receiveUser(user)));
+    UserUtil.fetchUser(userId).then((user) => dispatch(receiveUser(user)));
 
 export const fetchAllUsers = () => dispatch =>
     UserUtil.fetchAllUsers().then((users) => dispatch(receiveAllUsers(users)));

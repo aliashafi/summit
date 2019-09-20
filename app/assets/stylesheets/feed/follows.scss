@@ -32,6 +32,12 @@
         margin-top: 15%;
         margin-bottom: 6%;
         font-weight: 700;
+        cursor: pointer;
+    }
+
+    h3:hover{
+        color: $strava-blue;
+
     }
     
     
@@ -54,6 +60,7 @@
     overflow: hidden;
     border-radius: 50%;
     margin-top: -56px;
+    cursor: pointer;
     
 
     img{

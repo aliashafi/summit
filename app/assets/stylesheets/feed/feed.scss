@@ -147,7 +147,7 @@
         display: inline;
         width: 45vw;    
 
-    }
+     }
     
 }
 
@@ -155,10 +155,10 @@
     background-color: white;
     width: 90%;
     height: 6%;
-    padding-bottom: 10%;
     margin-bottom: 3%;
     box-shadow: 0px 8px 24px rgba(13, 13, 18, 0.16);
     border-radius: 3px;
+    padding-bottom: 4%;
 
 
     #challenges{
@@ -177,6 +177,7 @@
         font-size: 22px;
         font-weight: 400;
         line-height: 28px;
+        padding-bottom: 4%;
     }
 }
 
@@ -211,3 +212,27 @@
             margin-right: 10%;
         }
     }
+
+#linked-in{
+  top: 8%;
+  background-color: $strava-orange;
+  color: white;
+  font-family: $strava-font; 
+  border-radius: 7px;
+  text-align: center;
+  padding-right: 5px;
+  font-weight: 700;
+  width: 93px;
+  padding: 10px;
+  margin-left: 25px;
+  cursor: pointer;
+
+  a{
+    color: white;
+    text-decoration: none;
+  }
+}
+
+#linked-in:hover{
+    background-color: #c13d05;
+  }

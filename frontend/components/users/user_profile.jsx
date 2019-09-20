@@ -10,10 +10,16 @@ class UserProfile extends React.Component{
 
     constructor(props){
         super(props)
+        this.state ={
+            loading: true
+        }
     }
 
     componentDidMount(){
-        this.props.fetchUserActivities()
+        this.props.fetchUserActivities().then(
+            () => this.setState({ loading: false })
+        )
+        this.props.fetchUser(this.props.match.params.userId)
     }
 
     subtractDays(time, d) {
@@ -51,19 +57,31 @@ class UserProfile extends React.Component{
     render(){
         let dateBounds4 = [];
         let last4 = [];
+        let user = {}
         if (this.props.activities.length !== 0) {
             dateBounds4 = this.getLastFourWeeks()
             last4 = this.props.activities.filter(activity => {
                 let date = new Date(activity.time)
                 if (this.between(dateBounds4, date)) return activity
             })
+
+            
+            user = this.props.users[this.props.match.params.userId]
         }
 
 
+        console.log(this.state.loading)
         return(
+
             
             <div >
-                {this.props.activities.length > 0 ? 
+                {this.state.loading ? 
+                <div>
+                    LOADING
+                </div>
+                : 
+
+               
     
                 <div className="user-profile-page">
                     <div id="background-prof">
@@ -72,10 +90,10 @@ class UserProfile extends React.Component{
                         
                     <div className="user-content">
                     <div className="profile-page-picture">
-                        <img src={this.props.current_user.photoUrl} />
+                        <img src={user.photoUrl} />
                     </div>
                             
-                    <p id="user-name">{this.props.current_user.first_name} {this.props.current_user.last_name}</p>
+                    <p id="user-name">{user.first_name} {user.last_name}</p>
                            
                     <div className="top-section">
                         <section>
@@ -156,7 +174,7 @@ class UserProfile extends React.Component{
                     </div>
                 </div>
                     
-                : ""}
+                    }
 
                 
                     

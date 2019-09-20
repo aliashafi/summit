@@ -116,7 +116,7 @@ class ActivityShow extends React.Component {
                                                 <tr>
                                                     <th>Speed</th>
                                                     <td>{speed}<abbr className="unit" title="miles per hour">mi/h</abbr></td>
-                                                    <td>32.7<abbr className="unit" title="miles per hour">mi/h</abbr></td>
+                                                    <td><abbr className="unit" title="miles per hour">mi/h</abbr></td>
                                                 </tr>
                                             </tbody>
                                         </table>
