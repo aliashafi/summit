@@ -64,23 +64,33 @@ class UserProfile extends React.Component{
             
             <div >
                 {this.props.activities.length > 0 ? 
+    
                 <div className="user-profile-page">
+                    <div id="background-prof">
+                        {/* <img src={window.images.biking2} alt="" /> */}
+                    </div>
+                        
                     <div className="user-content">
                     <div className="profile-page-picture">
                         <img src={this.props.current_user.photoUrl} />
                     </div>
+                            
                     <p id="user-name">{this.props.current_user.first_name} {this.props.current_user.last_name}</p>
+                           
                     <div className="top-section">
                         <section>
+                            <div id="user-feed-recent-profile">
+                                <UserFeedRecentActivity activity={this.props.activities} />
+                            </div>
                             <div id="last-4-weeks">
                                 <p>Last 4 Weeks</p>
                                 {/* <p>{last4.length}</p> */}
-                                <CountUp end={last4.length}/>
+                                <CountUp end={last4.length} delay={2}/>
                                 <p>Total Activities</p>
                             </div>
 
                             <div>
-                               
+                                
                                 <ActivityCallendar activities={last4} bounds={dateBounds4}/>
                                
                             </div>
@@ -90,13 +100,10 @@ class UserProfile extends React.Component{
                     </div>
                 </div>
 
-                    <div id="user-feed-recent-profile">
-
-                    <UserFeedRecentActivity activity={this.props.activities}/>
-                    </div>
-
 
                         <div className="user-profile-maps">
+
+                            <h2> Recent Activities </h2>
                         
                         {last4.map(activity => {
                             return (
@@ -109,9 +116,9 @@ class UserProfile extends React.Component{
                                                 <img src={window.images.biking_icon} alt="" />
                                             }
 
-                                            <div id="activity-header">
+                                            <div id="activity-header-profile">
                                                 <h3 id="activity-title">{activity.title}</h3>
-                                                <p id="time">{formatDate(activity.time)}</p>
+                                                <p>{formatDate(activity.time)}</p>
                                             </div>
                                         </section>
 

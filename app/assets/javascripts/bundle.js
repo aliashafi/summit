@@ -2973,9 +2973,14 @@ function (_React$Component) {
         });
       } else if (e.target.id === "save-route") {
         return;
-      }
-
-      if (e.target.form.className === "create-route-form") {
+      } else if (e.target.className === "comment-modal") {
+        this.state.saveRoute ? this.setState({
+          saveRoute: false
+        }) : this.setState({
+          saveRoute: true
+        });
+        return;
+      } else if (e.target.form.className === "create-route-form") {
         return;
       }
     }
@@ -4729,6 +4734,8 @@ function (_React$Component) {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.props.activities.length > 0 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "user-profile-page"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        id: "background-prof"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "user-content"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "profile-page-picture"
@@ -4739,19 +4746,20 @@ function (_React$Component) {
       }, this.props.current_user.first_name, " ", this.props.current_user.last_name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "top-section"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        id: "last-4-weeks"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Last 4 Weeks"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_countup__WEBPACK_IMPORTED_MODULE_1___default.a, {
-        end: last4.length
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Total Activities")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_stats_activity_callendar__WEBPACK_IMPORTED_MODULE_2__["default"], {
-        activities: last4,
-        bounds: dateBounds4
-      }))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "user-feed-recent-profile"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_user_feed_recent_activity__WEBPACK_IMPORTED_MODULE_3__["default"], {
         activity: this.props.activities
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        id: "last-4-weeks"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Last 4 Weeks"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_countup__WEBPACK_IMPORTED_MODULE_1___default.a, {
+        end: last4.length,
+        delay: 2
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Total Activities")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_stats_activity_callendar__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        activities: last4,
+        bounds: dateBounds4
+      }))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "user-profile-maps"
-      }, last4.map(function (activity) {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, " Recent Activities "), last4.map(function (activity) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           id: "profile-activity-details"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
@@ -4763,12 +4771,10 @@ function (_React$Component) {
           src: window.images.biking_icon,
           alt: ""
         }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          id: "activity-header"
+          id: "activity-header-profile"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
           id: "activity-title"
-        }, activity.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
-          id: "time"
-        }, Object(_util_date_util__WEBPACK_IMPORTED_MODULE_5__["formatDate"])(activity.time)))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+        }, activity.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, Object(_util_date_util__WEBPACK_IMPORTED_MODULE_5__["formatDate"])(activity.time)))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
           id: "show-stats"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Distance"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, Math.round(activity.distance * 100) / 100, " mi")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Avg Speed"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, Math.round(activity.average_speed * 100) / 100)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Time"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, _this.getElapseTime(activity))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_activities_map_activity_map__WEBPACK_IMPORTED_MODULE_4__["default"], {
           key: activity.id,

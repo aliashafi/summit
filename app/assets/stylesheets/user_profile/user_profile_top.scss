@@ -23,6 +23,7 @@
     position: relative;
     overflow: hidden;
     border-radius: 50%;
+    border: 4px solid white;
     img{
         display: inline;
         margin: 0 auto;
@@ -48,15 +49,16 @@
     justify-content: flex-end;
     color: $strava-black;
 
-    section{
+    > section{
         display: flex;
-        width: 61%;
-        margin-top: -15%;
-        justify-content: space-evenly;
+        width: 100%;
+        margin-top: 6%;
+        border-bottom: 1px solid $strava-grey; 
 
         #last-4-weeks{
             font-family: $strava-font;
             font-size: 13px;
+            margin-right: 48px;
 
             :nth-child(2){
                 font-size: 72px;
@@ -153,5 +155,23 @@
     display: flex;
     text-decoration: underline;
     
+}
+
+#background-prof{
+    position: absolute;
+    position: absolute;
+    height: 27%;
+    width: 59%;
+    bottom: 70%;
+    background-image: asset-url("biking_2.JPG");
+    background-position: top;
+
+    // object-fit: fill;
+
+    // img{
+    //     height: 400px;
+    //     width: 1000px;
+    //     object-fit: cover;
+    // }
 }
 

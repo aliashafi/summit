@@ -222,13 +222,17 @@ class RouteCreate extends React.Component{
     }
 
     toggleSave(e){
+        
         if (e.target.id === "save-button"){
             this.state.saveRoute ?
                 this.setState({ saveRoute: false }) : this.setState({ saveRoute: true })
         }else if (e.target.id === "save-route"){
             return
-        }
-        if (e.target.form.className === "create-route-form"){
+        } else if (e.target.className === "comment-modal") {
+            this.state.saveRoute ?
+                this.setState({ saveRoute: false }) : this.setState({ saveRoute: true })
+            return 
+        }else if (e.target.form.className === "create-route-form"){
             return 
         }
         

@@ -1,19 +1,33 @@
 #user-feed-recent-profile{
-    padding-top: 4%;
     margin-right: auto;
-    padding-bottom: 10%;
-    margin-bottom: 10%;
-    border-bottom: 2px solid #e6e6eb;
-    width: 100%;
-    margin-left: -31px;
+    margin-left: 3px;
+    margin-bottom: 88px;
 
 }
 
 #profile-activity-details{
-    width: 78%;
+    width: 176%;
+
 }
 
 .user-profile-maps > div{
     display: flex;
+    margin-top: 41px;
+
+}
+.user-profile-maps > h2{
+    margin-top: 32px;
+    font-weight: 700;
+    font-size: 23px;
+    font-family: $strava-font;
+    color: $strava-black;
+}
+
+#activity-header-profile{
+    margin-bottom: 2px;
+    p{
+        font-size: 11px;
+        color: #666;
+    }
 }
 
