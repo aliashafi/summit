@@ -6,7 +6,7 @@
 This application is a clone of Strava (link here: http://strava.com/). Because of the time constraint, it was not feasible to clone *every* features from Strava, instead I focused on a few of my favorite features to mimic. This README will walk you through the challenges, engineering deciscions and overall design flow of SUMMIT. 
 
 ### Technical Overview
-SUMMIT was built with a Ruby on Rails backend that interacted with a postgresql database. The front-end was built with React-Redux. To render maps, I used MapBox API, to render graphs and charts, I used ReChart's API. All user photos are saved in AWS.
+SUMMIT was built with a Ruby on Rails backend that interacted with a postgresql database. The front-end was built with React-Redux. To render maps, I used MapBox API, to render graphs and charts, I used ReChart's API. All user photos are stored in AWS.
 
 ### Features
 
@@ -50,6 +50,8 @@ SUMMIT was built with a Ruby on Rails backend that interacted with a postgresql 
   2. Storing a whole gpx file in AWS - Storing a whole file would avoid the whole problem of trying to keep coordinates limited to a database row. Every time that I would need the data in the frontend, I would fetch the file and parse it live to get all necessary info for that certain view. Downside is that I would have the parse the file live - this would greatly slow down production speed. If I were to optimize that, it would certainly be the way to go.
   
   3. Storing the coordinates as text *(what I actually did)* - Its not an array, and its not a file. Storing the coordinates as text give me the freedom of having the data on demand in my table, but also not limiting myself with arrays. When I needed the data on my frontend, I fetch the coordinate row (saved as datatype text) and parse it into a json object to use for relavent features. 
+  
  
-  
-  
+ ### Activity Show Feature 
+ 
+Integrating a real-time interactive map feature that allows users to easily analyze elevation and statistical data was one of my largest challenges. I used MapBox API to render the maps and display a GeoJSON route and ReChart to graph elevation data. When a user mouses over a portion on the graph, a dot that representes their current location on the route should update. Each sub feature exists in a different component. So, how do I allow these components to talk to eachother, my options: (1) utilizing local state to pass information downto and upfrom parent and child components, ...
