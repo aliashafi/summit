@@ -51,9 +51,50 @@ SUMMIT was built with a Ruby on Rails backend that interacted with a postgresql 
   
   3. Storing the coordinates as text *(what I actually did)* - Its not an array, and its not a file. Storing the coordinates as text give me the freedom of having the data on demand in my table, but also not limiting myself with arrays. When I needed the data on my frontend, I fetch the coordinate row (saved as datatype text) and parse it into a json object to use for relavent features. 
   
+ ### Parsing GPX Files
+ GPX files are formated in XML, to parse these I used a combination of Nokogiri gem and GPXFile gem. 
+ 
+ To grab the lat/longs: 
+ 
+ ```ruby
+  lon = doc.xpath('//xmlns:trkpt/@lon').map{|pt| pt.to_s.to_f}
+  lat = doc.xpath('//xmlns:trkpt/@lat').map{|pt| pt.to_s.to_f}
+ ```
  
  ### Activity Show Feature 
  
-Integrating a real-time interactive map feature that allows users to easily analyze elevation and statistical data was one of my largest challenges. I used MapBox API to render the maps and display a GeoJSON route and ReChart to graph elevation data. When a user mouses over a portion on the graph, a dot that representes their current location on the route should update. Each sub feature exists in a different component. So, how do I allow these components to talk to eachother, my options: (1) utilizing local state to pass information down to and upfrom parent and child component.
+Integrating a real-time interactive map feature that allows users to easily analyze elevation and statistical data was one of my largest challenges. I used MapBox API to render the maps and display a GeoJSON route and ReChart to graph elevation data. When a user mouses over a portion on the graph, a dot that representes their current location on the route should update. Each sub feature exists in a different component. To allow communication between the two components, I utilized local state to pass information down to and upfrom parent and child component.
+
+![Screen Shot 2019-10-11 at 12 16 48 PM](https://user-images.githubusercontent.com/20862546/66678692-507dac00-ec21-11e9-8cee-b5f0f0761223.png)
 
 
+To get information from the Recharts graph, I created a custom tool-tip. (reference recharts for more infor http://recharts.org/en-US/)
+
+```js
+class CustomTooltip extends React.Component {
+
+    componentDidUpdate(prevProps){
+        if (prevProps.payload.length !== 0 && this.props.payload.length !== 0){
+            
+            if(prevProps.payload[0].payload.idx !== this.props.payload[0].payload.idx){
+                this.props.receiveCoordinate([this.props.payload[0].payload.idx])
+            }
+        }
+
+    }
+
+    render() {
+
+        if (this.props.active) {
+            return (
+                <div className="custom-tooltip">
+                    <p id="current-elevation">{`elevation : ${this.props.payload[0].value} ft`}</p>
+                    <p className="miles">{`miles : ${this.props.label} mi`}</p>
+                </div>
+            );
+        }
+
+        return null;
+    }
+};
+```
