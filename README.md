@@ -54,4 +54,6 @@ SUMMIT was built with a Ruby on Rails backend that interacted with a postgresql 
  
  ### Activity Show Feature 
  
-Integrating a real-time interactive map feature that allows users to easily analyze elevation and statistical data was one of my largest challenges. I used MapBox API to render the maps and display a GeoJSON route and ReChart to graph elevation data. When a user mouses over a portion on the graph, a dot that representes their current location on the route should update. Each sub feature exists in a different component. So, how do I allow these components to talk to eachother, my options: (1) utilizing local state to pass information downto and upfrom parent and child components, ...
+Integrating a real-time interactive map feature that allows users to easily analyze elevation and statistical data was one of my largest challenges. I used MapBox API to render the maps and display a GeoJSON route and ReChart to graph elevation data. When a user mouses over a portion on the graph, a dot that representes their current location on the route should update. Each sub feature exists in a different component. So, how do I allow these components to talk to eachother, my options: (1) utilizing local state to pass information down to and upfrom parent and child component.
+
+
