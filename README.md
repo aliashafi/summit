@@ -98,3 +98,8 @@ class CustomTooltip extends React.Component {
     }
 };
 ```
+
+### Custom Route Feature 
+
+
+![Screen Shot 2019-10-11 at 12 31 23 PM](https://user-images.githubusercontent.com/20862546/66679570-5aa0aa00-ec23-11e9-913f-512a5533e568.png)
