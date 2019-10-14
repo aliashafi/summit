@@ -69,8 +69,7 @@ class UserProfile extends React.Component{
             user = this.props.users[this.props.match.params.userId]
         }
 
-
-        console.log(this.state.loading)
+        user = this.props.users[this.props.match.params.userId]
         return(
 
             

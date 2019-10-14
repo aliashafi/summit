@@ -1,8 +1,8 @@
 import React from 'react'
 
 const CommentItem = ({ comment, user, currentUser, removeComment}) => {
-    
     return (
+         user ? 
         <div id="comment-item">
             <div className="profile-picture-small-comment">
                 <img src={user.photoUrl} alt=""/>
@@ -19,7 +19,8 @@ const CommentItem = ({ comment, user, currentUser, removeComment}) => {
                 </p> : ""
             }
            
-        </div>
+        </div> : ""
+        
     )
 }
 

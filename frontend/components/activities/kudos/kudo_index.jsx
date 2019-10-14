@@ -53,14 +53,14 @@ class KudoIndex extends React.Component {
                 {this.props.activity.comment_ids.length >= 2 ?
 
                     <h1 id="num-comments"> 
-                        <p id="dot"> . </p> 
+                        {this.props.kudos.length ? <p id="dot"> . </p> : ""}
                         <p id="comment-num">
                         {this.props.activity.comment_ids.length} comments</p> 
                         </h1> :
                     this.props.activity.comment_ids.length > 0 ? 
 
                     <h1 id="num-comments">
-                        <p id="dot"> . </p>
+                        {this.props.kudos.length  ? <p id="dot"> . </p> : ""}
                         <p id="comment-num">
                             {this.props.activity.comment_ids.length} comment</p>
                     </h1> : ""

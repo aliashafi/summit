@@ -6,12 +6,6 @@ import {
 import CustomTooltipContainer from './custom_tool_tip_container'
 
 
-
-
-
-
-
-
 class ActivityShowMap extends React.Component {
 
     constructor(props) {

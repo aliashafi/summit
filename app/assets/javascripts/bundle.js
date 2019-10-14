@@ -1211,7 +1211,7 @@ var CommentItem = function CommentItem(_ref) {
       user = _ref.user,
       currentUser = _ref.currentUser,
       removeComment = _ref.removeComment;
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  return user ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     id: "comment-item"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "profile-picture-small-comment"
@@ -1227,7 +1227,7 @@ var CommentItem = function CommentItem(_ref) {
     id: "x",
     src: window.images.x,
     alt: ""
-  })) : "");
+  })) : "") : "";
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (CommentItem);
@@ -1387,15 +1387,15 @@ function (_React$Component) {
         }));
       })), users.length > 0 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, users.length, " kudos ") : "", this.props.activity.comment_ids.length >= 2 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
         id: "num-comments"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+      }, this.props.kudos.length ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         id: "dot"
-      }, " . "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+      }, " . ") : "", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         id: "comment-num"
       }, this.props.activity.comment_ids.length, " comments")) : this.props.activity.comment_ids.length > 0 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
         id: "num-comments"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+      }, this.props.kudos.length ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         id: "dot"
-      }, " . "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+      }, " . ") : "", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         id: "comment-num"
       }, this.props.activity.comment_ids.length, " comment")) : "");
     }
@@ -4255,7 +4255,7 @@ function (_React$Component) {
         "title": last.title,
         "date": last.time
       } : {
-        "title": "",
+        "title": "No recent activity",
         "date": ""
       };
     }
@@ -4776,7 +4776,7 @@ function (_React$Component) {
         user = this.props.users[this.props.match.params.userId];
       }
 
-      console.log(this.state.loading);
+      user = this.props.users[this.props.match.params.userId];
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.state.loading ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "LOADING") : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "user-profile-page"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {

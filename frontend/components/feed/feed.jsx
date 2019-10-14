@@ -38,7 +38,7 @@ class Feed extends React.Component {
                                 activities={this.props.activities}
                                 current_user={this.props.current_user}
                                 currentUserActivities={this.props.currentUserActivities}
-                            />      
+                            /> 
                         <ActivityIndex
                             fetchAllUsers = {this.props.fetchAllUsers}
                             current_user={this.props.current_user}

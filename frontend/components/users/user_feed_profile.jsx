@@ -25,7 +25,7 @@ class UserFeedProfile extends React.Component {
         
         let activities = Object.values(this.props.currentUserActivities)
         let last = activities[activities.length - 1]
-        return last ? { "title": last.title, "date": last.time } : { "title": "", "date": "" }
+        return last ? { "title": last.title, "date": last.time } : { "title": "No recent activity", "date": "" }
 
     }
 
