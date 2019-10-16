@@ -16,10 +16,11 @@ class UserProfile extends React.Component{
     }
 
     componentDidMount(){
-        this.props.fetchUserActivities().then(
-            () => this.setState({ loading: false })
-        )
+        this.props.fetchUserActivities()
         this.props.fetchUser(this.props.match.params.userId)
+        // .then(
+        //     () => this.setState({ loading: false })
+        // )
     }
 
     subtractDays(time, d) {
@@ -73,10 +74,10 @@ class UserProfile extends React.Component{
         return(
 
             
-            <div >
-                {this.state.loading ? 
-                <div>
-                    LOADING
+            <div>
+                {this.props.activities.length === 0 ? 
+                <div className="spinner">
+                   <img src={window.images.spinner} alt=""/>
                 </div>
                 : 
 
@@ -97,7 +98,7 @@ class UserProfile extends React.Component{
                     <div className="top-section">
                         <section>
                             <div id="user-feed-recent-profile">
-                                <UserFeedRecentActivity activity={this.props.activities} />
+                                {/* <UserFeedRecentActivity activity={this.props.activities} /> */}
                             </div>
                             <div id="last-4-weeks">
                                 <p>Last 4 Weeks</p>

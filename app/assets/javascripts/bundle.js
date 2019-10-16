@@ -4157,10 +4157,34 @@ function (_React$Component2) {
       return allWeeks;
     }
   }, {
+    key: "getHoursAndMins",
+    value: function getHoursAndMins(seconds) {
+      var mins = Math.floor(seconds / 60);
+      var hours = 0;
+
+      if (mins > 60) {
+        hours = Math.floor(mins / 60);
+        mins = mins % 60;
+      }
+
+      if (hours > 0) {
+        return "".concat(hours, "h ").concat(mins, "m");
+      } else {
+        return "".concat(mins, "m");
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
+      var _this2 = this;
+
       var data = this.getActivityHours(this.props.data);
+      var minCount = data.map(function (week) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, _this2.getHoursAndMins(week.count));
+      });
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "chart-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "chart"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(recharts__WEBPACK_IMPORTED_MODULE_1__["BarChart"], {
         width: 145,
@@ -4174,7 +4198,9 @@ function (_React$Component2) {
         type: "category",
         dataKey: "count",
         fill: "#8884d8"
-      })));
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "weekly-count"
+      }, minCount));
     }
   }]);
 
@@ -4713,14 +4739,10 @@ function (_React$Component) {
   _createClass(UserProfile, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      var _this2 = this;
-
-      this.props.fetchUserActivities().then(function () {
-        return _this2.setState({
-          loading: false
-        });
-      });
-      this.props.fetchUser(this.props.match.params.userId);
+      this.props.fetchUserActivities();
+      this.props.fetchUser(this.props.match.params.userId); // .then(
+      //     () => this.setState({ loading: false })
+      // )
     }
   }, {
     key: "subtractDays",
@@ -4761,7 +4783,7 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this3 = this;
+      var _this2 = this;
 
       var dateBounds4 = [];
       var last4 = [];
@@ -4771,13 +4793,18 @@ function (_React$Component) {
         dateBounds4 = this.getLastFourWeeks();
         last4 = this.props.activities.filter(function (activity) {
           var date = new Date(activity.time);
-          if (_this3.between(dateBounds4, date)) return activity;
+          if (_this2.between(dateBounds4, date)) return activity;
         });
         user = this.props.users[this.props.match.params.userId];
       }
 
       user = this.props.users[this.props.match.params.userId];
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.state.loading ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "LOADING") : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, this.props.activities.length === 0 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "spinner"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: window.images.spinner,
+        alt: ""
+      })) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "user-profile-page"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "background-prof"
@@ -4793,9 +4820,7 @@ function (_React$Component) {
         className: "top-section"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "user-feed-recent-profile"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_user_feed_recent_activity__WEBPACK_IMPORTED_MODULE_3__["default"], {
-        activity: this.props.activities
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         id: "last-4-weeks"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Last 4 Weeks"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_countup__WEBPACK_IMPORTED_MODULE_1___default.a, {
         end: last4.length,
@@ -4822,7 +4847,7 @@ function (_React$Component) {
           id: "activity-title"
         }, activity.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, Object(_util_date_util__WEBPACK_IMPORTED_MODULE_5__["formatDate"])(activity.time)))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
           id: "show-stats"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Distance"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, Math.round(activity.distance * 100) / 100, " mi")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Avg Speed"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, Math.round(activity.average_speed * 100) / 100)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Time"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, _this3.getElapseTime(activity))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_activities_map_activity_map__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Distance"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, Math.round(activity.distance * 100) / 100, " mi")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Avg Speed"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, Math.round(activity.average_speed * 100) / 100)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Time"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, _this2.getElapseTime(activity))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_activities_map_activity_map__WEBPACK_IMPORTED_MODULE_4__["default"], {
           key: activity.id,
           activity: activity,
           interactive: false,

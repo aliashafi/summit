@@ -60,29 +60,53 @@ class LastFourWeeksBar extends React.Component{
 
     }
 
+    getHoursAndMins(seconds){
+        let mins = Math.floor(seconds / 60);
+        let hours = 0;
+        if (mins > 60){
+            hours = Math.floor(mins / 60);
+            mins = mins % 60;
+        }
+        if (hours > 0){
+            return `${hours}h ${mins}m`
+        }else{
+            return `${mins}m`
+        }
+    }
+
     render(){
 
         let data = this.getActivityHours(this.props.data)
+        let minCount = data.map(week => {
+            return (<div>{this.getHoursAndMins(week.count)}</div>)
+        })
+        
         return(
-            <div id="chart">
-                <BarChart
-                    width={145}
-                    height={100}
-                    data={data}
-                    // layout="vertical"
-                    // margin={{
-                    //     top: 20, right: 30, left: 20, bottom: 5,
-                    // }}
-                >
-                    {/* <XAxis axisLine={false}/>
-                    <YAxis dataKey="week"
-                        axisLine={false}/> */}
+            <div className ="chart-container">
+                <div id="chart">
+                    <BarChart
+                        width={145}
+                        height={100}
+                        data={data}
+                        // layout="vertical"
+                        // margin={{
+                        //     top: 20, right: 30, left: 20, bottom: 5,
+                        // }}
+                    >
+                        {/* <XAxis axisLine={false}/>
+                        <YAxis dataKey="week"
+                            axisLine={false}/> */}
 
-                    <Bar type="category" dataKey="count" fill="#8884d8" >
-                        
-                    </Bar>
-                    {/* <Bar dataKey="week" stackId="a" fill="#82ca9d" /> */}
-                </BarChart>
+                        <Bar type="category" dataKey="count" fill="#8884d8" >
+                            
+                        </Bar>
+                        {/* <Bar dataKey="week" stackId="a" fill="#82ca9d" /> */}
+                    </BarChart>
+                </div>
+
+                <div className="weekly-count">
+                    {minCount}
+                </div>
             </div>
         )
     }
