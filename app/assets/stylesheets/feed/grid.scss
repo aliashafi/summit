@@ -16,12 +16,6 @@
     
     }
 
-    @media only screen and (max-width: 1026px) {
-    .grid-left, .grid-right {
-        display: none;
-    }
-
-}
 
     .grid-left{
         // width: 20vw;
@@ -37,7 +31,21 @@
         align-items: center;
         
     }
+
+    @media only screen and (max-width: 900px) {
+        .grid-left, .grid-right {
+            width: 0;
+            visibility: hidden;
+        }
+        .grid-center{
+            width: 100vw;
+        }
+
+    }
+
         
 
 }
+
+
 
