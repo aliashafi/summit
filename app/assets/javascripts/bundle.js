@@ -2615,7 +2615,8 @@ __webpack_require__.r(__webpack_exports__);
         return props.history.push('/login');
       });
     }
-  }, "Log Out")))))) : props.location.pathname === '/login' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, "Log Out")))))) // </div>
+  : props.location.pathname === '/login' ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     id: "signIn-button",
     onClick: function onClick() {
       return props.history.push('/signup');
@@ -62638,7 +62639,7 @@ exports.default = _ResizeDetector2.default;
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
+/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
