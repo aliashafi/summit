@@ -246,7 +246,7 @@ class RouteCreate extends React.Component{
         
         return(
             <div className="container">
-                <div id="map"></div>
+                <div id="map" class="top"></div>
                 {/* <div className="create-route-nav"> */}
 
                 {/* <div id="ride-run-icons"> */}
