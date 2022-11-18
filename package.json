@@ -34,7 +34,7 @@
     "test": "test"
   },
   "devDependencies": {
-    "webpack-cli": "^3.3.7"
+    "webpack-cli": "^3.3.12"
   },
   "scripts": {
     "postinstall": "webpack",
